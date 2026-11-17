@@ -103,17 +103,16 @@
       </div>
     </section>
 
-    <!-- TAB 3: UPGRADER (Refactored to match reference UI) -->
+    <!-- TAB 3: UPGRADER -->
     <section id="view-upgrader" class="hidden">
       <div class="section-header">
         <h1>Skin Upgrader 2.0</h1>
-        <p>Выберите до 6 предметов для апгрейда и желанную пушку справа</p>
+        <p>Select up to 6 items and choose a higher-tier target skin on the right</p>
       </div>
 
       <div class="upgrader-ref-layout">
-        <!-- TOP LEFT: Selected items slots (up to 6) -->
         <div class="upgrader-box">
-          <div class="upgrader-box-title">Выберите до 6 предметов на апгрейд (<span id="selected-slots-count">0</span>/6)</div>
+          <div class="upgrader-box-title">Selected items for upgrade (<span id="selected-slots-count">0</span>/6)</div>
           <div class="selected-slots-grid" id="selected-slots-grid">
             <div class="slot-item empty">+</div>
             <div class="slot-item empty">+</div>
@@ -123,13 +122,12 @@
             <div class="slot-item empty">+</div>
           </div>
           <div class="balance-add-row">
-            <span class="muted-text">Добавить баланс:</span>
+            <span class="muted-text">Add balance:</span>
             <input type="range" id="add-balance-range" min="0" max="500" value="0" step="5" oninput="onBalanceRangeInput(this.value)">
-            <span id="added-balance-label" style="font-weight:700; color:var(--win);">0.00 P</span>
+            <span id="added-balance-label" style="font-weight:700; color:var(--win);">0.00 $</span>
           </div>
         </div>
 
-        <!-- TOP CENTER: Radar / Wheel & Upgrade Button -->
         <div class="upgrader-center-box">
           <div class="wheel-container">
             <div class="fortune-wheel" id="fortune-wheel">
@@ -142,7 +140,7 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary btn-lg" id="spin-wheel-btn" onclick="startUpgrade()" disabled>ПРОКАЧАТЬ</button>
+          <button class="btn btn-primary btn-lg" id="spin-wheel-btn" onclick="startUpgrade()" disabled>UPGRADE</button>
           
           <div class="multiplier-quick-btns">
             <button class="mult-btn" onclick="applyMultiplier(2)">x2</button>
@@ -154,40 +152,34 @@
           </div>
         </div>
 
-        <!-- TOP RIGHT: Target item selection -->
         <div class="upgrader-box">
-          <div class="upgrader-box-title">Выберите оружие, которое хотите получить</div>
+          <div class="upgrader-box-title">Select target skin to win</div>
           <div class="target-selected-display" id="target-selected-display">
-            <span class="muted-text">Цель не выбрана</span>
+            <span class="muted-text">Target not selected</span>
           </div>
         </div>
 
-        <!-- BOTTOM LEFT: User Inventory -->
         <div class="upgrader-box bottom-inv-box">
           <div class="inv-header-row">
-            <span>Мои предметы (<span id="inv-items-count">0</span> шт)</span>
-            <div style="display:flex; gap:6px;">
-              <button class="icon-toggle-btn active" onclick="toggleInvView('grid')">grid</button>
-            </div>
+            <span>My Inventory (<span id="inv-items-count">0</span> items)</span>
           </div>
           <div class="upgrade-inv-select" id="upgrade-inv-select">
-            <p class="muted-text">НЕТ ДОСТУПНЫХ ПРЕДМЕТОВ ДЛЯ АПГРЕЙДА<br><a href="#" onclick="switchTab('cases')" style="color:var(--accent);">ОТКРОЙТЕ ЛЮБОЙ КЕЙС</a></p>
+            <p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:30px;">NO ITEMS AVAILABLE<br><a href="#" onclick="switchTab('cases')" style="color:var(--accent);">OPEN ANY CASE</a></p>
           </div>
         </div>
 
-        <!-- BOTTOM RIGHT: Target items catalog with search -->
         <div class="upgrader-box bottom-inv-box">
           <div class="inv-header-row">
             <div class="search-input-wrap">
-              <input type="text" id="target-search-input" placeholder="Выберите предмет" oninput="renderTargetCatalog()">
+              <input type="text" id="target-search-input" placeholder="Search target skin..." oninput="renderTargetCatalog()">
             </div>
             <select id="target-sort-select" class="form-select" style="width:110px; padding:6px;" onchange="renderTargetCatalog()">
-              <option value="price">Цена</option>
-              <option value="name">Имя</option>
+              <option value="price">Price</option>
+              <option value="name">Name</option>
             </select>
           </div>
           <div class="target-skins-list" id="target-skins-list">
-            <p class="muted-text" style="text-align:center; margin-top:40px;">воспользуйтесь поиском</p>
+            <p class="muted-text" style="text-align:center; margin-top:40px;">Select target first or use search</p>
           </div>
         </div>
       </div>
