@@ -10,7 +10,6 @@
   --win: #10b981;
   --lose: #ef4444;
 
-  /* Цвета редкости */
   --rarity-common: #64748b;
   --rarity-rare: #3b82f6;
   --rarity-epic: #a855f7;
@@ -34,7 +33,7 @@ body {
   display: none !important;
 }
 
-/* Навигация */
+/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -106,7 +105,7 @@ body {
   font-size: 14px;
 }
 
-/* Кнопки */
+/* Buttons */
 .btn {
   padding: 10px 18px;
   border-radius: 8px;
@@ -151,9 +150,9 @@ body {
   margin-top: 8px;
 }
 
-/* Контейнер */
+/* Container */
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 32px 20px;
 }
@@ -171,10 +170,10 @@ body {
   color: var(--text-muted);
 }
 
-/* Сетка кейсов */
+/* Cases Grid */
 .cases-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 20px;
 }
 
@@ -182,7 +181,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 14px;
-  padding: 20px;
+  padding: 18px;
   text-align: center;
   transition: transform 0.2s, border-color 0.2s;
   display: flex;
@@ -196,31 +195,67 @@ body {
 }
 
 .case-icon {
-  font-size: 64px;
-  margin: 12px 0;
+  font-size: 54px;
+  margin: 10px 0;
 }
 
 .case-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.case-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--win);
+  margin-bottom: 10px;
 }
 
 .case-items-preview {
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-bottom: 16px;
+  gap: 5px;
+  margin-bottom: 14px;
   flex-wrap: wrap;
 }
 
 .preview-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
 
-/* Арена Батла */
+.case-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quantity-selector {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.q-btn {
+  background: #10131a;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.q-btn.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+/* Opening Arena / Roulettes */
 .battle-arena {
   background: var(--bg-card);
   border: 1px solid var(--accent);
@@ -236,57 +271,24 @@ body {
   margin-bottom: 20px;
 }
 
-.battle-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+.roulettes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 450px;
+  overflow-y: auto;
 }
 
-@media (max-width: 768px) {
-  .battle-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.player-lane {
+.roulette-lane {
   background: #10131a;
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: 10px;
+  padding: 12px;
 }
 
-.player-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  font-weight: 700;
-}
-
-.player-tag {
-  font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.player-tag.you {
-  background: var(--accent);
-  color: #000;
-}
-
-.player-tag.bot {
-  background: #374151;
-  color: #fff;
-}
-
-.player-score {
-  color: var(--win);
-}
-
-/* Окно рулетки */
 .roulette-window {
   position: relative;
-  height: 120px;
+  height: 110px;
   background: #090b0f;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -313,8 +315,8 @@ body {
 }
 
 .roulette-item {
-  min-width: 110px;
-  height: 100px;
+  min-width: 105px;
+  height: 94px;
   margin: 0 4px;
   background: var(--bg-card);
   border-radius: 6px;
@@ -329,24 +331,16 @@ body {
 }
 
 .roulette-item .item-emoji {
-  font-size: 32px;
+  font-size: 30px;
 }
 
 .roulette-item .item-name {
-  font-size: 11px;
+  font-size: 10px;
   margin-top: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 96px;
-}
-
-.drop-result {
-  margin-top: 12px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--text-muted);
-  min-height: 20px;
+  max-width: 92px;
 }
 
 .battle-verdict {
@@ -356,21 +350,162 @@ body {
   text-align: center;
   font-size: 18px;
   font-weight: 800;
-}
-
-.verdict-win {
   background: rgba(16, 185, 129, 0.15);
   border: 1px solid var(--win);
   color: var(--win);
 }
 
-.verdict-lose {
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid var(--lose);
-  color: var(--lose);
+/* Upgrader Layout */
+.upgrader-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr 320px;
+  gap: 24px;
 }
 
-/* Инвентарь */
+@media (max-width: 900px) {
+  .upgrader-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.upgrader-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.upgrader-panel h3 {
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.upgrade-inv-select {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upgrade-inv-item {
+  background: #10131a;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--rarity-common);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.upgrade-inv-item:hover, .upgrade-inv-item.selected {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+/* Upgrader Wheel */
+.upgrader-wheel-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 500px;
+}
+
+.wheel-container {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 18px solid var(--accent);
+  z-index: 20;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.fortune-wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #27272a;
+  border: 6px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Симметричное сокращение зеленой зоны вниз */
+.win-sector {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg at 50% 50%, var(--win) 0deg, var(--win) 0deg, transparent 0deg);
+  transition: background 0.3s ease;
+}
+
+.chance-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+.chance-btn {
+  flex: 1;
+  background: #10131a;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 10px 0;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.chance-btn.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+.target-preview-card {
+  flex: 1;
+  background: #10131a;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+}
+
+.target-placeholder {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Inventory Grid */
 .inventory-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -403,7 +538,7 @@ body {
   margin-bottom: 12px;
 }
 
-/* Модалка */
+/* Modal */
 .modal-backdrop {
   position: fixed;
   inset: 0;
