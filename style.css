@@ -530,9 +530,7 @@ body {
   color: var(--win);
 }
 
-/* ==========================================
-   UPGRADER 2.0 (Matched with Reference UI)
-   ================================          */
+/* Upgrader 2.0 Layout */
 .upgrader-ref-layout {
   display: grid;
   grid-template-columns: 1fr 340px 1fr;
@@ -705,6 +703,11 @@ body {
 .upgrade-grid-item:hover, .upgrade-grid-item.selected {
   border-color: var(--accent);
   background: var(--bg-card-hover);
+}
+
+.upgrade-grid-item.dimmed {
+  opacity: 0.25;
+  pointer-events: none;
 }
 
 .upgrade-grid-thumb {
