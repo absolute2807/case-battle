@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CASE BATTLE — Cases, Upgrader & Rocket</title>
+  <title>CASE BATTLE — Cases, Upgrader, Battles & Rocket</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -18,19 +17,20 @@
 
     <nav class="nav-links">
       <button class="nav-btn active" id="tab-cases" onclick="switchTab('cases')">Cases</button>
+      <button class="nav-btn" id="tab-battles" onclick="switchTab('battles')">⚔️ Battles</button>
       <button class="nav-btn" id="tab-upgrader" onclick="switchTab('upgrader')">Upgrader</button>
       <button class="nav-btn" id="tab-rocket" onclick="switchTab('rocket')">🚀 Rocket</button>
+      <button class="nav-btn" id="tab-quests" onclick="switchTab('quests')">🎯 Quests & XP</button>
       <button class="nav-btn" id="tab-inventory" onclick="switchTab('inventory')">Inventory (<span id="inv-count">0</span>)</button>
     </nav>
 
     <div class="user-panel" id="user-panel">
-      <!-- Guest -->
       <div id="guest-controls">
         <button class="btn btn-primary" onclick="openAuthModal()">Sign In / Register</button>
       </div>
 
-      <!-- Authorized -->
       <div id="auth-controls" class="hidden">
+        <div class="xp-mini-badge" id="user-lvl-badge" title="Player Level">Lvl 1</div>
         <div class="balance-box">
           <span class="balance-label">Balance:</span>
           <span class="balance-value" id="user-balance">0.00</span> $
@@ -41,37 +41,76 @@
     </div>
   </header>
 
+  <!-- Live Drops Ticker -->
+  <div class="live-ticker">
+    <div class="ticker-title">LIVE DROPS:</div>
+    <div class="ticker-feed" id="live-ticker-feed">
+      <span class="ticker-item">🎁 [Free Box] player*** won AWP | Atheris ($48.00)</span>
+      <span class="ticker-item">⚔️ [Cyber Strike] user_99 won Butterfly | Gradient ($125.00)</span>
+    </div>
+  </div>
+
   <!-- Main Container -->
   <main class="container">
 
     <!-- TAB 1: CASES -->
     <section id="view-cases">
-      
-      <!-- Opening Arena -->
       <div id="opening-arena" class="battle-arena hidden">
         <div class="battle-header">
           <h2 id="opening-title">Opening Case</h2>
-          <button class="btn btn-outline btn-sm" id="close-arena-btn" onclick="closeOpeningArena()" disabled>Close Arena</button>
+          <div class="arena-action-btns">
+            <button class="btn btn-outline btn-sm" id="repeat-open-btn" onclick="repeatLastOpening()" disabled>Open Again</button>
+            <button class="btn btn-win btn-sm" id="sell-all-opened-btn" onclick="sellAllOpenedItems()" disabled>Sell All Items</button>
+            <button class="btn btn-outline btn-sm" id="close-arena-btn" onclick="closeOpeningArena()" disabled>Close Arena</button>
+          </div>
         </div>
-
         <div id="roulettes-container" class="roulettes-container"></div>
-
         <div id="opening-verdict" class="battle-verdict hidden"></div>
       </div>
 
-      <!-- Categorized Cases Container -->
       <div id="cases-sections-container"></div>
     </section>
 
-    <!-- TAB 2: UPGRADER -->
+    <!-- TAB 2: BATTLES (Case Battle & Duels) -->
+    <section id="view-battles" class="hidden">
+      <div class="section-header">
+        <h1>Case Battles & Duels</h1>
+        <p>Create a battle lobby, open cases together, and win the total drop value!</p>
+      </div>
+      <div class="battles-layout">
+        <div class="upgrader-panel">
+          <h3>Create Battle Lobby</h3>
+          <div class="form-group">
+            <label>Select Case</label>
+            <select id="battle-case-select" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label>Battle Mode</label>
+            <select id="battle-mode-select" class="form-select">
+              <option value="1v1">1v1 Duel (2 Players)</option>
+              <option value="1v1v1">Free For All (3 Players)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="createBattleLobby()">Create Lobby</button>
+        </div>
+
+        <div class="upgrader-wheel-box" style="align-items: stretch; justify-content: flex-start;">
+          <h3>Active Battles</h3>
+          <div id="battles-list-container" style="overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:10px;">
+            <p class="muted-text">No active lobbies. Create one above!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: UPGRADER -->
     <section id="view-upgrader" class="hidden">
       <div class="section-header">
         <h1>Skin Upgrader</h1>
-        <p>Select your skin, pick a target skin you want to win, choose the chance, and spin!</p>
+        <p>Dynamic success chance based on target skin price. Pick your item and target!</p>
       </div>
 
       <div class="upgrader-layout">
-        <!-- Left: Your Item Selection -->
         <div class="upgrader-panel">
           <h3>1. Your Item</h3>
           <div class="upgrade-inv-select" id="upgrade-inv-select">
@@ -79,16 +118,13 @@
           </div>
         </div>
 
-        <!-- Center: Wheel & Arrow -->
         <div class="upgrader-wheel-box">
           <div class="wheel-container">
             <div class="fortune-wheel" id="fortune-wheel">
-              <!-- Green win zone at the BOTTOM -->
               <div class="win-sector" id="win-sector"></div>
               <div class="wheel-center-cap">
-                <span id="wheel-chance-label">10%</span>
+                <span id="wheel-chance-label">10.0%</span>
               </div>
-              <!-- Rotating Arrow Pivot -->
               <div class="arrow-rotor" id="arrow-rotor">
                 <div class="rotor-pointer"></div>
               </div>
@@ -96,36 +132,27 @@
           </div>
 
           <div class="upgrade-controls">
-            <div class="chance-buttons">
-              <button class="chance-btn active" onclick="setUpgradeChance(10)">10%</button>
-              <button class="chance-btn" onclick="setUpgradeChance(20)">20%</button>
-              <button class="chance-btn" onclick="setUpgradeChance(30)">30%</button>
-              <button class="chance-btn" onclick="setUpgradeChance(50)">50%</button>
-              <button class="chance-btn" onclick="setUpgradeChance(75)">75%</button>
-            </div>
             <button class="btn btn-primary btn-full" id="spin-wheel-btn" onclick="startUpgrade()" disabled>Upgrade Skin</button>
           </div>
         </div>
 
-        <!-- Right: Target Skin Selection -->
         <div class="upgrader-panel">
-          <h3>2. Select Target Skin</h3>
+          <h3>2. Select Target Skin (Dynamic Odds)</h3>
           <div class="target-skins-list" id="target-skins-list">
-            <p class="muted-text">Select your item first to see available target skins.</p>
+            <p class="muted-text">Select your item first.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 3: ROCKET (CRASH GAME) -->
+    <!-- TAB 4: ROCKET -->
     <section id="view-rocket" class="hidden">
       <div class="section-header">
         <h1>Rocket Crash</h1>
-        <p>Bet a skin from your inventory, watch its value multiply, and click STOP before the rocket crashes!</p>
+        <p>Bet a skin, multiply its value, and cash out before the crash!</p>
       </div>
 
       <div class="rocket-layout">
-        <!-- Left: Skin Bet Selector -->
         <div class="upgrader-panel">
           <h3>Select Skin to Bet</h3>
           <div class="upgrade-inv-select" id="rocket-inv-select">
@@ -133,14 +160,10 @@
           </div>
         </div>
 
-        <!-- Right: Rocket Flight Arena -->
         <div class="rocket-arena">
           <div class="rocket-history" id="rocket-history">
             <span class="hist-badge high">x4.20</span>
             <span class="hist-badge low">x1.14</span>
-            <span class="hist-badge mid">x2.35</span>
-            <span class="hist-badge high">x12.80</span>
-            <span class="hist-badge low">x1.03</span>
           </div>
 
           <div class="rocket-sky" id="rocket-sky">
@@ -160,12 +183,56 @@
       </div>
     </section>
 
-    <!-- TAB 4: INVENTORY -->
+    <!-- TAB 5: QUESTS & PROGRESSION -->
+    <section id="view-quests" class="hidden">
+      <div class="section-header">
+        <h1>Quests, XP & Daily Streak</h1>
+        <p>Complete daily tasks, claim your streak bonuses, and level up!</p>
+      </div>
+
+      <div class="quests-layout">
+        <div class="quest-card-box">
+          <h3>🔥 Daily Streak Bonus</h3>
+          <div id="streak-info-box" style="margin: 14px 0;">
+            <p class="muted-text">Day 1 Streak: Claim your daily reward!</p>
+          </div>
+          <button class="btn btn-primary" id="claim-streak-btn" onclick="claimDailyStreak()">Claim Streak Reward</button>
+        </div>
+
+        <div class="quest-card-box">
+          <h3>⭐ Player Level & XP</h3>
+          <div class="xp-bar-container">
+            <div class="xp-bar-fill" id="xp-bar-fill" style="width: 0%;"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:13px; color:var(--text-muted);">
+            <span id="player-lvl-text">Level 1</span>
+            <span id="player-xp-text">0 / 500 XP</span>
+          </div>
+          <div style="margin-top: 14px; font-size: 13px; color: var(--accent);">
+            Perks: Higher level unlocks exclusive discount privileges!
+          </div>
+        </div>
+
+        <div class="quest-card-box" style="grid-column: 1 / -1;">
+          <h3>🎯 Daily Quests</h3>
+          <div id="quests-list-container" style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: INVENTORY -->
     <section id="view-inventory" class="hidden">
       <div class="section-header">
         <h1>Your Inventory</h1>
-        <p>Sell your skins back to balance or risk them in Upgrader & Rocket.</p>
+        <p>Manage your skins or use quick bulk sell options.</p>
       </div>
+
+      <div class="inv-toolbar">
+        <button class="btn btn-outline btn-sm" onclick="quickSellByPrice(5)">Sell All Under $5</button>
+        <button class="btn btn-outline btn-sm" onclick="quickSellByPrice(20)">Sell All Under $20</button>
+        <button class="btn btn-win btn-sm" onclick="quickSellAllInventory()">Sell Entire Inventory</button>
+      </div>
+
       <div class="inventory-grid" id="inventory-grid"></div>
     </section>
 
@@ -210,7 +277,6 @@
     </div>
   </div>
 
-  <!-- Toast Notification -->
   <div id="toast" class="toast hidden"></div>
 
   <script src="config.js"></script>
