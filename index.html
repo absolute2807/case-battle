@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CASE BATTLE — Case Opening & Upgrader</title>
+  <title>CASE BATTLE — Cases, Upgrader & Rocket</title>
   <link rel="stylesheet" href="style.css" />
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -19,6 +19,7 @@
     <nav class="nav-links">
       <button class="nav-btn active" id="tab-cases" onclick="switchTab('cases')">Cases</button>
       <button class="nav-btn" id="tab-upgrader" onclick="switchTab('upgrader')">Upgrader</button>
+      <button class="nav-btn" id="tab-rocket" onclick="switchTab('rocket')">🚀 Rocket</button>
       <button class="nav-btn" id="tab-inventory" onclick="switchTab('inventory')">Inventory (<span id="inv-count">0</span>)</button>
     </nav>
 
@@ -46,54 +47,54 @@
     <!-- TAB 1: CASES -->
     <section id="view-cases">
       
-      <!-- Battle Arena / Open Modal Box -->
+      <!-- Opening Arena -->
       <div id="opening-arena" class="battle-arena hidden">
         <div class="battle-header">
           <h2 id="opening-title">Opening Case</h2>
           <button class="btn btn-outline btn-sm" id="close-arena-btn" onclick="closeOpeningArena()" disabled>Close Arena</button>
         </div>
 
-        <div id="roulettes-container" class="roulettes-container">
-          <!-- Dynamically generated tracks for multi-opening -->
-        </div>
+        <div id="roulettes-container" class="roulettes-container"></div>
 
         <div id="opening-verdict" class="battle-verdict hidden"></div>
       </div>
 
-      <!-- Case List Header -->
-      <div class="section-header">
-        <h1>Available Cases</h1>
-        <p>Choose a case, set the quantity to open at once, and test your luck!</p>
-      </div>
-
-      <!-- Cases Grid (15 Cases) -->
-      <div class="cases-grid" id="cases-grid"></div>
+      <!-- Categorized Cases Container -->
+      <div id="cases-sections-container"></div>
     </section>
 
     <!-- TAB 2: UPGRADER -->
     <section id="view-upgrader" class="hidden">
       <div class="section-header">
         <h1>Skin Upgrader</h1>
-        <p>Select an item from your inventory, choose your win chance, and spin the wheel!</p>
+        <p>Select your skin, pick a target skin you want to win, choose the chance, and spin!</p>
       </div>
 
       <div class="upgrader-layout">
-        <!-- Left: Item Selection -->
+        <!-- Left: Your Item Selection -->
         <div class="upgrader-panel">
-          <h3>1. Select Item to Upgrade</h3>
+          <h3>1. Your Item</h3>
           <div class="upgrade-inv-select" id="upgrade-inv-select">
-            <p style="color: var(--text-muted); font-size: 13px;">No items in inventory. Win cases first!</p>
+            <p class="muted-text">No items in inventory.</p>
           </div>
         </div>
 
-        <!-- Center: Wheel & Target -->
+        <!-- Center: Wheel & Arrow -->
         <div class="upgrader-wheel-box">
           <div class="wheel-container">
-            <div class="wheel-pointer"></div>
             <div class="fortune-wheel" id="fortune-wheel">
-              <div class="wheel-sector win-sector" id="win-sector"></div>
+              <!-- Green win zone at the BOTTOM -->
+              <div class="win-sector" id="win-sector"></div>
+              <div class="wheel-center-cap">
+                <span id="wheel-chance-label">10%</span>
+              </div>
+              <!-- Rotating Arrow Pivot -->
+              <div class="arrow-rotor" id="arrow-rotor">
+                <div class="rotor-pointer"></div>
+              </div>
             </div>
           </div>
+
           <div class="upgrade-controls">
             <div class="chance-buttons">
               <button class="chance-btn active" onclick="setUpgradeChance(10)">10%</button>
@@ -102,30 +103,84 @@
               <button class="chance-btn" onclick="setUpgradeChance(50)">50%</button>
               <button class="chance-btn" onclick="setUpgradeChance(75)">75%</button>
             </div>
-            <button class="btn btn-primary btn-full" id="spin-wheel-btn" onclick="startUpgrade()" disabled>Upgrade Item</button>
+            <button class="btn btn-primary btn-full" id="spin-wheel-btn" onclick="startUpgrade()" disabled>Upgrade Skin</button>
           </div>
         </div>
 
-        <!-- Right: Target Item Preview -->
+        <!-- Right: Target Skin Selection -->
         <div class="upgrader-panel">
-          <h3>2. Target Prize</h3>
-          <div class="target-preview-card" id="target-preview-card">
-            <div class="target-placeholder">Select item & chance</div>
+          <h3>2. Select Target Skin</h3>
+          <div class="target-skins-list" id="target-skins-list">
+            <p class="muted-text">Select your item first to see available target skins.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 3: INVENTORY -->
+    <!-- TAB 3: ROCKET (CRASH GAME) -->
+    <section id="view-rocket" class="hidden">
+      <div class="section-header">
+        <h1>Rocket Crash</h1>
+        <p>Bet a skin from your inventory, watch its value multiply, and click STOP before the rocket crashes!</p>
+      </div>
+
+      <div class="rocket-layout">
+        <!-- Left: Skin Bet Selector -->
+        <div class="upgrader-panel">
+          <h3>Select Skin to Bet</h3>
+          <div class="upgrade-inv-select" id="rocket-inv-select">
+            <p class="muted-text">No items in inventory.</p>
+          </div>
+        </div>
+
+        <!-- Right: Rocket Flight Arena -->
+        <div class="rocket-arena">
+          <div class="rocket-history" id="rocket-history">
+            <span class="hist-badge high">x4.20</span>
+            <span class="hist-badge low">x1.14</span>
+            <span class="hist-badge mid">x2.35</span>
+            <span class="hist-badge high">x12.80</span>
+            <span class="hist-badge low">x1.03</span>
+          </div>
+
+          <div class="rocket-sky" id="rocket-sky">
+            <canvas id="rocket-canvas"></canvas>
+            <div class="rocket-hud">
+              <div class="rocket-multiplier" id="rocket-multiplier">1.00x</div>
+              <div class="rocket-value-preview" id="rocket-value-preview">Select a skin to start</div>
+            </div>
+            <div class="rocket-ship" id="rocket-ship">🚀</div>
+          </div>
+
+          <div class="rocket-controls">
+            <button class="btn btn-primary btn-lg" id="rocket-start-btn" onclick="startRocket()" disabled>Start Flight</button>
+            <button class="btn btn-win btn-lg hidden" id="rocket-stop-btn" onclick="stopRocket()">STOP & CLAIM ($0.00)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: INVENTORY -->
     <section id="view-inventory" class="hidden">
       <div class="section-header">
         <h1>Your Inventory</h1>
-        <p>Sell your skins back to balance or use them in the Upgrader.</p>
+        <p>Sell your skins back to balance or risk them in Upgrader & Rocket.</p>
       </div>
       <div class="inventory-grid" id="inventory-grid"></div>
     </section>
 
   </main>
+
+  <!-- Case Opening Modal -->
+  <div id="case-modal" class="modal-backdrop hidden">
+    <div class="modal-card case-modal-card">
+      <div class="modal-header">
+        <h3 id="modal-case-title">Case Name</h3>
+        <button class="close-x" onclick="closeCaseModal()">&times;</button>
+      </div>
+      <div class="modal-case-body" id="modal-case-body"></div>
+    </div>
+  </div>
 
   <!-- Auth Modal -->
   <div id="auth-modal" class="modal-backdrop hidden">
