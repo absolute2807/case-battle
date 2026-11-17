@@ -1,5 +1,5 @@
 // ==========================================
-// 1. CASES DATABASE (20 CASES)
+// 1. CASES DATABASE WITH REAL CS ICONS
 // ==========================================
 const CASES_DATA = [
   {
@@ -8,13 +8,13 @@ const CASES_DATA = [
     name: 'Free Unlimited Box',
     price: 0,
     isNew: true,
-    icon: '🎁',
+    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f',
     items: [
-      { name: 'P250 | Sand Dune', price: 1.00, rarity: 'common', emoji: '🔫', weight: 62 },
-      { name: 'MP9 | Storm', price: 4.50, rarity: 'common', emoji: '💨', weight: 24 },
-      { name: 'AK-47 | Safari Mesh', price: 16.00, rarity: 'rare', emoji: '🌵', weight: 10 },
-      { name: 'AWP | Atheris', price: 48.00, rarity: 'epic', emoji: '🐍', weight: 3.5 },
-      { name: 'Gut Knife | Free Special', price: 100.00, rarity: 'legendary', emoji: '🗡️', weight: 0.5 }
+      { name: 'P250 | Sand Dune', price: 1.00, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 62 },
+      { name: 'MP9 | Storm', price: 4.50, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 24 },
+      { name: 'AK-47 | Safari Mesh', price: 16.00, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 10 },
+      { name: 'AWP | Atheris', price: 48.00, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 3.5 },
+      { name: 'Gut Knife | Free Special', price: 100.00, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 0.5 }
     ]
   },
   {
@@ -23,12 +23,12 @@ const CASES_DATA = [
     name: 'Starter Arsenal',
     price: 2,
     isNew: false,
-    icon: '📦',
+    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
     items: [
-      { name: 'Glock-18 | Groundwater', price: 0.9, rarity: 'common', emoji: '🔫', weight: 55 },
-      { name: 'USP-S | Forest Leaves', price: 1.8, rarity: 'common', emoji: '🔫', weight: 28 },
-      { name: 'AK-47 | Redline', price: 9.5, rarity: 'rare', emoji: '💥', weight: 12 },
-      { name: 'AWP | Asiimov', price: 38.0, rarity: 'legendary', emoji: '🎯', weight: 5 }
+      { name: 'Glock-18 | Groundwater', price: 0.9, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposbaqKAthoNzLYTJO6dOjh7-PmOfgPLTBuWVu5MB1g_zMu4jwiwGxwks9amD1LdSQJgdsN1vRq1XrlOu918S-uMjAynpjuyEm4i3cnA3in1gSObE-16O_AQA/360fx360f', weight: 55 },
+      { name: 'USP-S | Forest Leaves', price: 1.8, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoovujZAt21-TFcz5O6d2jn7-PmOfgPLTBuWVu5MB1g_zMu9St0FXn_kBoNmjwIYOTcAE_Yl-B81O7wbi6jJC178nJyXpn7iEj5yrdnB3in1gSb7Zp_6aL/360fx360f', weight: 28 },
+      { name: 'AK-47 | Redline', price: 9.5, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 12 },
+      { name: 'AWP | Asiimov', price: 38.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 5 }
     ]
   },
   {
@@ -37,12 +37,12 @@ const CASES_DATA = [
     name: 'Cyber Strike',
     price: 5,
     isNew: false,
-    icon: '🧰',
+    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
     items: [
-      { name: 'P250 | Neon Rider', price: 2.5, rarity: 'common', emoji: '🔫', weight: 50 },
-      { name: 'M4A1-S | Streamline', price: 12.0, rarity: 'rare', emoji: '⚡', weight: 30 },
-      { name: 'Desert Eagle | Flame', price: 32.0, rarity: 'epic', emoji: '🔥', weight: 14 },
-      { name: 'Butterfly | Gradient', price: 125.0, rarity: 'legendary', emoji: '🗡️', weight: 6 }
+      { name: 'P250 | Neon Rider', price: 2.5, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 50 },
+      { name: 'M4A1-S | Streamline', price: 12.0, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 30 },
+      { name: 'Desert Eagle | Flame', price: 32.0, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f', weight: 14 },
+      { name: 'Butterfly | Gradient', price: 125.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 6 }
     ]
   },
   {
@@ -51,12 +51,12 @@ const CASES_DATA = [
     name: 'Elite Ops',
     price: 15,
     isNew: false,
-    icon: '💼',
+    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
     items: [
-      { name: 'AK-47 | Vulcan', price: 14.0, rarity: 'rare', emoji: '❄️', weight: 48 },
-      { name: 'M4A4 | Howl', price: 48.0, rarity: 'epic', emoji: '🐺', weight: 32 },
-      { name: 'Gloves | Blood Kimono', price: 95.0, rarity: 'epic', emoji: '🧤', weight: 14 },
-      { name: 'Karambit | Waves', price: 260.0, rarity: 'legendary', emoji: '⚔️', weight: 6 }
+      { name: 'AK-47 | Vulcan', price: 14.0, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 48 },
+      { name: 'M4A4 | Howl', price: 48.0, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 32 },
+      { name: 'Gloves | Blood Kimono', price: 95.0, rarity: 'extra', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 14 },
+      { name: 'Karambit | Waves', price: 260.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 6 }
     ]
   },
   {
@@ -65,96 +65,12 @@ const CASES_DATA = [
     name: 'Alien Xenomorph',
     price: 10,
     isNew: true,
-    icon: '👽',
+    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
     items: [
-      { name: 'Five-SeveN | Scumbria', price: 5.0, rarity: 'common', emoji: '🔫', weight: 50 },
-      { name: 'M4A1-S | Dark Water', price: 18.0, rarity: 'rare', emoji: '💧', weight: 30 },
-      { name: 'AWP | Containment Breach', price: 55.0, rarity: 'epic', emoji: '☣️', weight: 15 },
-      { name: 'Flip Knife | Gamma Emerald', price: 210.0, rarity: 'legendary', emoji: '🗡️', weight: 5 }
-    ]
-  },
-  {
-    id: 'gremlin',
-    category: 'Serial Cases',
-    name: 'Gremlin',
-    price: 25,
-    isNew: true,
-    icon: '👺',
-    items: [
-      { name: 'MAC-10 | Monster Call', price: 12.0, rarity: 'common', emoji: '👾', weight: 50 },
-      { name: 'FAMAS | Eye of Athena', price: 40.0, rarity: 'rare', emoji: '🦉', weight: 30 },
-      { name: 'AK-47 | Neon Revolution', price: 95.0, rarity: 'epic', emoji: '🎨', weight: 15 },
-      { name: 'Stiletto Knife | Slaughter', price: 380.0, rarity: 'legendary', emoji: '🔪', weight: 5 }
-    ]
-  },
-  {
-    id: 'scream',
-    category: 'Serial Cases',
-    name: 'Scream Ghostface',
-    price: 50,
-    isNew: true,
-    icon: '😱',
-    items: [
-      { name: 'USP-S | Cortex', price: 24.0, rarity: 'rare', emoji: '🧠', weight: 52 },
-      { name: 'AWP | Neo-Noir', price: 85.0, rarity: 'epic', emoji: '🎭', weight: 30 },
-      { name: 'Sport Gloves | Nocts', price: 210.0, rarity: 'epic', emoji: '🧤', weight: 13 },
-      { name: 'Skeleton Knife | Vanilla', price: 680.0, rarity: 'legendary', emoji: '🗡️', weight: 5 }
-    ]
-  },
-  {
-    id: 'saw',
-    category: 'Serial Cases',
-    name: 'Saw Jigsaw',
-    price: 100,
-    isNew: true,
-    icon: '🪚',
-    items: [
-      { name: 'Desert Eagle | Code Red', price: 50.0, rarity: 'rare', emoji: '🩸', weight: 52 },
-      { name: 'AK-47 | Bloodsport', price: 165.0, rarity: 'epic', emoji: '🏎️', weight: 30 },
-      { name: 'Specialist Gloves | Crimson', price: 420.0, rarity: 'epic', emoji: '🧤', weight: 13 },
-      { name: 'M9 Bayonet | Autotronic', price: 1250.0, rarity: 'legendary', emoji: '⚔️', weight: 5 }
-    ]
-  },
-  {
-    id: 'chucky',
-    category: 'Serial Cases',
-    name: 'Chucky Doll',
-    price: 200,
-    isNew: true,
-    icon: '🧸',
-    items: [
-      { name: 'M4A4 | The Emperor', price: 95.0, rarity: 'rare', emoji: '👑', weight: 52 },
-      { name: 'AWP | Wildfire', price: 320.0, rarity: 'epic', emoji: '🔥', weight: 30 },
-      { name: 'Moto Gloves | Blood Pressure', price: 780.0, rarity: 'epic', emoji: '🧤', weight: 13 },
-      { name: 'Karambit | Fade', price: 2400.0, rarity: 'legendary', emoji: '🌈', weight: 5 }
-    ]
-  },
-  {
-    id: 'charms_box',
-    category: 'Image & Collectible Cases',
-    name: 'Weapon Charms',
-    price: 8,
-    isNew: true,
-    icon: '🧿',
-    items: [
-      { name: 'Charm | Lil\' Monster', price: 4.0, rarity: 'common', emoji: '👾', weight: 50 },
-      { name: 'Charm | Hot Sauce', price: 12.0, rarity: 'rare', emoji: '🌶️', weight: 30 },
-      { name: 'Charm | Diamond Dog', price: 35.0, rarity: 'epic', emoji: '🐶', weight: 15 },
-      { name: 'Charm | Semi-Precious Knife', price: 110.0, rarity: 'legendary', emoji: '🗡️', weight: 5 }
-    ]
-  },
-  {
-    id: 'stickers_s',
-    category: 'Image & Collectible Cases',
-    name: 'Stickers S-Box',
-    price: 12,
-    isNew: false,
-    icon: '🏷️',
-    items: [
-      { name: 'Sticker | Global Elite', price: 6.0, rarity: 'common', emoji: '🌍', weight: 50 },
-      { name: 'Sticker | Crown (Foil)', price: 22.0, rarity: 'rare', emoji: '👑', weight: 30 },
-      { name: 'Sticker | Howling Dawn', price: 65.0, rarity: 'epic', emoji: '🐺', weight: 15 },
-      { name: 'Sticker | Titan (Holo) 2014', price: 250.0, rarity: 'legendary', emoji: '💠', weight: 5 }
+      { name: 'Five-SeveN | Scumbria', price: 5.0, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 50 },
+      { name: 'M4A1-S | Dark Water', price: 18.0, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 30 },
+      { name: 'AWP | Containment Breach', price: 55.0, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 15 },
+      { name: 'Flip Knife | Gamma Emerald', price: 210.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 5 }
     ]
   },
   {
@@ -163,35 +79,22 @@ const CASES_DATA = [
     name: 'Royal Vault',
     price: 250,
     isNew: false,
-    icon: '💎',
+    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
     items: [
-      { name: 'AK-47 | Case Hardened', price: 130.0, rarity: 'rare', emoji: '🔷', weight: 52 },
-      { name: 'AWP | Lightning Strike', price: 450.0, rarity: 'epic', emoji: '⚡', weight: 30 },
-      { name: 'Sport Gloves | Pandora\'s Box', price: 1100.0, rarity: 'epic', emoji: '📦', weight: 13 },
-      { name: 'Karambit | Gamma Doppler', price: 2800.0, rarity: 'legendary', emoji: '💎', weight: 5 }
-    ]
-  },
-  {
-    id: 'underworld',
-    category: 'High Roller Vaults',
-    name: 'Underworld Lord',
-    price: 500,
-    isNew: false,
-    icon: '💀',
-    items: [
-      { name: 'AWP | Gungnir', price: 280.0, rarity: 'rare', emoji: '🔱', weight: 52 },
-      { name: 'Driver Gloves | Snow Leopard', price: 950.0, rarity: 'epic', emoji: '🐆', weight: 30 },
-      { name: 'M4A4 | Eye of Horus', price: 2100.0, rarity: 'epic', emoji: '👁️', weight: 13 },
-      { name: 'AWP | Dragon Lore', price: 6500.0, rarity: 'legendary', emoji: '🐲', weight: 5 }
+      { name: 'AK-47 | Case Hardened', price: 130.0, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 52 },
+      { name: 'AWP | Lightning Strike', price: 450.0, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 30 },
+      { name: 'Sport Gloves | Pandora\'s Box', price: 1100.0, rarity: 'extra', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 13 },
+      { name: 'Karambit | Gamma Doppler', price: 2800.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 5 }
     ]
   }
 ];
 
 const RARITY_COLORS = {
-  common: '#64748b',
-  rare: '#3b82f6',
-  epic: '#a855f7',
-  legendary: '#f59e0b'
+  common: '#b0c3d9',
+  rare: '#4b69ff',
+  epic: '#d32ce6',
+  legendary: '#eb4b4b',
+  extra: '#ffd700'
 };
 
 const ALL_SKINS_POOL = [];
@@ -442,7 +345,9 @@ function renderCategorizedCases() {
                   ${c.isNew ? '<span class="badge-new">NEW</span>' : ''}
                 </div>
               </div>
-              <div class="case-icon">${c.icon}</div>
+              <div class="case-img-wrap">
+                <img src="${c.icon}" class="case-img" alt="${c.name}">
+              </div>
               <div class="case-price-tag">${c.price === 0 ? 'FREE' : `${c.price} $`}</div>
             </div>
           `).join('')}
@@ -504,7 +409,7 @@ function renderCaseModalBody(maxAffordable) {
 
   body.innerHTML = `
     <div class="modal-case-preview">
-      <div style="font-size: 64px; margin-bottom: 6px;">${c.icon}</div>
+      <img src="${c.icon}" class="modal-case-img" alt="${c.name}">
       <div style="color: var(--text-muted); font-size: 13px;">
         ${c.price === 0 ? 'Unlimited Free Case!' : `Price: $${c.price} | Max affordable: ${maxAffordable}`}
       </div>
@@ -517,8 +422,11 @@ function renderCaseModalBody(maxAffordable) {
     <div class="modal-contents-list">
       ${c.items.map(item => `
         <div class="mini-item-chip" style="border-left-color: ${RARITY_COLORS[item.rarity]}">
-          <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:145px;">${item.emoji} ${item.name}</span>
-          <span style="color:var(--win); font-weight:700;">$${item.price}</span>
+          <img src="${item.image}" class="mini-item-img" alt="${item.name}">
+          <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:130px;">
+            <div style="font-weight:700; font-size:11px;">${item.name}</div>
+            <div style="color:var(--win); font-weight:700; font-size:11px;">$${item.price}</div>
+          </div>
         </div>
       `).join('')}
     </div>
@@ -591,7 +499,7 @@ async function confirmAndOpenCase() {
     item_name: item.name,
     item_rarity: item.rarity,
     item_price: item.price,
-    item_image: item.emoji
+    item_image: item.image
   }));
 
   await sb.from('inventory').insert(insertPayload);
@@ -617,34 +525,34 @@ async function confirmAndOpenCase() {
 function spinSlowRoulette(trackId, pool, targetItem) {
   return new Promise(resolve => {
     const track = document.getElementById(trackId);
-    const totalCards = 50;
-    const winIndex = 40;
+    const totalCards = 45;
+    const winIndex = 36;
 
     const cards = [];
     for (let i = 0; i < totalCards; i++) {
       const item = (i === winIndex) ? targetItem : pool[Math.floor(Math.random() * pool.length)];
       cards.push(`
         <div class="roulette-item" style="border-bottom-color: ${RARITY_COLORS[item.rarity]}">
-          <div style="font-size: 28px;">${item.emoji}</div>
-          <div style="font-size: 10px; margin-top: 4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:92px;">${item.name}</div>
+          <img src="${item.image}" class="roulette-skin-img" alt="${item.name}">
+          <div style="font-size: 10px; margin-top: 2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:102px;">${item.name}</div>
         </div>
       `);
     }
 
     track.style.transition = 'none';
-    track.style.transform = 'translateX(0px)';
+    track.style.transform = 'translateZ(0) translateX(0px)';
     track.innerHTML = cards.join('');
     track.offsetHeight;
 
-    const cardWidth = 113;
+    const cardWidth = 123;
     const windowWidth = track.parentElement.offsetWidth;
-    const randomOffset = Math.floor(Math.random() * 40) - 20;
+    const randomOffset = Math.floor(Math.random() * 30) - 15;
     const targetX = (winIndex * cardWidth) - (windowWidth / 2) + (cardWidth / 2) + randomOffset;
 
-    track.style.transition = 'transform 6.2s cubic-bezier(0.08, 0.82, 0.15, 1)';
-    track.style.transform = `translateX(-${targetX}px)`;
+    track.style.transition = 'transform 5.8s cubic-bezier(0.08, 0.82, 0.15, 1)';
+    track.style.transform = `translateZ(0) translateX(-${targetX}px)`;
 
-    setTimeout(resolve, 6400);
+    setTimeout(resolve, 6000);
   });
 }
 
@@ -693,7 +601,7 @@ function renderUpgradeInventory() {
   container.innerHTML = userInventory.map(item => `
     <div class="upgrade-inv-item ${selectedUpgradeItem?.id === item.id ? 'selected' : ''}" onclick="selectUpgradeItem('${item.id}')">
       <div style="display:flex; align-items:center; gap:10px;">
-        <span style="font-size:24px;">${item.item_image || '🎁'}</span>
+        <img src="${item.item_image}" class="inv-skin-thumb" alt="${item.item_name}">
         <div>
           <div style="font-weight:700; font-size:13px;">${item.item_name}</div>
           <div style="color:var(--win); font-size:12px;">$${Number(item.item_price).toFixed(2)}</div>
@@ -732,7 +640,7 @@ function renderTargetSkinsList() {
     return `
       <div class="upgrade-inv-item ${isSelected ? 'selected' : ''}" onclick="selectTargetSkin(${idx})">
         <div style="display:flex; align-items:center; gap:10px;">
-          <span style="font-size:24px;">${skin.emoji}</span>
+          <img src="${skin.image}" class="inv-skin-thumb" alt="${skin.name}">
           <div>
             <div style="font-weight:700; font-size:13px;">${skin.name}</div>
             <div style="color:var(--win); font-size:12px;">$${Number(skin.price).toFixed(2)}</div>
@@ -779,7 +687,7 @@ async function startUpgrade() {
   const totalRotation = 2160 + finalAngle;
 
   rotor.style.transition = 'transform 4.2s cubic-bezier(0.12, 0.85, 0.22, 1)';
-  rotor.style.transform = `rotate(${totalRotation}deg)`;
+  rotor.style.transform = `translateZ(0) rotate(${totalRotation}deg)`;
 
   setTimeout(async () => {
     const halfDeg = (computedUpgradeChance / 100) * 360 / 2;
@@ -791,7 +699,7 @@ async function startUpgrade() {
         item_name: selectedTargetSkin.name,
         item_rarity: selectedTargetSkin.rarity,
         item_price: selectedTargetSkin.price,
-        item_image: selectedTargetSkin.emoji
+        item_image: selectedTargetSkin.image
       }]);
       showToast(`UPGRADE SUCCESS! Won ${selectedTargetSkin.name}!`);
     } else {
@@ -812,7 +720,7 @@ async function startUpgrade() {
     validateUpgrader();
 
     rotor.style.transition = 'none';
-    rotor.style.transform = 'rotate(0deg)';
+    rotor.style.transform = 'translateZ(0) rotate(0deg)';
   }, 4400);
 }
 
@@ -829,7 +737,7 @@ function renderRocketInventory() {
   container.innerHTML = userInventory.map(item => `
     <div class="upgrade-inv-item ${selectedRocketItem?.id === item.id ? 'selected' : ''}" onclick="selectRocketItem('${item.id}')">
       <div style="display:flex; align-items:center; gap:10px;">
-        <span style="font-size:24px;">${item.item_image || '🎁'}</span>
+        <img src="${item.item_image}" class="inv-skin-thumb" alt="${item.item_name}">
         <div>
           <div style="font-weight:700; font-size:13px;">${item.item_name}</div>
           <div style="color:var(--win); font-size:12px;">$${Number(item.item_price).toFixed(2)}</div>
@@ -908,7 +816,7 @@ async function startRocket() {
     stopBtn.textContent = `STOP & CLAIM ($${currentWinVal.toFixed(2)})`;
 
     const progress = Math.min(1, elapsedSec / 8);
-    ship.style.transform = `translate(${progress * 380}px, -${progress * 220}px)`;
+    ship.style.transform = `translateZ(0) translate(${progress * 380}px, -${progress * 220}px)`;
 
     rocketAnimFrame = requestAnimationFrame(animateFlight);
   }
@@ -935,7 +843,7 @@ async function stopRocket() {
   stopBtn.classList.add('hidden');
   startBtn.classList.remove('hidden');
   startBtn.disabled = true;
-  ship.style.transform = 'translate(0px, 0px)';
+  ship.style.transform = 'translateZ(0) translate(0px, 0px)';
 
   if (upgradedSkin && upgradedSkin.price > selectedRocketItem.item_price) {
     await sb.from('inventory').insert([{
@@ -943,7 +851,7 @@ async function stopRocket() {
       item_name: upgradedSkin.name,
       item_rarity: upgradedSkin.rarity,
       item_price: upgradedSkin.price,
-      item_image: upgradedSkin.emoji
+      item_image: upgradedSkin.image
     }]);
     preview.textContent = `CLAIMED: ${upgradedSkin.name}!`;
     showToast(`Won ${upgradedSkin.name}!`);
@@ -1049,7 +957,7 @@ async function joinBattle(idx) {
       item_name: drops1.name,
       item_rarity: drops1.rarity,
       item_price: drops1.price,
-      item_image: drops1.emoji
+      item_image: drops1.image
     }]);
   } else {
     winnerText = `Opponent won. Their drop: ${drops2.name} ($${drops2.price})`;
@@ -1139,8 +1047,10 @@ function renderInventory() {
   }
 
   grid.innerHTML = userInventory.map(item => `
-    <div class="inv-card" style="border-top-color: ${RARITY_COLORS[item.item_rarity] || '#64748b'}">
-      <div class="inv-emoji">${item.item_image || '🎁'}</div>
+    <div class="inv-card" style="border-top-color: ${RARITY_COLORS[item.item_rarity] || '#b0c3d9'}">
+      <div class="inv-img-wrap">
+        <img src="${item.item_image}" class="inv-img" alt="${item.item_name}">
+      </div>
       <div class="inv-name">${item.item_name}</div>
       <div class="inv-price">$${Number(item.item_price).toFixed(2)}</div>
       <button class="btn btn-outline btn-sm btn-full" onclick="sellItem('${item.id}', ${item.item_price})">Sell Item</button>
