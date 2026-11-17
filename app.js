@@ -219,13 +219,11 @@ let activeModalCase = null;
 let selectedModalQty = 1;
 let lastOpenedItems = [];
 
-// Upgrader State (Dynamic chance based on source/target price ratio)
 let selectedUpgradeItem = null;
 let selectedTargetSkin = null;
 let computedUpgradeChance = 10;
 let isUpgrading = false;
 
-// Rocket State
 let selectedRocketItem = null;
 let isRocketFlying = false;
 let rocketMultiplier = 1.00;
@@ -233,7 +231,6 @@ let rocketCrashPoint = 1.00;
 let rocketAnimFrame = null;
 let rocketStartTime = 0;
 
-// Quests State
 let userQuests = {
   openCasesCount: 0,
   winRocket: false,
@@ -600,10 +597,8 @@ async function confirmAndOpenCase() {
   await sb.from('inventory').insert(insertPayload);
   await fetchInventory();
 
-  // Добавляем в लाइव тикер
   wonItems.forEach(item => addLiveTickerItem(userProfile.username || currentUser.email, selectedCase.name, item.name, item.price));
 
-  // Квесты & XP
   userQuests.openCasesCount += qty;
   addXP(qty * 25);
   saveLocalQuests();
@@ -660,7 +655,6 @@ function closeOpeningArena() {
 async function repeatLastOpening() {
   if (!activeModalCase || isOpeningRunning) return;
   openCaseModal(activeModalCase.id);
-  // Авто-подтверждаем с тем же количеством
   setTimeout(() => confirmAndOpenCase(), 100);
 }
 
@@ -668,7 +662,6 @@ async function sellAllOpenedItems() {
   if (lastOpenedItems.length === 0) return;
   const totalPrice = lastOpenedItems.reduce((sum, i) => sum + i.price, 0);
 
-  // Удаляем последние добавленные предметы из инвентаря
   for (const item of lastOpenedItems) {
     const found = userInventory.find(inv => inv.item_name === item.name);
     if (found) {
@@ -688,7 +681,7 @@ async function sellAllOpenedItems() {
 }
 
 // ==========================================
-// 7. UPGRADER (DYNAMIC ODDS PER TARGET SKIN)
+// 7. UPGRADER
 // ==========================================
 function renderUpgradeInventory() {
   const container = document.getElementById('upgrade-inv-select');
@@ -725,7 +718,6 @@ function renderTargetSkinsList() {
     return;
   }
 
-  // Фильтруем скины, которые дороже источника
   const availableTargets = ALL_SKINS_POOL.filter(s => s.price > selectedUpgradeItem.item_price).slice(0, 15);
 
   if (availableTargets.length === 0) {
@@ -734,7 +726,6 @@ function renderTargetSkinsList() {
   }
 
   list.innerHTML = availableTargets.map((skin, idx) => {
-    // Индивидуальный расчет шанса: (цена источника / цена цели) * 100%
     const chance = Math.min(95, Math.max(1, (selectedUpgradeItem.item_price / skin.price) * 100));
     const isSelected = selectedTargetSkin?.name === skin.name;
 
@@ -979,7 +970,9 @@ async function stopRocket() {
 // ==========================================
 function renderBattleCaseSelect() {
   const sel = document.getElementById('battle-case-select');
-  sel.innerHTML = CASES_DATA.map(c => `<option value="${c.id}">${c.name} ($${c.price})</option>`).join('');
+  if (sel) {
+    sel.innerHTML = CASES_DATA.map(c => `<option value="${c.id}">${c.name} ($${c.price})</option>`).join('');
+  }
 }
 
 let activeBattles = [];
@@ -996,7 +989,7 @@ function createBattleLobby() {
   }
 
   const lobby = {
-    id: Math.random().toString(36.substring(2, 7)),
+    id: Math.random().toString(36).substring(2, 7),
     caseObj: cObj,
     mode: mode,
     creator: userProfile.username || currentUser.email,
@@ -1013,6 +1006,7 @@ function createBattleLobby() {
 
 function renderBattlesList() {
   const container = document.getElementById('battles-list-container');
+  if (!container) return;
   if (activeBattles.length === 0) {
     container.innerHTML = '<p class="muted-text">No active lobbies. Create one above!</p>';
     return;
@@ -1036,13 +1030,11 @@ async function joinBattle(idx) {
     return;
   }
 
-  // Списываем стоимость кейса обоим/участникам
   const newBal = Number(userProfile.balance) - b.cost;
   await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
   userProfile.balance = newBal;
   updateUI();
 
-  // Симулируем бой
   const drops1 = pickRandomItem(b.caseObj.items);
   const drops2 = pickRandomItem(b.caseObj.items);
 
@@ -1087,6 +1079,7 @@ function saveLocalQuests() {
 function renderQuestsUI() {
   const container = document.getElementById('quests-list-container');
   const streakBox = document.getElementById('streak-info-box');
+  if (!container || !streakBox) return;
 
   streakBox.innerHTML = `<p class="muted-text">Daily streak active! Reward: $5.00 + 100 XP</p>`;
 
@@ -1139,6 +1132,7 @@ async function claimDailyStreak() {
 // ==========================================
 function renderInventory() {
   const grid = document.getElementById('inventory-grid');
+  if (!grid) return;
   if (userInventory.length === 0) {
     grid.innerHTML = '<p class="muted-text">Inventory is empty.</p>';
     return;
@@ -1209,6 +1203,7 @@ async function quickSellAllInventory() {
 // ==========================================
 function addLiveTickerItem(user, caseName, itemName, price) {
   const feed = document.getElementById('live-ticker-feed');
+  if (!feed) return;
   const span = document.createElement('span');
   span.className = 'ticker-item';
   span.textContent = `🎁 [${caseName}] ${user.slice(0, 5)}*** won ${itemName} ($${price.toFixed(2)})`;
@@ -1219,6 +1214,7 @@ function addLiveTickerItem(user, caseName, itemName, price) {
 let toastTimer;
 function showToast(msg) {
   const toast = document.getElementById('toast');
+  if (!toast) return;
   toast.textContent = msg;
   toast.classList.remove('hidden');
   clearTimeout(toastTimer);
