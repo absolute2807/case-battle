@@ -1,93 +1,46 @@
 // ==========================================
-// 1. CASES DATABASE WITH REAL CS ICONS
+// 1. 30 CASES DATABASE WITH STABLE ICONS
 // ==========================================
-const CASES_DATA = [
-  {
-    id: 'free_unlimited',
-    category: 'Free & Starter Cases',
-    name: 'Free Unlimited Box',
-    price: 0,
-    isNew: true,
-    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f',
-    items: [
-      { name: 'P250 | Sand Dune', price: 1.00, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 62 },
-      { name: 'MP9 | Storm', price: 4.50, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 24 },
-      { name: 'AK-47 | Safari Mesh', price: 16.00, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 10 },
-      { name: 'AWP | Atheris', price: 48.00, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 3.5 },
-      { name: 'Gut Knife | Free Special', price: 100.00, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 0.5 }
-    ]
-  },
-  {
-    id: 'starter',
-    category: 'Free & Starter Cases',
-    name: 'Starter Arsenal',
-    price: 2,
-    isNew: false,
-    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
-    items: [
-      { name: 'Glock-18 | Groundwater', price: 0.9, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposbaqKAthoNzLYTJO6dOjh7-PmOfgPLTBuWVu5MB1g_zMu4jwiwGxwks9amD1LdSQJgdsN1vRq1XrlOu918S-uMjAynpjuyEm4i3cnA3in1gSObE-16O_AQA/360fx360f', weight: 55 },
-      { name: 'USP-S | Forest Leaves', price: 1.8, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoovujZAt21-TFcz5O6d2jn7-PmOfgPLTBuWVu5MB1g_zMu9St0FXn_kBoNmjwIYOTcAE_Yl-B81O7wbi6jJC178nJyXpn7iEj5yrdnB3in1gSb7Zp_6aL/360fx360f', weight: 28 },
-      { name: 'AK-47 | Redline', price: 9.5, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 12 },
-      { name: 'AWP | Asiimov', price: 38.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 5 }
-    ]
-  },
-  {
-    id: 'cyber',
-    category: 'Free & Starter Cases',
-    name: 'Cyber Strike',
-    price: 5,
-    isNew: false,
-    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
-    items: [
-      { name: 'P250 | Neon Rider', price: 2.5, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 50 },
-      { name: 'M4A1-S | Streamline', price: 12.0, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 30 },
-      { name: 'Desert Eagle | Flame', price: 32.0, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f', weight: 14 },
-      { name: 'Butterfly | Gradient', price: 125.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 6 }
-    ]
-  },
-  {
-    id: 'elite',
-    category: 'Free & Starter Cases',
-    name: 'Elite Ops',
-    price: 15,
-    isNew: false,
-    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
-    items: [
-      { name: 'AK-47 | Vulcan', price: 14.0, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 48 },
-      { name: 'M4A4 | Howl', price: 48.0, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 32 },
-      { name: 'Gloves | Blood Kimono', price: 95.0, rarity: 'extra', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 14 },
-      { name: 'Karambit | Waves', price: 260.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 6 }
-    ]
-  },
-  {
-    id: 'alien',
-    category: 'Serial Cases',
-    name: 'Alien Xenomorph',
-    price: 10,
-    isNew: true,
-    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
-    items: [
-      { name: 'Five-SeveN | Scumbria', price: 5.0, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 50 },
-      { name: 'M4A1-S | Dark Water', price: 18.0, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 30 },
-      { name: 'AWP | Containment Breach', price: 55.0, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 15 },
-      { name: 'Flip Knife | Gamma Emerald', price: 210.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 5 }
-    ]
-  },
-  {
-    id: 'royal_vault',
-    category: 'High Roller Vaults',
-    name: 'Royal Vault',
-    price: 250,
-    isNew: false,
-    icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
-    items: [
-      { name: 'AK-47 | Case Hardened', price: 130.0, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 52 },
-      { name: 'AWP | Lightning Strike', price: 450.0, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 30 },
-      { name: 'Sport Gloves | Pandora\'s Box', price: 1100.0, rarity: 'extra', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 13 },
-      { name: 'Karambit | Gamma Doppler', price: 2800.0, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 5 }
-    ]
-  }
+const BASE_ITEMS = [
+  { name: 'P250 | Sand Dune', price: 1.00, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 60 },
+  { name: 'MP9 | Storm', price: 4.50, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 25 },
+  { name: 'AK-47 | Safari Mesh', price: 16.00, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 10 },
+  { name: 'AWP | Atheris', price: 48.00, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 4 },
+  { name: 'Gut Knife | Free Special', price: 120.00, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 1 }
 ];
+
+function generate30Cases() {
+  const categories = ['Free & Starter Cases', 'Serial Cases', 'High Roller Vaults', 'Exclusive Collections'];
+  const cases = [];
+  let idCounter = 1;
+
+  for (let i = 1; i <= 30; i++) {
+    let cat = categories[0];
+    if (i > 8 && i <= 16) cat = categories[1];
+    else if (i > 16 && i <= 24) cat = categories[2];
+    else if (i > 24) cat = categories[3];
+
+    let price = i === 1 ? 0 : Math.round(i * 3.5);
+    if (cat === 'High Roller Vaults') price = i * 25;
+    if (cat === 'Exclusive Collections') price = i * 60;
+
+    cases.push({
+      id: `case_${i}`,
+      category: cat,
+      name: `Case Series #${i}`,
+      price: price,
+      isNew: i % 5 === 0,
+      icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
+      items: BASE_ITEMS.map(item => ({
+        ...item,
+        price: Number((item.price * (1 + i * 0.15)).toFixed(2))
+      }))
+    });
+  }
+  return cases;
+}
+
+const CASES_DATA = generate30Cases();
 
 const RARITY_COLORS = {
   common: '#b0c3d9',
@@ -122,9 +75,11 @@ let activeModalCase = null;
 let selectedModalQty = 1;
 let lastOpenedItems = [];
 
-let selectedUpgradeItem = null;
+// Upgrader 2.0 State
+let selectedUpgradeItems = []; // Up to 6 items
+let addedBalance = 0.00;
 let selectedTargetSkin = null;
-let computedUpgradeChance = 10;
+let computedUpgradeChance = 0.0;
 let isUpgrading = false;
 
 let selectedRocketItem = null;
@@ -148,9 +103,13 @@ let userQuests = {
 document.addEventListener('DOMContentLoaded', async () => {
   renderCategorizedCases();
   renderBattleCaseSelect();
-  updateWheelSector();
   loadLocalQuests();
   renderQuestsUI();
+  loadLocalLevel();
+  renderUpgradeInventory();
+  renderTargetCatalog();
+  updateWheelSector();
+  initBattlesRealtime();
 
   const { data: { session } } = await sb.auth.getSession();
   if (session) {
@@ -180,8 +139,7 @@ async function loadUserData(user) {
 
   if (!error && profile) {
     userProfile = profile;
-    if (!userProfile.xp) userProfile.xp = 0;
-    if (!userProfile.level) userProfile.level = 1;
+    loadLocalLevel(); // Синхронизируем с локалстореджем
   }
 
   await fetchInventory();
@@ -224,6 +182,23 @@ function updateUI() {
   }
 }
 
+function loadLocalLevel() {
+  const savedLvl = localStorage.getItem('casebattle_level');
+  const savedXp = localStorage.getItem('casebattle_xp');
+  if (userProfile) {
+    if (savedLvl) userProfile.level = parseInt(savedLvl);
+    if (savedXp) userProfile.xp = parseInt(savedXp);
+    if (!userProfile.level) userProfile.level = 1;
+    if (!userProfile.xp) userProfile.xp = 0;
+  }
+}
+
+function saveLocalLevel() {
+  if (!userProfile) return;
+  localStorage.setItem('casebattle_level', userProfile.level || 1);
+  localStorage.setItem('casebattle_xp', userProfile.xp || 0);
+}
+
 function addXP(amount) {
   if (!userProfile) return;
   userProfile.xp = (userProfile.xp || 0) + amount;
@@ -232,6 +207,7 @@ function addXP(amount) {
     userProfile.level = (userProfile.level || 1) + 1;
     showToast(`LEVEL UP! You reached Level ${userProfile.level}!`);
   }
+  saveLocalLevel();
   updateXPBar();
   if (currentUser) {
     sb.from('profiles').update({ xp: userProfile.xp, level: userProfile.level }).eq('id', currentUser.id);
@@ -244,9 +220,12 @@ function updateXPBar() {
   const needed = lvl * 500;
   const pct = Math.min(100, (xp / needed) * 100);
 
-  document.getElementById('xp-bar-fill').style.width = `${pct}%`;
-  document.getElementById('player-lvl-text').textContent = `Level ${lvl}`;
-  document.getElementById('player-xp-text').textContent = `${xp} / ${needed} XP`;
+  const bar = document.getElementById('xp-bar-fill');
+  const lvlText = document.getElementById('player-lvl-text');
+  const xpText = document.getElementById('player-xp-text');
+  if (bar) bar.style.width = `${pct}%`;
+  if (lvlText) lvlText.textContent = `Level ${lvl}`;
+  if (xpText) xpText.textContent = `${xp} / ${needed} XP`;
 }
 
 // ==========================================
@@ -322,7 +301,10 @@ function switchTab(tab) {
       return;
     }
     fetchInventory();
-    if (tab === 'upgrader') updateWheelSector();
+    if (tab === 'upgrader') {
+      renderUpgradeInventory();
+      renderTargetCatalog();
+    }
   }
 }
 
@@ -358,7 +340,7 @@ function renderCategorizedCases() {
 }
 
 // ==========================================
-// 6. CASE MODAL & OPENING
+// 6. CASE MODAL & OPENING (Fixed repeat)
 // ==========================================
 function openCaseModal(caseId) {
   if (!currentUser || !userProfile) {
@@ -382,7 +364,6 @@ function openCaseModal(caseId) {
 
 function closeCaseModal() {
   document.getElementById('case-modal').classList.add('hidden');
-  activeModalCase = null;
 }
 
 function selectModalQuantity(qty) {
@@ -562,8 +543,13 @@ function closeOpeningArena() {
 
 async function repeatLastOpening() {
   if (!activeModalCase || isOpeningRunning) return;
-  openCaseModal(activeModalCase.id);
-  setTimeout(() => confirmAndOpenCase(), 100);
+  const userBal = Number(userProfile.balance);
+  const totalCost = activeModalCase.price * selectedModalQty;
+  if (userBal < totalCost) {
+    showToast('Insufficient balance to repeat opening!');
+    return;
+  }
+  confirmAndOpenCase();
 }
 
 async function sellAllOpenedItems() {
@@ -589,98 +575,208 @@ async function sellAllOpenedItems() {
 }
 
 // ==========================================
-// 7. UPGRADER
+// 7. UPGRADER 2.0 (New UI & Logic)
 // ==========================================
 function renderUpgradeInventory() {
   const container = document.getElementById('upgrade-inv-select');
+  const countEl = document.getElementById('inv-items-count');
+  if (countEl) countEl.textContent = userInventory.length;
+
+  if (!container) return;
   if (userInventory.length === 0) {
-    container.innerHTML = '<p class="muted-text">No items in inventory.</p>';
+    container.innerHTML = '<p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:30px;">НЕТ ДОСТУПНЫХ ПРЕДМЕТОВ ДЛЯ АПГРЕЙДА<br><a href="#" onclick="switchTab(\'cases\')" style="color:var(--accent);">ОТКРОЙТЕ ЛЮБОЙ КЕЙС</a></p>';
     return;
   }
 
-  container.innerHTML = userInventory.map(item => `
-    <div class="upgrade-inv-item ${selectedUpgradeItem?.id === item.id ? 'selected' : ''}" onclick="selectUpgradeItem('${item.id}')">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <img src="${item.item_image}" class="inv-skin-thumb" alt="${item.item_name}">
-        <div>
-          <div style="font-weight:700; font-size:13px;">${item.item_name}</div>
-          <div style="color:var(--win); font-size:12px;">$${Number(item.item_price).toFixed(2)}</div>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function selectUpgradeItem(itemId) {
-  selectedUpgradeItem = userInventory.find(i => i.id === itemId);
-  selectedTargetSkin = null;
-  renderUpgradeInventory();
-  renderTargetSkinsList();
-  validateUpgrader();
-}
-
-function renderTargetSkinsList() {
-  const list = document.getElementById('target-skins-list');
-  if (!selectedUpgradeItem) {
-    list.innerHTML = '<p class="muted-text">Select your item first.</p>';
-    return;
-  }
-
-  const availableTargets = ALL_SKINS_POOL.filter(s => s.price > selectedUpgradeItem.item_price).slice(0, 15);
-
-  if (availableTargets.length === 0) {
-    list.innerHTML = '<p class="muted-text">No higher-tier skins available.</p>';
-    return;
-  }
-
-  list.innerHTML = availableTargets.map((skin, idx) => {
-    const chance = Math.min(95, Math.max(1, (selectedUpgradeItem.item_price / skin.price) * 100));
-    const isSelected = selectedTargetSkin?.name === skin.name;
-
+  container.innerHTML = userInventory.map(item => {
+    const isSelected = selectedUpgradeItems.some(i => i.id === item.id);
     return `
-      <div class="upgrade-inv-item ${isSelected ? 'selected' : ''}" onclick="selectTargetSkin(${idx})">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <img src="${skin.image}" class="inv-skin-thumb" alt="${skin.name}">
-          <div>
-            <div style="font-weight:700; font-size:13px;">${skin.name}</div>
-            <div style="color:var(--win); font-size:12px;">$${Number(skin.price).toFixed(2)}</div>
-          </div>
-        </div>
-        <div style="font-weight:800; color:var(--accent); font-size:13px;">${chance.toFixed(1)}%</div>
+      <div class="upgrade-grid-item ${isSelected ? 'selected' : ''}" style="border-bottom-color: ${RARITY_COLORS[item.item_rarity] || '#b0c3d9'}" onclick="toggleUpgradeItem('${item.id}')">
+        <img src="${item.item_image}" class="upgrade-grid-thumb" alt="${item.item_name}">
+        <div style="font-weight:700; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.item_name}</div>
+        <div style="color:var(--win); font-size:11px; font-weight:700;">$${Number(item.item_price).toFixed(2)}</div>
       </div>
     `;
-  });
-
-  window.currentAvailableTargets = availableTargets;
+  }).join('');
 }
 
-function selectTargetSkin(idx) {
-  selectedTargetSkin = window.currentAvailableTargets[idx];
-  computedUpgradeChance = Math.min(95, Math.max(1, (selectedUpgradeItem.item_price / selectedTargetSkin.price) * 100));
+function toggleUpgradeItem(itemId) {
+  const item = userInventory.find(i => i.id === itemId);
+  if (!item) return;
+
+  const index = selectedUpgradeItems.findIndex(i => i.id === itemId);
+  if (index > -1) {
+    selectedUpgradeItems.splice(index, 1);
+  } else {
+    if (selectedUpgradeItems.length >= 6) {
+      showToast('Можно выбрать не более 6 предметов!');
+      return;
+    }
+    selectedUpgradeItems.push(item);
+  }
+
+  renderUpgradeInventory();
+  renderSelectedSlots();
+  recalculateUpgrader();
+}
+
+function renderSelectedSlots() {
+  const grid = document.getElementById('selected-slots-grid');
+  const countEl = document.getElementById('selected-slots-count');
+  if (countEl) countEl.textContent = selectedUpgradeItems.length;
+  if (!grid) return;
+
+  let html = '';
+  for (let i = 0; i < 6; i++) {
+    const item = selectedUpgradeItems[i];
+    if (item) {
+      html += `
+        <div class="slot-item" onclick="toggleUpgradeItem('${item.id}')" title="Убрать предмет">
+          <img src="${item.item_image}" alt="${item.item_name}">
+        </div>
+      `;
+    } else {
+      html += `<div class="slot-item empty">+</div>`;
+    }
+  }
+  grid.innerHTML = html;
+}
+
+function onBalanceRangeInput(val) {
+  addedBalance = Number(val);
+  const maxBal = userProfile ? Number(userProfile.balance) : 0;
+  if (addedBalance > maxBal) {
+    addedBalance = maxBal;
+    document.getElementById('add-balance-range').value = maxBal;
+  }
+  document.getElementById('added-balance-label').textContent = `${addedBalance.toFixed(2)} P`;
+  recalculateUpgrader();
+}
+
+function renderTargetCatalog() {
+  const list = document.getElementById('target-skins-list');
+  const searchInput = document.getElementById('target-search-input');
+  const sortSelect = document.getElementById('target-sort-select');
+  if (!list) return;
+
+  let query = searchInput ? searchInput.value.toLowerCase() : '';
+  let sortType = sortSelect ? sortSelect.value : 'price';
+
+  let targets = [...ALL_SKINS_POOL];
+  if (query) {
+    targets = targets.filter(s => s.name.toLowerCase().includes(query));
+  }
+
+  if (sortType === 'price') {
+    targets.sort((a, b) => a.price - b.price);
+  } else {
+    targets.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  if (targets.length === 0) {
+    list.innerHTML = '<p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:30px;">Ничего не найдено</p>';
+    return;
+  }
+
+  list.innerHTML = targets.map((skin, idx) => {
+    const isSelected = selectedTargetSkin?.name === skin.name;
+    return `
+      <div class="upgrade-grid-item ${isSelected ? 'selected' : ''}" style="border-bottom-color: ${RARITY_COLORS[skin.rarity] || '#b0c3d9'}" onclick='selectTargetSkinObject(${JSON.stringify(skin)})'>
+        <img src="${skin.image}" class="upgrade-grid-thumb" alt="${skin.name}">
+        <div style="font-weight:700; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${skin.name}</div>
+        <div style="color:var(--win); font-size:11px; font-weight:700;">$${Number(skin.price).toFixed(2)}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function selectTargetSkinObject(skin) {
+  selectedTargetSkin = skin;
+  renderTargetCatalog();
+  renderTargetSelectedDisplay();
+  recalculateUpgrader();
+}
+
+function renderTargetSelectedDisplay() {
+  const display = document.getElementById('target-selected-display');
+  if (!display) return;
+  if (!selectedTargetSkin) {
+    display.innerHTML = '<span class="muted-text">Цель не выбрана</span>';
+    return;
+  }
+  display.innerHTML = `
+    <div style="display:flex; align-items:center; gap:10px; width:100%; padding:0 8px;">
+      <img src="${selectedTargetSkin.image}" style="width:50px; height:35px; object-fit:contain;" alt="${selectedTargetSkin.name}">
+      <div style="text-align:left; overflow:hidden;">
+        <div style="font-weight:700; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${selectedTargetSkin.name}</div>
+        <div style="color:var(--win); font-weight:700; font-size:11px;">$${Number(selectedTargetSkin.price).toFixed(2)}</div>
+      </div>
+    </div>
+  `;
+}
+
+function getTotalInputPrice() {
+  const itemsSum = selectedUpgradeItems.reduce((sum, i) => sum + Number(i.item_price), 0);
+  return itemsSum + addedBalance;
+}
+
+function recalculateUpgrader() {
+  const totalInput = getTotalInputPrice();
+  if (!selectedTargetSkin || totalInput <= 0 || selectedTargetSkin.price <= totalInput) {
+    computedUpgradeChance = 0.0;
+  } else {
+    computedUpgradeChance = Math.min(95, Math.max(1, (totalInput / selectedTargetSkin.price) * 100));
+  }
 
   document.getElementById('wheel-chance-label').textContent = `${computedUpgradeChance.toFixed(1)}%`;
   updateWheelSector();
-  renderTargetSkinsList();
-  validateUpgrader();
+
+  const spinBtn = document.getElementById('spin-wheel-btn');
+  spinBtn.disabled = selectedUpgradeItems.length === 0 || !selectedTargetSkin || computedUpgradeChance <= 0 || isUpgrading;
 }
 
 function updateWheelSector() {
   const winSector = document.getElementById('win-sector');
+  if (!winSector) return;
   const degrees = (computedUpgradeChance / 100) * 360;
   const startDeg = 180 - (degrees / 2);
   winSector.style.background = `conic-gradient(from ${startDeg}deg at 50% 50%, var(--win) 0deg, var(--win) ${degrees}deg, transparent ${degrees}deg)`;
 }
 
-function validateUpgrader() {
-  document.getElementById('spin-wheel-btn').disabled = !selectedUpgradeItem || !selectedTargetSkin || isUpgrading;
+function applyMultiplier(multiplier) {
+  if (selectedUpgradeItems.length === 0) return;
+  const targetPrice = selectedUpgradeItems[0].item_price * multiplier;
+  const bestSkin = ALL_SKINS_POOL.find(s => s.price >= targetPrice) || ALL_SKINS_POOL[ALL_SKINS_POOL.length - 1];
+  if (bestSkin) {
+    selectTargetSkinObject(bestSkin);
+  }
+}
+
+function applyChance(targetChance) {
+  if (selectedUpgradeItems.length === 0) return;
+  const totalInput = getTotalInputPrice();
+  const desiredTargetPrice = totalInput / (targetChance / 100);
+  const bestSkin = ALL_SKINS_POOL.find(s => s.price >= desiredTargetPrice) || ALL_SKINS_POOL[ALL_SKINS_POOL.length - 1];
+  if (bestSkin) {
+    selectTargetSkinObject(bestSkin);
+  }
 }
 
 async function startUpgrade() {
-  if (!selectedUpgradeItem || !selectedTargetSkin || isUpgrading || !currentUser) return;
+  if (selectedUpgradeItems.length === 0 || !selectedTargetSkin || isUpgrading || !currentUser) return;
   isUpgrading = true;
-  validateUpgrader();
+  recalculateUpgrader();
 
-  await sb.from('inventory').delete().eq('id', selectedUpgradeItem.id);
+  for (const item of selectedUpgradeItems) {
+    await sb.from('inventory').delete().eq('id', item.id);
+  }
+
+  if (addedBalance > 0 && userProfile) {
+    const newBal = Number(userProfile.balance) - addedBalance;
+    await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
+    userProfile.balance = newBal;
+    updateUI();
+  }
 
   const rotor = document.getElementById('arrow-rotor');
   const finalAngle = Math.floor(Math.random() * 360);
@@ -711,13 +807,19 @@ async function startUpgrade() {
     saveLocalQuests();
     renderQuestsUI();
 
-    selectedUpgradeItem = null;
+    selectedUpgradeItems = [];
     selectedTargetSkin = null;
+    addedBalance = 0.00;
+    const range = document.getElementById('add-balance-range');
+    if (range) range.value = 0;
+    document.getElementById('added-balance-label').textContent = '0.00 P';
+
     isUpgrading = false;
     await fetchInventory();
     renderUpgradeInventory();
-    renderTargetSkinsList();
-    validateUpgrader();
+    renderSelectedSlots();
+    renderTargetSelectedDisplay();
+    recalculateUpgrader();
 
     rotor.style.transition = 'none';
     rotor.style.transform = 'translateZ(0) rotate(0deg)';
@@ -729,6 +831,7 @@ async function startUpgrade() {
 // ==========================================
 function renderRocketInventory() {
   const container = document.getElementById('rocket-inv-select');
+  if (!container) return;
   if (userInventory.length === 0) {
     container.innerHTML = '<p class="muted-text">No items in inventory.</p>';
     return;
@@ -874,7 +977,7 @@ async function stopRocket() {
 }
 
 // ==========================================
-// 9. CASE BATTLES & DUELS
+// 9. REAL-TIME CASE BATTLES (Supabase Realtime)
 // ==========================================
 function renderBattleCaseSelect() {
   const sel = document.getElementById('battle-case-select');
@@ -883,9 +986,37 @@ function renderBattleCaseSelect() {
   }
 }
 
-let activeBattles = [];
+function initBattlesRealtime() {
+  fetchActiveBattles();
+  sb.channel('public:battles')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'battles' }, () => {
+      fetchActiveBattles();
+    })
+    .subscribe();
+}
 
-function createBattleLobby() {
+async function fetchActiveBattles() {
+  const container = document.getElementById('battles-list-container');
+  if (!container) return;
+
+  const { data, error } = await sb.from('battles').select('*').eq('status', 'waiting').order('created_at', { ascending: false });
+  if (error || !data || data.length === 0) {
+    container.innerHTML = '<p class="muted-text">No active lobbies. Create one above!</p>';
+    return;
+  }
+
+  container.innerHTML = data.map(b => `
+    <div class="upgrade-inv-item">
+      <div>
+        <div style="font-weight:700;">${b.case_name} (${b.mode})</div>
+        <div style="font-size:12px; color:var(--text-muted);">Creator: ${b.creator_name} | Cost: $${b.cost}</div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="joinRealBattle('${b.id}', ${b.cost}, '${b.case_id}')">Join Battle</button>
+    </div>
+  `).join('');
+}
+
+async function createBattleLobby() {
   if (!currentUser || !userProfile) { openAuthModal(); return; }
   const caseId = document.getElementById('battle-case-select').value;
   const mode = document.getElementById('battle-mode-select').value;
@@ -896,78 +1027,53 @@ function createBattleLobby() {
     return;
   }
 
-  const lobby = {
-    id: Math.random().toString(36).substring(2, 7),
-    caseObj: cObj,
-    mode: mode,
-    creator: userProfile.username || currentUser.email,
-    creatorId: currentUser.id,
-    cost: cObj.price,
-    players: [currentUser.email],
-    status: 'waiting'
-  };
-
-  activeBattles.push(lobby);
-  renderBattlesList();
-  showToast('Battle lobby created!');
-}
-
-function renderBattlesList() {
-  const container = document.getElementById('battles-list-container');
-  if (!container) return;
-  if (activeBattles.length === 0) {
-    container.innerHTML = '<p class="muted-text">No active lobbies. Create one above!</p>';
-    return;
-  }
-
-  container.innerHTML = activeBattles.map((b, idx) => `
-    <div class="upgrade-inv-item">
-      <div>
-        <div style="font-weight:700;">${b.caseObj.name} (${b.mode})</div>
-        <div style="font-size:12px; color:var(--text-muted);">Creator: ${b.creator} | Cost: $${b.cost}</div>
-      </div>
-      <button class="btn btn-primary btn-sm" onclick="joinBattle(${idx})">Join Battle</button>
-    </div>
-  `).join('');
-}
-
-async function joinBattle(idx) {
-  const b = activeBattles[idx];
-  if (Number(userProfile.balance) < b.cost) {
-    showToast('Insufficient balance to join!');
-    return;
-  }
-
-  const newBal = Number(userProfile.balance) - b.cost;
+  const newBal = Number(userProfile.balance) - cObj.price;
   await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
   userProfile.balance = newBal;
   updateUI();
 
-  const drops1 = pickRandomItem(b.caseObj.items);
-  const drops2 = pickRandomItem(b.caseObj.items);
+  await sb.from('battles').insert([{
+    case_id: cObj.id,
+    case_name: cObj.name,
+    mode: mode,
+    cost: cObj.price,
+    creator_id: currentUser.id,
+    creator_name: userProfile.username || currentUser.email,
+    status: 'waiting'
+  }]);
 
-  const sum1 = drops1.price;
-  const sum2 = drops2.price;
+  showToast('Public lobby created successfully!');
+  fetchActiveBattles();
+}
 
-  let winnerText = '';
-  if (sum1 >= sum2) {
-    winnerText = `You won the battle! Got ${drops1.name} ($${drops1.price})`;
-    await sb.from('inventory').insert([{
-      user_id: currentUser.id,
-      item_name: drops1.name,
-      item_rarity: drops1.rarity,
-      item_price: drops1.price,
-      item_image: drops1.image
-    }]);
-  } else {
-    winnerText = `Opponent won. Their drop: ${drops2.name} ($${drops2.price})`;
+async function joinRealBattle(battleId, cost, caseId) {
+  if (!currentUser || !userProfile) { openAuthModal(); return; }
+  if (Number(userProfile.balance) < cost) {
+    showToast('Insufficient balance to join!');
+    return;
   }
 
-  activeBattles.splice(idx, 1);
-  renderBattlesList();
+  const newBal = Number(userProfile.balance) - cost;
+  await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
+  userProfile.balance = newBal;
+  updateUI();
+
+  const cObj = CASES_DATA.find(c => c.id === caseId) || CASES_DATA[0];
+  const drop = pickRandomItem(cObj.items);
+
+  await sb.from('inventory').insert([{
+    user_id: currentUser.id,
+    item_name: drop.name,
+    item_rarity: drop.rarity,
+    item_price: drop.price,
+    item_image: drop.image
+  }]);
+
+  await sb.from('battles').update({ status: 'finished' }).eq('id', battleId);
+  fetchActiveBattles();
   await fetchInventory();
   addXP(100);
-  showToast(winnerText);
+  showToast(`Battle finished! You won ${drop.name} ($${drop.price})!`);
 }
 
 // ==========================================
