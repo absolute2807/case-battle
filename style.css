@@ -1,8 +1,8 @@
 :root {
-  --bg-dark: #0d0f14;
-  --bg-card: #161a23;
-  --bg-card-hover: #1e2430;
-  --border-color: #262d3d;
+  --bg-dark: #080a0f;
+  --bg-card: #131722;
+  --bg-card-hover: #1b2130;
+  --border-color: #242c3d;
   --accent: #f59e0b;
   --accent-hover: #d97706;
   --text-main: #f3f4f6;
@@ -25,6 +25,9 @@
 
 body {
   background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%);
   color: var(--text-main);
   min-height: 100vh;
 }
@@ -43,8 +46,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
-  background-color: var(--bg-card);
+  padding: 14px 32px;
+  background-color: rgba(19, 23, 34, 0.9);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
@@ -64,16 +68,16 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .nav-btn {
   background: transparent;
   border: none;
   color: var(--text-muted);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
   transition: 0.2s;
@@ -87,16 +91,27 @@ body {
 #auth-controls {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+}
+
+.xp-mini-badge {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .balance-box {
-  background: #10131a;
+  background: #0d1017;
   border: 1px solid var(--border-color);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 8px;
   font-weight: 700;
   color: var(--win);
+  font-size: 14px;
 }
 
 .balance-label {
@@ -108,6 +123,40 @@ body {
 .username-badge {
   font-weight: 600;
   font-size: 14px;
+}
+
+/* Live Drops Ticker */
+.live-ticker {
+  background: rgba(13, 16, 23, 0.85);
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.ticker-title {
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.ticker-feed {
+  display: flex;
+  gap: 24px;
+  animation: tickerScroll 25s linear infinite;
+}
+
+.ticker-item {
+  color: var(--text-muted);
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Buttons */
@@ -200,7 +249,6 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  position: relative;
 }
 
 .category-title-bar::before,
@@ -220,7 +268,7 @@ body {
   color: var(--text-muted);
 }
 
-/* Clean Cases Grid */
+/* Cases Grid */
 .cases-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -235,7 +283,6 @@ body {
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s, border-color 0.2s, background 0.2s;
-  position: relative;
 }
 
 .case-card:hover {
@@ -286,19 +333,13 @@ body {
   margin-top: 8px;
   padding: 6px 18px;
   border: 1px solid var(--border-color);
-  background: #10131a;
+  background: #0d1017;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 800;
-  color: var(--text-main);
 }
 
-.case-card:hover .case-price-tag {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* Case Modal Popup */
+/* Case Modal */
 .case-modal-card {
   max-width: 540px;
 }
@@ -316,30 +357,20 @@ body {
 }
 
 .qty-choice-btn {
-  background: #10131a;
+  background: #0d1017;
   border: 1px solid var(--border-color);
   color: var(--text-main);
   padding: 10px 4px;
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
-  transition: 0.2s;
   font-size: 13px;
-}
-
-.qty-choice-btn:hover:not(:disabled) {
-  border-color: var(--accent);
 }
 
 .qty-choice-btn.selected {
   background: var(--accent);
   color: #000;
   border-color: var(--accent);
-}
-
-.qty-choice-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
 }
 
 .modal-contents-list {
@@ -354,7 +385,7 @@ body {
 }
 
 .mini-item-chip {
-  background: #10131a;
+  background: #0d1017;
   border-left: 3px solid var(--rarity-common);
   padding: 6px 10px;
   border-radius: 6px;
@@ -364,7 +395,7 @@ body {
   font-size: 12px;
 }
 
-/* Opening Arena / Roulettes */
+/* Opening Arena */
 .battle-arena {
   background: var(--bg-card);
   border: 1px solid var(--accent);
@@ -378,6 +409,13 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.arena-action-btns {
+  display: flex;
+  gap: 8px;
 }
 
 .roulettes-container {
@@ -389,7 +427,7 @@ body {
 }
 
 .roulette-lane {
-  background: #10131a;
+  background: #0d1017;
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 10px;
@@ -398,7 +436,7 @@ body {
 .roulette-window {
   position: relative;
   height: 105px;
-  background: #090b0f;
+  background: #05070a;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
@@ -420,7 +458,6 @@ body {
   display: flex;
   height: 100%;
   align-items: center;
-  will-change: transform;
 }
 
 .roulette-item {
@@ -439,19 +476,6 @@ body {
   flex-shrink: 0;
 }
 
-.roulette-item .item-emoji {
-  font-size: 28px;
-}
-
-.roulette-item .item-name {
-  font-size: 10px;
-  margin-top: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 92px;
-}
-
 .battle-verdict {
   margin-top: 20px;
   padding: 16px;
@@ -465,14 +489,14 @@ body {
 }
 
 /* Upgrader Layout */
-.upgrader-layout {
+.upgrader-layout, .battles-layout {
   display: grid;
   grid-template-columns: 320px 1fr 320px;
   gap: 24px;
 }
 
 @media (max-width: 960px) {
-  .upgrader-layout {
+  .upgrader-layout, .battles-layout {
     grid-template-columns: 1fr;
   }
 }
@@ -502,7 +526,7 @@ body {
 }
 
 .upgrade-inv-item {
-  background: #10131a;
+  background: #0d1017;
   border: 1px solid var(--border-color);
   border-left: 4px solid var(--rarity-common);
   border-radius: 8px;
@@ -519,7 +543,7 @@ body {
   background: var(--bg-card-hover);
 }
 
-/* Upgrader Wheel & Rotating Arrow */
+/* Upgrader Wheel */
 .upgrader-wheel-box {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -545,7 +569,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #1f242d;
+  background: #181d28;
   border: 6px solid var(--border-color);
   position: relative;
   overflow: hidden;
@@ -554,7 +578,6 @@ body {
   justify-content: center;
 }
 
-/* Green Win Sector positioned symmetrically at the BOTTOM */
 .win-sector {
   position: absolute;
   inset: 0;
@@ -572,19 +595,16 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--text-main);
 }
 
-/* Rotating Arrow Container */
 .arrow-rotor {
   position: absolute;
   inset: 0;
   z-index: 15;
-  will-change: transform;
 }
 
-/* Arrow pointing UP at 0deg, rotates around wheel */
 .rotor-pointer {
   position: absolute;
   top: 4px;
@@ -602,32 +622,7 @@ body {
   width: 100%;
 }
 
-.chance-buttons {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-  width: 100%;
-}
-
-.chance-btn {
-  flex: 1;
-  background: #10131a;
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-  padding: 10px 0;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.chance-btn.active {
-  background: var(--accent);
-  color: #000;
-  border-color: var(--accent);
-}
-
-/* ROCKET (CRASH) ARENA */
+/* Rocket Arena */
 .rocket-layout {
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -693,7 +688,6 @@ body {
   position: relative;
   z-index: 10;
   text-align: center;
-  pointer-events: none;
 }
 
 .rocket-multiplier {
@@ -703,13 +697,8 @@ body {
   text-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
 
-.rocket-multiplier.crashed {
-  color: var(--lose);
-}
-
-.rocket-multiplier.claimed {
-  color: var(--win);
-}
+.rocket-multiplier.crashed { color: var(--lose); }
+.rocket-multiplier.claimed { color: var(--win); }
 
 .rocket-value-preview {
   font-size: 16px;
@@ -724,10 +713,56 @@ body {
   left: 20px;
   font-size: 40px;
   z-index: 12;
-  transition: transform 0.1s linear;
 }
 
-/* Inventory Grid */
+/* Quests & Progression Layout */
+.quests-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.quest-card-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.xp-bar-container {
+  width: 100%;
+  height: 12px;
+  background: #0d1017;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  margin-top: 12px;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--win));
+  transition: width 0.4s ease;
+}
+
+.quest-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d1017;
+  border: 1px solid var(--border-color);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+/* Inventory & Toolbar */
+.inv-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
 .inventory-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -805,7 +840,7 @@ body {
 .auth-tab {
   flex: 1;
   padding: 8px;
-  background: #10131a;
+  background: #0d1017;
   border: 1px solid var(--border-color);
   color: var(--text-muted);
   border-radius: 6px;
@@ -829,10 +864,10 @@ body {
   margin-bottom: 6px;
 }
 
-.form-group input {
+.form-select, .form-group input {
   width: 100%;
   padding: 10px 12px;
-  background: #10131a;
+  background: #0d1017;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   color: var(--text-main);
