@@ -1,8 +1,7 @@
 // ==========================================
-// 1. CATEGORIZED CASES DATABASE (20 CASES)
+// 1. CASES DATABASE (20 CASES)
 // ==========================================
 const CASES_DATA = [
-  // CATEGORY: FREE & STARTER
   {
     id: 'free_unlimited',
     category: 'Free & Starter Cases',
@@ -60,8 +59,6 @@ const CASES_DATA = [
       { name: 'Karambit | Waves', price: 260.0, rarity: 'legendary', emoji: '⚔️', weight: 6 }
     ]
   },
-
-  // CATEGORY: SERIAL CASES (MOVIES & HORROR)
   {
     id: 'alien',
     category: 'Serial Cases',
@@ -133,22 +130,6 @@ const CASES_DATA = [
     ]
   },
   {
-    id: 'dawnwalker',
-    category: 'Serial Cases',
-    name: 'The Blood of Dawnwalker',
-    price: 450,
-    isNew: false,
-    icon: '🧛',
-    items: [
-      { name: 'AK-47 | X-Ray', price: 220.0, rarity: 'rare', emoji: '🦴', weight: 55 },
-      { name: 'M4A1-S | Welcome to the Jungle', price: 850.0, rarity: 'epic', emoji: '🐍', weight: 30 },
-      { name: 'Sport Gloves | Vice', price: 1950.0, rarity: 'epic', emoji: '💎', weight: 10 },
-      { name: 'Butterfly Knife | Ruby', price: 5500.0, rarity: 'legendary', emoji: '❤️', weight: 5 }
-    ]
-  },
-
-  // CATEGORY: IMAGE CASES (CHARMS, STICKERS, AGENTS, PATCHES)
-  {
     id: 'charms_box',
     category: 'Image & Collectible Cases',
     name: 'Weapon Charms',
@@ -177,64 +158,6 @@ const CASES_DATA = [
     ]
   },
   {
-    id: 'stickers_xl',
-    category: 'Image & Collectible Cases',
-    name: 'Stickers XL-Box',
-    price: 45,
-    isNew: false,
-    icon: '🌟',
-    items: [
-      { name: 'Sticker | Natus Vincere (Holo)', price: 25.0, rarity: 'rare', emoji: '⚡', weight: 50 },
-      { name: 'Sticker | Virtus.Pro (Foil)', price: 75.0, rarity: 'epic', emoji: '🐻', weight: 30 },
-      { name: 'Sticker | Reason Gaming (Holo)', price: 210.0, rarity: 'epic', emoji: '🔥', weight: 15 },
-      { name: 'Sticker | iBUYPOWER (Holo)', price: 850.0, rarity: 'legendary', emoji: '🦁', weight: 5 }
-    ]
-  },
-  {
-    id: 'patches_box',
-    category: 'Image & Collectible Cases',
-    name: 'Elite Patches',
-    price: 30,
-    isNew: false,
-    icon: '🛡️',
-    items: [
-      { name: 'Patch | Boss', price: 15.0, rarity: 'common', emoji: '😎', weight: 50 },
-      { name: 'Patch | Dragon Lore', price: 50.0, rarity: 'rare', emoji: '🐉', weight: 30 },
-      { name: 'Patch | Howl', price: 120.0, rarity: 'epic', emoji: '🐺', weight: 15 },
-      { name: 'Patch | Gold Web', price: 340.0, rarity: 'legendary', emoji: '🕸️', weight: 5 }
-    ]
-  },
-  {
-    id: 'agents_box',
-    category: 'Image & Collectible Cases',
-    name: 'Special Agents',
-    price: 75,
-    isNew: false,
-    icon: '🕵️',
-    items: [
-      { name: 'Agent | Ground Rebel', price: 38.0, rarity: 'rare', emoji: '🪖', weight: 50 },
-      { name: 'Agent | Sir Bloody Miami Darryl', price: 130.0, rarity: 'epic', emoji: '🎭', weight: 30 },
-      { name: 'Agent | Number K', price: 280.0, rarity: 'epic', emoji: '🤍', weight: 15 },
-      { name: 'Agent | Lt. Commander Ricksaw', price: 750.0, rarity: 'legendary', emoji: '🎖️', weight: 5 }
-    ]
-  },
-  {
-    id: 'capsules_box',
-    category: 'Image & Collectible Cases',
-    name: 'Legends Capsule',
-    price: 120,
-    isNew: false,
-    icon: '💊',
-    items: [
-      { name: 'Capsule | Stockholm Contenders', price: 60.0, rarity: 'rare', emoji: '🏆', weight: 50 },
-      { name: 'Capsule | Antwerp Legends', price: 200.0, rarity: 'epic', emoji: '💎', weight: 30 },
-      { name: 'Capsule | Katowice 2015', price: 480.0, rarity: 'epic', emoji: '🔥', weight: 15 },
-      { name: 'Capsule | EMS Katowice 2014', price: 1600.0, rarity: 'legendary', emoji: '👑', weight: 5 }
-    ]
-  },
-
-  // CATEGORY: HIGH ROLLER VAULTS
-  {
     id: 'royal_vault',
     category: 'High Roller Vaults',
     name: 'Royal Vault',
@@ -261,34 +184,6 @@ const CASES_DATA = [
       { name: 'M4A4 | Eye of Horus', price: 2100.0, rarity: 'epic', emoji: '👁️', weight: 13 },
       { name: 'AWP | Dragon Lore', price: 6500.0, rarity: 'legendary', emoji: '🐲', weight: 5 }
     ]
-  },
-  {
-    id: 'godlike',
-    category: 'High Roller Vaults',
-    name: 'Godlike Tier',
-    price: 750,
-    isNew: false,
-    icon: '⚡',
-    items: [
-      { name: 'AK-47 | Wild Lotus', price: 400.0, rarity: 'rare', emoji: '🌸', weight: 52 },
-      { name: 'Sport Gloves | Vice (FN)', price: 1500.0, rarity: 'epic', emoji: '💎', weight: 30 },
-      { name: 'Karambit | Crimson Web', price: 3200.0, rarity: 'epic', emoji: '🕷️', weight: 13 },
-      { name: 'Butterfly Knife | Sapphire', price: 9200.0, rarity: 'legendary', emoji: '💙', weight: 5 }
-    ]
-  },
-  {
-    id: 'millionaire',
-    category: 'High Roller Vaults',
-    name: 'Millionaire Club',
-    price: 1000,
-    isNew: false,
-    icon: '💰',
-    items: [
-      { name: 'Desert Eagle | Printstream', price: 550.0, rarity: 'rare', emoji: '🤍', weight: 52 },
-      { name: 'M4A4 | Howl (Factory New)', price: 2200.0, rarity: 'epic', emoji: '🔥', weight: 30 },
-      { name: 'AWP | Gungnir (Factory New)', price: 4800.0, rarity: 'epic', emoji: '🌟', weight: 13 },
-      { name: 'Karambit | Emerald', price: 15000.0, rarity: 'legendary', emoji: '💚', weight: 5 }
-    ]
   }
 ];
 
@@ -299,7 +194,6 @@ const RARITY_COLORS = {
   legendary: '#f59e0b'
 };
 
-// Собираем пул всех уникальных скинов для выбора в Апгрейдере
 const ALL_SKINS_POOL = [];
 const seenSkinNames = new Set();
 CASES_DATA.forEach(c => {
@@ -313,7 +207,7 @@ CASES_DATA.forEach(c => {
 ALL_SKINS_POOL.sort((a, b) => a.price - b.price);
 
 // ==========================================
-// 2. STATE
+// 2. STATE & PROGRESSION
 // ==========================================
 let currentUser = null;
 let userProfile = null;
@@ -321,17 +215,17 @@ let userInventory = [];
 let authMode = 'login';
 let isOpeningRunning = false;
 
-// Case Modal State
 let activeModalCase = null;
 let selectedModalQty = 1;
+let lastOpenedItems = [];
 
-// Upgrader State
+// Upgrader State (Dynamic chance based on source/target price ratio)
 let selectedUpgradeItem = null;
 let selectedTargetSkin = null;
-let upgradeChance = 10;
+let computedUpgradeChance = 10;
 let isUpgrading = false;
 
-// Rocket (Crash) State
+// Rocket State
 let selectedRocketItem = null;
 let isRocketFlying = false;
 let rocketMultiplier = 1.00;
@@ -339,12 +233,24 @@ let rocketCrashPoint = 1.00;
 let rocketAnimFrame = null;
 let rocketStartTime = 0;
 
+// Quests State
+let userQuests = {
+  openCasesCount: 0,
+  winRocket: false,
+  didUpgrade: false,
+  claimedStreak: false,
+  lastClaimDate: null
+};
+
 // ==========================================
 // 3. INIT & AUTH
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
   renderCategorizedCases();
+  renderBattleCaseSelect();
   updateWheelSector();
+  loadLocalQuests();
+  renderQuestsUI();
 
   const { data: { session } } = await sb.auth.getSession();
   if (session) {
@@ -374,10 +280,13 @@ async function loadUserData(user) {
 
   if (!error && profile) {
     userProfile = profile;
+    if (!userProfile.xp) userProfile.xp = 0;
+    if (!userProfile.level) userProfile.level = 1;
   }
 
   await fetchInventory();
   updateUI();
+  renderQuestsUI();
 }
 
 async function fetchInventory() {
@@ -406,11 +315,38 @@ function updateUI() {
     authControls.classList.remove('hidden');
     document.getElementById('user-balance').textContent = Number(userProfile.balance).toFixed(2);
     document.getElementById('user-name').textContent = userProfile.username || currentUser.email;
+    document.getElementById('user-lvl-badge').textContent = `Lvl ${userProfile.level || 1}`;
+    updateXPBar();
   } else {
     guestControls.classList.remove('hidden');
     authControls.classList.add('hidden');
     document.getElementById('inv-count').textContent = '0';
   }
+}
+
+function addXP(amount) {
+  if (!userProfile) return;
+  userProfile.xp = (userProfile.xp || 0) + amount;
+  const neededXP = userProfile.level * 500;
+  if (userProfile.xp >= neededXP) {
+    userProfile.level = (userProfile.level || 1) + 1;
+    showToast(`LEVEL UP! You reached Level ${userProfile.level}!`);
+  }
+  updateXPBar();
+  if (currentUser) {
+    sb.from('profiles').update({ xp: userProfile.xp, level: userProfile.level }).eq('id', currentUser.id);
+  }
+}
+
+function updateXPBar() {
+  const lvl = userProfile?.level || 1;
+  const xp = userProfile?.xp || 0;
+  const needed = lvl * 500;
+  const pct = Math.min(100, (xp / needed) * 100);
+
+  document.getElementById('xp-bar-fill').style.width = `${pct}%`;
+  document.getElementById('player-lvl-text').textContent = `Level ${lvl}`;
+  document.getElementById('player-xp-text').textContent = `${xp} / ${needed} XP`;
 }
 
 // ==========================================
@@ -471,10 +407,10 @@ async function logout() {
 }
 
 // ==========================================
-// 5. NAVIGATION & RENDERING CATEGORIZED CASES
+// 5. NAVIGATION & RENDER CASES
 // ==========================================
 function switchTab(tab) {
-  ['cases', 'upgrader', 'rocket', 'inventory'].forEach(t => {
+  ['cases', 'battles', 'upgrader', 'rocket', 'quests', 'inventory'].forEach(t => {
     document.getElementById(`view-${t}`).classList.toggle('hidden', t !== tab);
     document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
   });
@@ -520,7 +456,7 @@ function renderCategorizedCases() {
 }
 
 // ==========================================
-// 6. CASE POPUP MODAL (UP TO 10 + BALANCE CHECK)
+// 6. CASE MODAL & OPENING
 // ==========================================
 function openCaseModal(caseId) {
   if (!currentUser || !userProfile) {
@@ -534,8 +470,6 @@ function openCaseModal(caseId) {
 
   activeModalCase = caseObj;
   const userBal = Number(userProfile.balance);
-
-  // Вычисляем, сколько максимум можно открыть (до 10)
   const maxAffordable = caseObj.price === 0 ? 10 : Math.min(10, Math.floor(userBal / caseObj.price));
   selectedModalQty = maxAffordable >= 1 ? 1 : 0;
 
@@ -565,11 +499,7 @@ function renderCaseModalBody(maxAffordable) {
   for (let i = 1; i <= 10; i++) {
     const canAfford = i <= maxAffordable;
     qtyButtonsHTML += `
-      <button 
-        class="qty-choice-btn ${selectedModalQty === i ? 'selected' : ''}" 
-        ${!canAfford ? 'disabled' : ''} 
-        onclick="selectModalQuantity(${i})"
-      >
+      <button class="qty-choice-btn ${selectedModalQty === i ? 'selected' : ''}" ${!canAfford ? 'disabled' : ''} onclick="selectModalQuantity(${i})">
         ${i}x
       </button>
     `;
@@ -579,33 +509,18 @@ function renderCaseModalBody(maxAffordable) {
     <div class="modal-case-preview">
       <div style="font-size: 64px; margin-bottom: 6px;">${c.icon}</div>
       <div style="color: var(--text-muted); font-size: 13px;">
-        ${c.price === 0 ? 'Unlimited Free Case! Open up to 10 at once.' : `Price per case: $${c.price} | Max affordable: ${maxAffordable}`}
+        ${c.price === 0 ? 'Unlimited Free Case!' : `Price: $${c.price} | Max affordable: ${maxAffordable}`}
       </div>
     </div>
-
-    <div style="margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--text-muted);">
-      Select quantity to open (1 - 10):
-    </div>
-    <div class="modal-qty-grid">
-      ${qtyButtonsHTML}
-    </div>
-
-    <button 
-      class="btn btn-primary btn-full" 
-      ${selectedModalQty === 0 ? 'disabled' : ''} 
-      onclick="confirmAndOpenCase()"
-    >
-      ${selectedModalQty === 0 
-        ? 'Insufficient Balance' 
-        : (c.price === 0 ? `Open ${selectedModalQty}x for FREE` : `Open ${selectedModalQty}x for $${totalCost.toFixed(2)}`)}
+    <div style="margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--text-muted);">Select quantity (1 - 10):</div>
+    <div class="modal-qty-grid">${qtyButtonsHTML}</div>
+    <button class="btn btn-primary btn-full" ${selectedModalQty === 0 ? 'disabled' : ''} onclick="confirmAndOpenCase()">
+      ${selectedModalQty === 0 ? 'Insufficient Balance' : (c.price === 0 ? `Open ${selectedModalQty}x FREE` : `Open ${selectedModalQty}x for $${totalCost.toFixed(2)}`)}
     </button>
-
     <div class="modal-contents-list">
       ${c.items.map(item => `
         <div class="mini-item-chip" style="border-left-color: ${RARITY_COLORS[item.rarity]}">
-          <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:145px;">
-            ${item.emoji} ${item.name}
-          </span>
+          <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:145px;">${item.emoji} ${item.name}</span>
           <span style="color:var(--win); font-weight:700;">$${item.price}</span>
         </div>
       `).join('')}
@@ -613,9 +528,6 @@ function renderCaseModalBody(maxAffordable) {
   `;
 }
 
-// ==========================================
-// 7. CASE OPENING ROULETTE EXECUTION
-// ==========================================
 function pickRandomItem(items) {
   const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
   let rand = Math.random() * totalWeight;
@@ -628,7 +540,6 @@ function pickRandomItem(items) {
 
 async function confirmAndOpenCase() {
   if (!activeModalCase || selectedModalQty < 1 || isOpeningRunning) return;
-
   const selectedCase = activeModalCase;
   const qty = selectedModalQty;
   const totalCost = selectedCase.price * qty;
@@ -636,32 +547,21 @@ async function confirmAndOpenCase() {
   closeCaseModal();
   isOpeningRunning = true;
 
-  // Deduct balance if paid case
   if (totalCost > 0) {
-    const newBalance = Number(userProfile.balance) - totalCost;
-    const { error: balErr } = await sb
-      .from('profiles')
-      .update({ balance: newBalance })
-      .eq('id', currentUser.id);
-
-    if (balErr) {
-      showToast('Balance transaction error');
-      isOpeningRunning = false;
-      return;
-    }
-
-    userProfile.balance = newBalance;
+    const newBal = Number(userProfile.balance) - totalCost;
+    await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
+    userProfile.balance = newBal;
     updateUI();
   }
 
-  // Prepare Arena
   const arena = document.getElementById('opening-arena');
-  const closeBtn = document.getElementById('close-arena-btn');
   const verdictBox = document.getElementById('opening-verdict');
   const roulettesContainer = document.getElementById('roulettes-container');
 
   arena.classList.remove('hidden');
-  closeBtn.disabled = true;
+  document.getElementById('close-arena-btn').disabled = true;
+  document.getElementById('repeat-open-btn').disabled = true;
+  document.getElementById('sell-all-opened-btn').disabled = true;
   verdictBox.classList.add('hidden');
   document.getElementById('opening-title').textContent = `Opening: ${selectedCase.name} (${qty}x)`;
 
@@ -684,13 +584,11 @@ async function confirmAndOpenCase() {
     wonItems.push(pickRandomItem(selectedCase.items));
   }
 
-  const spinPromises = wonItems.map((targetItem, index) => {
-    return spinSlowRoulette(`track-${index}`, selectedCase.items, targetItem);
-  });
-
+  const spinPromises = wonItems.map((targetItem, index) => spinSlowRoulette(`track-${index}`, selectedCase.items, targetItem));
   await Promise.all(spinPromises);
 
-  // Save to inventory
+  lastOpenedItems = wonItems;
+
   const insertPayload = wonItems.map(item => ({
     user_id: currentUser.id,
     item_name: item.name,
@@ -702,10 +600,22 @@ async function confirmAndOpenCase() {
   await sb.from('inventory').insert(insertPayload);
   await fetchInventory();
 
+  // Добавляем в लाइव тикер
+  wonItems.forEach(item => addLiveTickerItem(userProfile.username || currentUser.email, selectedCase.name, item.name, item.price));
+
+  // Квесты & XP
+  userQuests.openCasesCount += qty;
+  addXP(qty * 25);
+  saveLocalQuests();
+  renderQuestsUI();
+
   const totalWonPrice = wonItems.reduce((s, i) => s + i.price, 0);
   verdictBox.textContent = `Won ${qty} item(s)! Total value: $${totalWonPrice.toFixed(2)}`;
   verdictBox.classList.remove('hidden');
-  closeBtn.disabled = false;
+
+  document.getElementById('close-arena-btn').disabled = false;
+  document.getElementById('repeat-open-btn').disabled = false;
+  document.getElementById('sell-all-opened-btn').disabled = false;
   isOpeningRunning = false;
 }
 
@@ -720,8 +630,8 @@ function spinSlowRoulette(trackId, pool, targetItem) {
       const item = (i === winIndex) ? targetItem : pool[Math.floor(Math.random() * pool.length)];
       cards.push(`
         <div class="roulette-item" style="border-bottom-color: ${RARITY_COLORS[item.rarity]}">
-          <div class="item-emoji">${item.emoji}</div>
-          <div class="item-name">${item.name}</div>
+          <div style="font-size: 28px;">${item.emoji}</div>
+          <div style="font-size: 10px; margin-top: 4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:92px;">${item.name}</div>
         </div>
       `);
     }
@@ -744,13 +654,41 @@ function spinSlowRoulette(trackId, pool, targetItem) {
 }
 
 function closeOpeningArena() {
-  if (!isOpeningRunning) {
-    document.getElementById('opening-arena').classList.add('hidden');
+  if (!isOpeningRunning) document.getElementById('opening-arena').classList.add('hidden');
+}
+
+async function repeatLastOpening() {
+  if (!activeModalCase || isOpeningRunning) return;
+  openCaseModal(activeModalCase.id);
+  // Авто-подтверждаем с тем же количеством
+  setTimeout(() => confirmAndOpenCase(), 100);
+}
+
+async function sellAllOpenedItems() {
+  if (lastOpenedItems.length === 0) return;
+  const totalPrice = lastOpenedItems.reduce((sum, i) => sum + i.price, 0);
+
+  // Удаляем последние добавленные предметы из инвентаря
+  for (const item of lastOpenedItems) {
+    const found = userInventory.find(inv => inv.item_name === item.name);
+    if (found) {
+      await sb.from('inventory').delete().eq('id', found.id);
+    }
   }
+
+  const newBal = Number(userProfile.balance) + totalPrice;
+  await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
+  userProfile.balance = newBal;
+  updateUI();
+  await fetchInventory();
+
+  lastOpenedItems = [];
+  document.getElementById('sell-all-opened-btn').disabled = true;
+  showToast(`Sold opened items for +$${totalPrice.toFixed(2)}`);
 }
 
 // ==========================================
-// 8. UPGRADER (BOTTOM GREEN ZONE, ROTATING ARROW, TARGET SKIN PICKER)
+// 7. UPGRADER (DYNAMIC ODDS PER TARGET SKIN)
 // ==========================================
 function renderUpgradeInventory() {
   const container = document.getElementById('upgrade-inv-select');
@@ -780,75 +718,62 @@ function selectUpgradeItem(itemId) {
   validateUpgrader();
 }
 
-function setUpgradeChance(chance) {
-  upgradeChance = chance;
-  selectedTargetSkin = null;
-  document.querySelectorAll('.chance-btn').forEach(btn => {
-    btn.classList.toggle('active', parseInt(btn.textContent) === chance);
-  });
-  document.getElementById('wheel-chance-label').textContent = `${chance}%`;
-  updateWheelSector();
-  renderTargetSkinsList();
-  validateUpgrader();
-}
-
-/**
- * Зеленое поле расположено СИММЕТРИЧНО СНИЗУ (вокруг 180 градусов / 6 часов).
- * При 50% зеленая зона занимает ровно нижнюю половину колеса (от 90° до 270°).
- * При уменьшении процента зона симметрично сужается к нижней точке.
- */
-function updateWheelSector() {
-  const winSector = document.getElementById('win-sector');
-  const degrees = (upgradeChance / 100) * 360;
-  const startDeg = 180 - (degrees / 2);
-
-  winSector.style.background = `conic-gradient(from ${startDeg}deg at 50% 50%, var(--win) 0deg, var(--win) ${degrees}deg, transparent ${degrees}deg)`;
-}
-
 function renderTargetSkinsList() {
   const list = document.getElementById('target-skins-list');
   if (!selectedUpgradeItem) {
-    list.innerHTML = '<p class="muted-text">Select your item first to see available target skins.</p>';
+    list.innerHTML = '<p class="muted-text">Select your item first.</p>';
     return;
   }
 
-  const multiplier = 100 / upgradeChance;
-  const maxTargetPrice = selectedUpgradeItem.item_price * multiplier;
-  const minTargetPrice = selectedUpgradeItem.item_price * 1.05;
+  // Фильтруем скины, которые дороже источника
+  const availableTargets = ALL_SKINS_POOL.filter(s => s.price > selectedUpgradeItem.item_price).slice(0, 15);
 
-  // Фильтруем скины из общего пула, подходящие по стоимости для этого апгрейда
-  let availableTargets = ALL_SKINS_POOL.filter(s => s.price >= minTargetPrice && s.price <= maxTargetPrice * 1.15);
-
-  // Если подходящих скинов мало, создаем динамический вариант на основе дорогих скинов
   if (availableTargets.length === 0) {
-    availableTargets = ALL_SKINS_POOL.filter(s => s.price > selectedUpgradeItem.item_price).slice(0, 6);
+    list.innerHTML = '<p class="muted-text">No higher-tier skins available.</p>';
+    return;
   }
 
-  list.innerHTML = availableTargets.map((skin, idx) => `
-    <div class="upgrade-inv-item ${selectedTargetSkin?.name === skin.name ? 'selected' : ''}" onclick="selectTargetSkin(${idx})">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span style="font-size:24px;">${skin.emoji}</span>
-        <div>
-          <div style="font-weight:700; font-size:13px;">${skin.name}</div>
-          <div style="color:var(--win); font-size:12px;">$${Number(skin.price).toFixed(2)}</div>
-        </div>
-      </div>
-    </div>
-  `).join('');
+  list.innerHTML = availableTargets.map((skin, idx) => {
+    // Индивидуальный расчет шанса: (цена источника / цена цели) * 100%
+    const chance = Math.min(95, Math.max(1, (selectedUpgradeItem.item_price / skin.price) * 100));
+    const isSelected = selectedTargetSkin?.name === skin.name;
 
-  // Сохраняем текущий отфильтрованный список для выбора по индексу
+    return `
+      <div class="upgrade-inv-item ${isSelected ? 'selected' : ''}" onclick="selectTargetSkin(${idx})">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:24px;">${skin.emoji}</span>
+          <div>
+            <div style="font-weight:700; font-size:13px;">${skin.name}</div>
+            <div style="color:var(--win); font-size:12px;">$${Number(skin.price).toFixed(2)}</div>
+          </div>
+        </div>
+        <div style="font-weight:800; color:var(--accent); font-size:13px;">${chance.toFixed(1)}%</div>
+      </div>
+    `;
+  });
+
   window.currentAvailableTargets = availableTargets;
 }
 
 function selectTargetSkin(idx) {
   selectedTargetSkin = window.currentAvailableTargets[idx];
+  computedUpgradeChance = Math.min(95, Math.max(1, (selectedUpgradeItem.item_price / selectedTargetSkin.price) * 100));
+
+  document.getElementById('wheel-chance-label').textContent = `${computedUpgradeChance.toFixed(1)}%`;
+  updateWheelSector();
   renderTargetSkinsList();
   validateUpgrader();
 }
 
+function updateWheelSector() {
+  const winSector = document.getElementById('win-sector');
+  const degrees = (computedUpgradeChance / 100) * 360;
+  const startDeg = 180 - (degrees / 2);
+  winSector.style.background = `conic-gradient(from ${startDeg}deg at 50% 50%, var(--win) 0deg, var(--win) ${degrees}deg, transparent ${degrees}deg)`;
+}
+
 function validateUpgrader() {
-  const btn = document.getElementById('spin-wheel-btn');
-  btn.disabled = !selectedUpgradeItem || !selectedTargetSkin || isUpgrading;
+  document.getElementById('spin-wheel-btn').disabled = !selectedUpgradeItem || !selectedTargetSkin || isUpgrading;
 }
 
 async function startUpgrade() {
@@ -856,11 +781,9 @@ async function startUpgrade() {
   isUpgrading = true;
   validateUpgrader();
 
-  // Удаляем исходный скин из инвентаря
   await sb.from('inventory').delete().eq('id', selectedUpgradeItem.id);
 
   const rotor = document.getElementById('arrow-rotor');
-  // Стрелка делает 6 полных оборотов + случайный финальный угол (0..359)
   const finalAngle = Math.floor(Math.random() * 360);
   const totalRotation = 2160 + finalAngle;
 
@@ -868,16 +791,10 @@ async function startUpgrade() {
   rotor.style.transform = `rotate(${totalRotation}deg)`;
 
   setTimeout(async () => {
-    // Зеленый сектор находится внизу (центр на 180 градусах).
-    // Границы зеленого сектора: [180 - halfDeg, 180 + halfDeg]
-    const halfDeg = (upgradeChance / 100) * 360 / 2;
-    const minWinAngle = 180 - halfDeg;
-    const maxWinAngle = 180 + halfDeg;
-
-    const isWin = finalAngle >= minWinAngle && finalAngle <= maxWinAngle;
+    const halfDeg = (computedUpgradeChance / 100) * 360 / 2;
+    const isWin = finalAngle >= (180 - halfDeg) && finalAngle <= (180 + halfDeg);
 
     if (isWin) {
-      // Выигранный скин записывается с обычным именем без префиксов!
       await sb.from('inventory').insert([{
         user_id: currentUser.id,
         item_name: selectedTargetSkin.name,
@@ -885,11 +802,15 @@ async function startUpgrade() {
         item_price: selectedTargetSkin.price,
         item_image: selectedTargetSkin.emoji
       }]);
-
-      showToast(`UPGRADE SUCCESS! Won ${selectedTargetSkin.name} ($${selectedTargetSkin.price.toFixed(2)})`);
+      showToast(`UPGRADE SUCCESS! Won ${selectedTargetSkin.name}!`);
     } else {
-      showToast('Upgrade failed. Better luck next time!');
+      showToast('Upgrade failed!');
     }
+
+    userQuests.didUpgrade = true;
+    addXP(50);
+    saveLocalQuests();
+    renderQuestsUI();
 
     selectedUpgradeItem = null;
     selectedTargetSkin = null;
@@ -899,14 +820,13 @@ async function startUpgrade() {
     renderTargetSkinsList();
     validateUpgrader();
 
-    // Мгновенный сброс стрелки в исходное положение
     rotor.style.transition = 'none';
     rotor.style.transform = 'rotate(0deg)';
   }, 4400);
 }
 
 // ==========================================
-// 9. ROCKET (CRASH GAME WITH SKINS)
+// 8. ROCKET CRASH GAME
 // ==========================================
 function renderRocketInventory() {
   const container = document.getElementById('rocket-inv-select');
@@ -951,18 +871,15 @@ function selectRocketItem(itemId) {
 
 async function startRocket() {
   if (!selectedRocketItem || isRocketFlying || !currentUser) return;
-
   isRocketFlying = true;
   const betSkin = { ...selectedRocketItem };
 
-  // Списываем скин из инвентаря при старте полета
   await sb.from('inventory').delete().eq('id', betSkin.id);
   await fetchInventory();
 
-  // Генерируем точку краша (честная экспоненциальная формула)
   const r = Math.random();
   rocketCrashPoint = Math.max(1.02, Math.floor((0.96 / (1 - r)) * 100) / 100);
-  if (rocketCrashPoint > 50) rocketCrashPoint = 50.00;
+  if (rocketCrashPoint > 40) rocketCrashPoint = 40.00;
 
   const startBtn = document.getElementById('rocket-start-btn');
   const stopBtn = document.getElementById('rocket-stop-btn');
@@ -978,13 +895,10 @@ async function startRocket() {
 
   function animateFlight(now) {
     if (!isRocketFlying) return;
-
     const elapsedSec = (now - rocketStartTime) / 1000;
-    // Плавный ускоряющийся рост множителя
     rocketMultiplier = Math.pow(1.18, elapsedSec * 2.2);
 
     if (rocketMultiplier >= rocketCrashPoint) {
-      // CRASHED!
       isRocketFlying = false;
       multEl.textContent = `${rocketCrashPoint.toFixed(2)}x`;
       multEl.classList.add('crashed');
@@ -993,7 +907,6 @@ async function startRocket() {
       startBtn.classList.remove('hidden');
       startBtn.disabled = true;
       selectedRocketItem = null;
-      addRocketHistory(rocketCrashPoint);
       showToast(`Rocket crashed at ${rocketCrashPoint.toFixed(2)}x!`);
       return;
     }
@@ -1003,11 +916,8 @@ async function startRocket() {
     preview.textContent = `Current Value: $${currentWinVal.toFixed(2)}`;
     stopBtn.textContent = `STOP & CLAIM ($${currentWinVal.toFixed(2)})`;
 
-    // Двигаем ракету по диагонали вверх
     const progress = Math.min(1, elapsedSec / 8);
-    const moveX = progress * 380;
-    const moveY = progress * 220;
-    ship.style.transform = `translate(${moveX}px, -${moveY}px)`;
+    ship.style.transform = `translate(${progress * 380}px, -${progress * 220}px)`;
 
     rocketAnimFrame = requestAnimationFrame(animateFlight);
   }
@@ -1022,8 +932,6 @@ async function stopRocket() {
 
   const finalMult = rocketMultiplier;
   const wonValue = Number((selectedRocketItem.item_price * finalMult).toFixed(2));
-
-  // Подбираем скин из пула, ближайший по новой выигранной цене (или зачисляем на баланс, если дороже всех скинов)
   const upgradedSkin = [...ALL_SKINS_POOL].reverse().find(s => s.price <= wonValue);
 
   const multEl = document.getElementById('rocket-multiplier');
@@ -1039,8 +947,6 @@ async function stopRocket() {
   ship.style.transform = 'translate(0px, 0px)';
 
   if (upgradedSkin && upgradedSkin.price > selectedRocketItem.item_price) {
-    // Выдаем новый крутой скин в инвентарь + сдачу на баланс
-    const remainder = wonValue - upgradedSkin.price;
     await sb.from('inventory').insert([{
       user_id: currentUser.id,
       item_name: upgradedSkin.name,
@@ -1048,49 +954,193 @@ async function stopRocket() {
       item_price: upgradedSkin.price,
       item_image: upgradedSkin.emoji
     }]);
-
-    if (remainder > 0) {
-      const newBal = Number(userProfile.balance) + remainder;
-      await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
-      userProfile.balance = newBal;
-      updateUI();
-    }
-
-    preview.textContent = `CLAIMED: ${upgradedSkin.name} ($${upgradedSkin.price}) + $${remainder.toFixed(2)} balance!`;
-    showToast(`Stopped at ${finalMult.toFixed(2)}x! Won ${upgradedSkin.name}!`);
+    preview.textContent = `CLAIMED: ${upgradedSkin.name}!`;
+    showToast(`Won ${upgradedSkin.name}!`);
   } else {
-    // Зачисляем всю выигранную сумму на баланс
     const newBal = Number(userProfile.balance) + wonValue;
     await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
     userProfile.balance = newBal;
     updateUI();
-
-    preview.textContent = `CLAIMED: +$${wonValue.toFixed(2)} to balance!`;
-    showToast(`Stopped at ${finalMult.toFixed(2)}x! +$${wonValue.toFixed(2)}`);
+    preview.textContent = `CLAIMED: +$${wonValue.toFixed(2)}!`;
+    showToast(`+$${wonValue.toFixed(2)} added to balance!`);
   }
 
-  addRocketHistory(finalMult);
+  userQuests.winRocket = true;
+  addXP(75);
+  saveLocalQuests();
+  renderQuestsUI();
+
   selectedRocketItem = null;
   await fetchInventory();
 }
 
-function addRocketHistory(mult) {
-  const hist = document.getElementById('rocket-history');
-  const cls = mult < 1.5 ? 'low' : (mult < 3.0 ? 'mid' : 'high');
-  const badge = document.createElement('span');
-  badge.className = `hist-badge ${cls}`;
-  badge.textContent = `x${mult.toFixed(2)}`;
-  hist.prepend(badge);
-  if (hist.children.length > 10) hist.lastChild.remove();
+// ==========================================
+// 9. CASE BATTLES & DUELS
+// ==========================================
+function renderBattleCaseSelect() {
+  const sel = document.getElementById('battle-case-select');
+  sel.innerHTML = CASES_DATA.map(c => `<option value="${c.id}">${c.name} ($${c.price})</option>`).join('');
+}
+
+let activeBattles = [];
+
+function createBattleLobby() {
+  if (!currentUser || !userProfile) { openAuthModal(); return; }
+  const caseId = document.getElementById('battle-case-select').value;
+  const mode = document.getElementById('battle-mode-select').value;
+  const cObj = CASES_DATA.find(c => c.id === caseId);
+
+  if (Number(userProfile.balance) < cObj.price) {
+    showToast('Insufficient balance for battle!');
+    return;
+  }
+
+  const lobby = {
+    id: Math.random().toString(36.substring(2, 7)),
+    caseObj: cObj,
+    mode: mode,
+    creator: userProfile.username || currentUser.email,
+    creatorId: currentUser.id,
+    cost: cObj.price,
+    players: [currentUser.email],
+    status: 'waiting'
+  };
+
+  activeBattles.push(lobby);
+  renderBattlesList();
+  showToast('Battle lobby created!');
+}
+
+function renderBattlesList() {
+  const container = document.getElementById('battles-list-container');
+  if (activeBattles.length === 0) {
+    container.innerHTML = '<p class="muted-text">No active lobbies. Create one above!</p>';
+    return;
+  }
+
+  container.innerHTML = activeBattles.map((b, idx) => `
+    <div class="upgrade-inv-item">
+      <div>
+        <div style="font-weight:700;">${b.caseObj.name} (${b.mode})</div>
+        <div style="font-size:12px; color:var(--text-muted);">Creator: ${b.creator} | Cost: $${b.cost}</div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="joinBattle(${idx})">Join Battle</button>
+    </div>
+  `).join('');
+}
+
+async function joinBattle(idx) {
+  const b = activeBattles[idx];
+  if (Number(userProfile.balance) < b.cost) {
+    showToast('Insufficient balance to join!');
+    return;
+  }
+
+  // Списываем стоимость кейса обоим/участникам
+  const newBal = Number(userProfile.balance) - b.cost;
+  await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
+  userProfile.balance = newBal;
+  updateUI();
+
+  // Симулируем бой
+  const drops1 = pickRandomItem(b.caseObj.items);
+  const drops2 = pickRandomItem(b.caseObj.items);
+
+  const sum1 = drops1.price;
+  const sum2 = drops2.price;
+
+  let winnerText = '';
+  if (sum1 >= sum2) {
+    winnerText = `You won the battle! Got ${drops1.name} ($${drops1.price})`;
+    await sb.from('inventory').insert([{
+      user_id: currentUser.id,
+      item_name: drops1.name,
+      item_rarity: drops1.rarity,
+      item_price: drops1.price,
+      item_image: drops1.emoji
+    }]);
+  } else {
+    winnerText = `Opponent won. Their drop: ${drops2.name} ($${drops2.price})`;
+  }
+
+  activeBattles.splice(idx, 1);
+  renderBattlesList();
+  await fetchInventory();
+  addXP(100);
+  showToast(winnerText);
 }
 
 // ==========================================
-// 10. INVENTORY & SELLING
+// 10. QUESTS & STREAK SYSTEM
+// ==========================================
+function loadLocalQuests() {
+  const saved = localStorage.getItem('casebattle_quests');
+  if (saved) {
+    try { userQuests = JSON.parse(saved); } catch(e){}
+  }
+}
+
+function saveLocalQuests() {
+  localStorage.setItem('casebattle_quests', JSON.stringify(userQuests));
+}
+
+function renderQuestsUI() {
+  const container = document.getElementById('quests-list-container');
+  const streakBox = document.getElementById('streak-info-box');
+
+  streakBox.innerHTML = `<p class="muted-text">Daily streak active! Reward: $5.00 + 100 XP</p>`;
+
+  container.innerHTML = `
+    <div class="quest-row">
+      <div>
+        <div style="font-weight:700;">Open 3 Cases</div>
+        <div style="font-size:12px; color:var(--text-muted);">Progress: ${Math.min(3, userQuests.openCasesCount)} / 3</div>
+      </div>
+      <button class="btn btn-sm ${userQuests.openCasesCount >= 3 ? 'btn-win' : 'btn-outline'}" disabled>${userQuests.openCasesCount >= 3 ? 'Completed' : 'In Progress'}</button>
+    </div>
+    <div class="quest-row">
+      <div>
+        <div style="font-weight:700;">Win in Rocket Mode</div>
+        <div style="font-size:12px; color:var(--text-muted);">Status: ${userQuests.winRocket ? 'Completed' : 'Not completed'}</div>
+      </div>
+      <button class="btn btn-sm ${userQuests.winRocket ? 'btn-win' : 'btn-outline'}" disabled>${userQuests.winRocket ? 'Completed' : 'Pending'}</button>
+    </div>
+    <div class="quest-row">
+      <div>
+        <div style="font-weight:700;">Complete an Upgrade</div>
+        <div style="font-size:12px; color:var(--text-muted);">Status: ${userQuests.didUpgrade ? 'Completed' : 'Not completed'}</div>
+      </div>
+      <button class="btn btn-sm ${userQuests.didUpgrade ? 'btn-win' : 'btn-outline'}" disabled>${userQuests.didUpgrade ? 'Completed' : 'Pending'}</button>
+    </div>
+  `;
+}
+
+async function claimDailyStreak() {
+  if (!currentUser || !userProfile) { openAuthModal(); return; }
+  const today = new Date().toDateString();
+  if (userQuests.lastClaimDate === today) {
+    showToast('Already claimed today!');
+    return;
+  }
+
+  userQuests.lastClaimDate = today;
+  saveLocalQuests();
+
+  const newBal = Number(userProfile.balance) + 5.00;
+  await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
+  userProfile.balance = newBal;
+  updateUI();
+  addXP(100);
+  showToast('Claimed daily reward: +$5.00 & +100 XP!');
+}
+
+// ==========================================
+// 11. INVENTORY & BULK SELLING
 // ==========================================
 function renderInventory() {
   const grid = document.getElementById('inventory-grid');
   if (userInventory.length === 0) {
-    grid.innerHTML = '<p class="muted-text">Inventory is empty. Open cases to win skins!</p>';
+    grid.innerHTML = '<p class="muted-text">Inventory is empty.</p>';
     return;
   }
 
@@ -1099,46 +1149,78 @@ function renderInventory() {
       <div class="inv-emoji">${item.item_image || '🎁'}</div>
       <div class="inv-name">${item.item_name}</div>
       <div class="inv-price">$${Number(item.item_price).toFixed(2)}</div>
-      <button class="btn btn-outline btn-sm btn-full" onclick="sellItem('${item.id}', ${item.item_price})">
-        Sell Item
-      </button>
+      <button class="btn btn-outline btn-sm btn-full" onclick="sellItem('${item.id}', ${item.item_price})">Sell Item</button>
     </div>
   `).join('');
 }
 
 async function sellItem(itemId, price) {
   if (!currentUser || !userProfile) return;
+  await sb.from('inventory').delete().eq('id', itemId);
 
-  const { error: delErr } = await sb.from('inventory').delete().eq('id', itemId);
-  if (delErr) {
-    showToast('Error selling item');
+  const updatedBalance = Number(userProfile.balance) + Number(price);
+  await sb.from('profiles').update({ balance: updatedBalance }).eq('id', currentUser.id);
+  userProfile.balance = updatedBalance;
+  updateUI();
+  await fetchInventory();
+  showToast(`Sold for +$${price.toFixed(2)}`);
+}
+
+async function quickSellByPrice(maxPrice) {
+  if (!currentUser || !userProfile) return;
+  const itemsToSell = userInventory.filter(i => Number(i.item_price) <= maxPrice);
+  if (itemsToSell.length === 0) {
+    showToast(`No items under $${maxPrice} found.`);
     return;
   }
 
-  const updatedBalance = Number(userProfile.balance) + Number(price);
-  const { error: balErr } = await sb
-    .from('profiles')
-    .update({ balance: updatedBalance })
-    .eq('id', currentUser.id);
-
-  if (!balErr) {
-    userProfile.balance = updatedBalance;
-    updateUI();
-    await fetchInventory();
-    showToast(`Sold for +$${price.toFixed(2)}`);
+  let totalSum = 0;
+  for (const item of itemsToSell) {
+    totalSum += Number(item.item_price);
+    await sb.from('inventory').delete().eq('id', item.id);
   }
+
+  const updatedBalance = Number(userProfile.balance) + totalSum;
+  await sb.from('profiles').update({ balance: updatedBalance }).eq('id', currentUser.id);
+  userProfile.balance = updatedBalance;
+  updateUI();
+  await fetchInventory();
+  showToast(`Sold ${itemsToSell.length} items for +$${totalSum.toFixed(2)}`);
+}
+
+async function quickSellAllInventory() {
+  if (!currentUser || !userProfile || userInventory.length === 0) return;
+  let totalSum = 0;
+  for (const item of userInventory) {
+    totalSum += Number(item.item_price);
+    await sb.from('inventory').delete().eq('id', item.id);
+  }
+
+  const updatedBalance = Number(userProfile.balance) + totalSum;
+  await sb.from('profiles').update({ balance: updatedBalance }).eq('id', currentUser.id);
+  userProfile.balance = updatedBalance;
+  updateUI();
+  await fetchInventory();
+  showToast(`Sold entire inventory for +$${totalSum.toFixed(2)}`);
 }
 
 // ==========================================
-// 11. TOAST NOTIFICATIONS
+// 12. LIVE TICKER & TOASTS
 // ==========================================
+function addLiveTickerItem(user, caseName, itemName, price) {
+  const feed = document.getElementById('live-ticker-feed');
+  const span = document.createElement('span');
+  span.className = 'ticker-item';
+  span.textContent = `🎁 [${caseName}] ${user.slice(0, 5)}*** won ${itemName} ($${price.toFixed(2)})`;
+  feed.prepend(span);
+  if (feed.children.length > 15) feed.lastChild.remove();
+}
+
 let toastTimer;
 function showToast(msg) {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
   toast.classList.remove('hidden');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    toast.classList.add('hidden');
-  }, 3500);
+  toastTimer = setTimeout(() => toast.classList.add('hidden'), 3500);
 }
