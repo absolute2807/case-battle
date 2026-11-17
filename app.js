@@ -1,18 +1,46 @@
 // ==========================================
-// 1. 30 CASES DATABASE WITH STABLE ICONS
+// 1. HUGE UNIQUE SKINS POOL & 30 CASES DATABASE
 // ==========================================
-const BASE_ITEMS = [
-  { name: 'P250 | Sand Dune', price: 1.00, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 60 },
-  { name: 'MP9 | Storm', price: 4.50, rarity: 'common', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 25 },
-  { name: 'AK-47 | Safari Mesh', price: 16.00, rarity: 'rare', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 10 },
-  { name: 'AWP | Atheris', price: 48.00, rarity: 'epic', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 4 },
-  { name: 'Gut Knife | Free Special', price: 120.00, rarity: 'legendary', image: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 1 }
+const BASE_SKINS_CATALOG = [
+  // Commons & Low Tier
+  { name: 'P250 | Sand Dune', price: 0.50, rarity: 'common', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 50 },
+  { name: 'MP9 | Storm', price: 1.20, rarity: 'common', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 45 },
+  { name: 'Glock-18 | Groundwater', price: 2.10, rarity: 'common', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposbaqKAthoNzLYTJO6dOjh7-PmOfgPLTBuWVu5MB1g_zMu4jwiwGxwks9amD1LdSQJgdsN1vRq1XrlOu918S-uMjAynpjuyEm4i3cnA3in1gSObE-16O_AQA/360fx360f', weight: 40 },
+  { name: 'USP-S | Forest Leaves', price: 3.50, rarity: 'common', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoovujZAt21-TFcz5O6d2jn7-PmOfgPLTBuWVu5MB1g_zMu9St0FXn_kBoNmjwIYOTcAE_Yl-B81O7wbi6jJC178nJyXpn7iEj5yrdnB3in1gSb7Zp_6aL/360fx360f', weight: 35 },
+  { name: 'AK-47 | Safari Mesh', price: 5.80, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 30 },
+  { name: 'M4A4 | Urban DDPAT', price: 8.00, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITUmXlV78g_2buUpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 25 },
+  { name: 'AWP | Safari Mesh', price: 12.50, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 22 },
+  { name: 'Desert Eagle | Mudder', price: 15.00, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f', weight: 20 },
+  { name: 'FAMAS | Colony', price: 18.50, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposbaqKAthoNzLYTJO6dOjh7-PmOfgPLTBuWVu5MB1g_zMu4jwiwGxwks9amD1LdSQJgdsN1vRq1XrlOu918S-uMjAynpjuyEm4i3cnA3in1gSObE-16O_AQA/360fx360f', weight: 18 },
+  { name: 'Galil AR | Sage Spray', price: 22.00, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f', weight: 16 },
+
+  // Mid Tier & Epics
+  { name: 'M4A1-S | Basilisk', price: 35.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITUmXlV78g_2buUpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 14 },
+  { name: 'AK-47 | Redline', price: 55.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 12 },
+  { name: 'AWP | Atheris', price: 75.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 10 },
+  { name: 'Desert Eagle | Code Red', price: 110.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f', weight: 8 },
+  { name: 'USP-S | Neo-Noir', price: 150.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoovujZAt21-TFcz5O6d2jn7-PmOfgPLTBuWVu5MB1g_zMu9St0FXn_kBoNmjwIYOTcAE_Yl-B81O7wbi6jJC178nJyXpn7iEj5yrdnB3in1gSb7Zp_6aL/360fx360f', weight: 7 },
+
+  // Legendaries & Knives
+  { name: 'M4A4 | Asiimov', price: 220.00, rarity: 'legendary', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITUmXlV78g_2buUpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 5 },
+  { name: 'AWP | Asiimov', price: 350.00, rarity: 'legendary', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 4 },
+  { name: 'Gut Knife | Freehand', price: 480.00, rarity: 'legendary', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 3 },
+  { name: 'Karambit | Doppler', price: 750.00, rarity: 'extra', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 2 },
+  { name: 'Butterfly Knife | Gradient', price: 1200.00, rarity: 'extra', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 1 }
+];
+
+const CASE_NAMES_LIST = [
+  "Starter Box", "Newbie Vault", "Recruit Cache", "Cyber Protocol", "Neon Syndicate", 
+  "Gamma Horizon", "Spectrum Wave", "Danger Zone", "Fractal Arsenal", "Chroma Vault", 
+  "Operation Hydra", "Prisma Spark", "Shadow Web", "Broken Fang", "Riptide Drop", 
+  "Dreams & Nightmares", "Recoil Pack", "Anubis Relic", "Kilowatt Surge", "Stellar Stash", 
+  "Titanium Core", "Quantum Vault", "Apex Predator", "Obsidian Drop", "Vanguard Chest", 
+  "Overdrive Crate", "Empowered Pack", "Legendary Cache", "God Tier Vault", "Ultimate Case Battle"
 ];
 
 function generate30Cases() {
   const categories = ['Free & Starter Cases', 'Serial Cases', 'High Roller Vaults', 'Exclusive Collections'];
   const cases = [];
-  let idCounter = 1;
 
   for (let i = 1; i <= 30; i++) {
     let cat = categories[0];
@@ -20,21 +48,28 @@ function generate30Cases() {
     else if (i > 16 && i <= 24) cat = categories[2];
     else if (i > 24) cat = categories[3];
 
-    let price = i === 1 ? 0 : Math.round(i * 3.5);
-    if (cat === 'High Roller Vaults') price = i * 25;
-    if (cat === 'Exclusive Collections') price = i * 60;
+    let price = i === 1 ? 0 : Math.round(i * 3.2);
+    if (cat === 'High Roller Vaults') price = i * 22;
+    if (cat === 'Exclusive Collections') price = i * 55;
+
+    // Уникальная подборка предметов для каждого кейса на основе общей базы
+    const shuffled = [...BASE_SKINS_CATALOG].sort(() => 0.5 - Math.random());
+    const caseItems = shuffled.slice(0, 5).map(item => ({
+      ...item,
+      price: Number((item.price * (1 + i * 0.12)).toFixed(2))
+    }));
+
+    // Создаем SVG-иконку кейса прямо в коде, чтобы не было битых картинок
+    const svgIcon = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="90" viewBox="0 0 120 90"><rect width="120" height="90" rx="12" fill="%23181d28" stroke="%23242c3d" stroke-width="2"/><path d="M35 35h50v30H35z" fill="%23f59e0b" opacity="0.2"/><path d="M45 45h30v10H45z" fill="%23f59e0b"/><circle cx="60" cy="50" r="4" fill="%23080a0f"/></svg>`;
 
     cases.push({
       id: `case_${i}`,
       category: cat,
-      name: `Case Series #${i}`,
+      name: CASE_NAMES_LIST[i - 1] || `Case Series #${i}`,
       price: price,
-      isNew: i % 5 === 0,
-      icon: 'https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f',
-      items: BASE_ITEMS.map(item => ({
-        ...item,
-        price: Number((item.price * (1 + i * 0.15)).toFixed(2))
-      }))
+      isNew: i % 4 === 0,
+      icon: svgIcon,
+      items: caseItems
     });
   }
   return cases;
@@ -76,7 +111,7 @@ let selectedModalQty = 1;
 let lastOpenedItems = [];
 
 // Upgrader 2.0 State
-let selectedUpgradeItems = []; // Up to 6 items
+let selectedUpgradeItems = [];
 let addedBalance = 0.00;
 let selectedTargetSkin = null;
 let computedUpgradeChance = 0.0;
@@ -130,18 +165,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadUserData(user) {
   currentUser = user;
-
-  const { data: profile, error } = await sb
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single();
-
+  const { data: profile, error } = await sb.from('profiles').select('*').eq('id', user.id).single();
   if (!error && profile) {
     userProfile = profile;
-    loadLocalLevel(); // Синхронизируем с локалстореджем
+    loadLocalLevel();
   }
-
   await fetchInventory();
   updateUI();
   renderQuestsUI();
@@ -149,12 +177,7 @@ async function loadUserData(user) {
 
 async function fetchInventory() {
   if (!currentUser) return;
-  const { data, error } = await sb
-    .from('inventory')
-    .select('*')
-    .eq('user_id', currentUser.id)
-    .order('created_at', { ascending: false });
-
+  const { data, error } = await sb.from('inventory').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false });
   if (!error && data) {
     userInventory = data;
     document.getElementById('inv-count').textContent = userInventory.length;
@@ -340,7 +363,7 @@ function renderCategorizedCases() {
 }
 
 // ==========================================
-// 6. CASE MODAL & OPENING (Fixed repeat)
+// 6. CASE MODAL & OPENING
 // ==========================================
 function openCaseModal(caseId) {
   if (!currentUser || !userProfile) {
@@ -575,7 +598,7 @@ async function sellAllOpenedItems() {
 }
 
 // ==========================================
-// 7. UPGRADER 2.0 (New UI & Logic)
+// 7. UPGRADER 2.0 (English Button & Price Filter)
 // ==========================================
 function renderUpgradeInventory() {
   const container = document.getElementById('upgrade-inv-select');
@@ -584,7 +607,7 @@ function renderUpgradeInventory() {
 
   if (!container) return;
   if (userInventory.length === 0) {
-    container.innerHTML = '<p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:30px;">НЕТ ДОСТУПНЫХ ПРЕДМЕТОВ ДЛЯ АПГРЕЙДА<br><a href="#" onclick="switchTab(\'cases\')" style="color:var(--accent);">ОТКРОЙТЕ ЛЮБОЙ КЕЙС</a></p>';
+    container.innerHTML = '<p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:30px;">NO ITEMS AVAILABLE<br><a href="#" onclick="switchTab(\'cases\')" style="color:var(--accent);">OPEN ANY CASE</a></p>';
     return;
   }
 
@@ -609,7 +632,7 @@ function toggleUpgradeItem(itemId) {
     selectedUpgradeItems.splice(index, 1);
   } else {
     if (selectedUpgradeItems.length >= 6) {
-      showToast('Можно выбрать не более 6 предметов!');
+      showToast('Maximum 6 items allowed!');
       return;
     }
     selectedUpgradeItems.push(item);
@@ -618,6 +641,7 @@ function toggleUpgradeItem(itemId) {
   renderUpgradeInventory();
   renderSelectedSlots();
   recalculateUpgrader();
+  renderTargetCatalog(); // Пересчитываем каталог, чтобы скрыть скины дешевле ставки
 }
 
 function renderSelectedSlots() {
@@ -631,7 +655,7 @@ function renderSelectedSlots() {
     const item = selectedUpgradeItems[i];
     if (item) {
       html += `
-        <div class="slot-item" onclick="toggleUpgradeItem('${item.id}')" title="Убрать предмет">
+        <div class="slot-item" onclick="toggleUpgradeItem('${item.id}')" title="Remove item">
           <img src="${item.item_image}" alt="${item.item_name}">
         </div>
       `;
@@ -651,6 +675,12 @@ function onBalanceRangeInput(val) {
   }
   document.getElementById('added-balance-label').textContent = `${addedBalance.toFixed(2)} P`;
   recalculateUpgrader();
+  renderTargetCatalog();
+}
+
+function getTotalInputPrice() {
+  const itemsSum = selectedUpgradeItems.reduce((sum, i) => sum + Number(i.item_price), 0);
+  return itemsSum + addedBalance;
 }
 
 function renderTargetCatalog() {
@@ -661,8 +691,11 @@ function renderTargetCatalog() {
 
   let query = searchInput ? searchInput.value.toLowerCase() : '';
   let sortType = sortSelect ? sortSelect.value : 'price';
+  const totalInput = getTotalInputPrice();
 
-  let targets = [...ALL_SKINS_POOL];
+  // Берем только те скины, которые дороже текущей ставки (totalInput)
+  let targets = ALL_SKINS_POOL.filter(s => s.price > totalInput);
+
   if (query) {
     targets = targets.filter(s => s.name.toLowerCase().includes(query));
   }
@@ -674,11 +707,11 @@ function renderTargetCatalog() {
   }
 
   if (targets.length === 0) {
-    list.innerHTML = '<p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:30px;">Ничего не найдено</p>';
+    list.innerHTML = '<p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:30px;">Выберите предметы дороже или добавьте баланс</p>';
     return;
   }
 
-  list.innerHTML = targets.map((skin, idx) => {
+  list.innerHTML = targets.map((skin) => {
     const isSelected = selectedTargetSkin?.name === skin.name;
     return `
       <div class="upgrade-grid-item ${isSelected ? 'selected' : ''}" style="border-bottom-color: ${RARITY_COLORS[skin.rarity] || '#b0c3d9'}" onclick='selectTargetSkinObject(${JSON.stringify(skin)})'>
@@ -701,7 +734,7 @@ function renderTargetSelectedDisplay() {
   const display = document.getElementById('target-selected-display');
   if (!display) return;
   if (!selectedTargetSkin) {
-    display.innerHTML = '<span class="muted-text">Цель не выбрана</span>';
+    display.innerHTML = '<span class="muted-text">Target not selected</span>';
     return;
   }
   display.innerHTML = `
@@ -713,11 +746,6 @@ function renderTargetSelectedDisplay() {
       </div>
     </div>
   `;
-}
-
-function getTotalInputPrice() {
-  const itemsSum = selectedUpgradeItems.reduce((sum, i) => sum + Number(i.item_price), 0);
-  return itemsSum + addedBalance;
 }
 
 function recalculateUpgrader() {
@@ -745,7 +773,8 @@ function updateWheelSector() {
 
 function applyMultiplier(multiplier) {
   if (selectedUpgradeItems.length === 0) return;
-  const targetPrice = selectedUpgradeItems[0].item_price * multiplier;
+  const totalInput = getTotalInputPrice();
+  const targetPrice = totalInput * multiplier;
   const bestSkin = ALL_SKINS_POOL.find(s => s.price >= targetPrice) || ALL_SKINS_POOL[ALL_SKINS_POOL.length - 1];
   if (bestSkin) {
     selectTargetSkinObject(bestSkin);
@@ -977,7 +1006,7 @@ async function stopRocket() {
 }
 
 // ==========================================
-// 9. REAL-TIME CASE BATTLES (Supabase Realtime)
+// 9. REAL-TIME CASE BATTLES
 // ==========================================
 function renderBattleCaseSelect() {
   const sel = document.getElementById('battle-case-select');
