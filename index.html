@@ -1,143 +1,161 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CASE BATTLE — Открытие кейсов и дуэли</title>
+  <title>CASE BATTLE — Case Opening & Upgrader</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Подключение Supabase JS через CDN -->
+  <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <!-- Верхняя панель -->
+  <!-- Navbar -->
   <header class="navbar">
     <div class="logo" onclick="switchTab('cases')">
       <span class="logo-accent">CASE</span>BATTLE
     </div>
 
     <nav class="nav-links">
-      <button class="nav-btn active" id="tab-cases" onclick="switchTab('cases')">Кейсы и Батлы</button>
-      <button class="nav-btn" id="tab-inventory" onclick="switchTab('inventory')">Инвентарь (<span id="inv-count">0</span>)</button>
+      <button class="nav-btn active" id="tab-cases" onclick="switchTab('cases')">Cases</button>
+      <button class="nav-btn" id="tab-upgrader" onclick="switchTab('upgrader')">Upgrader</button>
+      <button class="nav-btn" id="tab-inventory" onclick="switchTab('inventory')">Inventory (<span id="inv-count">0</span>)</button>
     </nav>
 
     <div class="user-panel" id="user-panel">
-      <!-- Состояние: Не авторизован -->
+      <!-- Guest -->
       <div id="guest-controls">
-        <button class="btn btn-primary" onclick="openAuthModal()">Войти / Регистрация</button>
+        <button class="btn btn-primary" onclick="openAuthModal()">Sign In / Register</button>
       </div>
 
-      <!-- Состояние: Авторизован -->
+      <!-- Authorized -->
       <div id="auth-controls" class="hidden">
         <div class="balance-box">
-          <span class="balance-label">Баланс:</span>
-          <span class="balance-value" id="user-balance">0.00</span> ₽
+          <span class="balance-label">Balance:</span>
+          <span class="balance-value" id="user-balance">0.00</span> $
         </div>
         <span class="username-badge" id="user-name">Player</span>
-        <button class="btn btn-outline btn-sm" onclick="logout()">Выйти</button>
+        <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
       </div>
     </div>
   </header>
 
-  <!-- Основной контент -->
+  <!-- Main Container -->
   <main class="container">
 
-    <!-- Вкладка 1: Кейсы и Арена Батла -->
+    <!-- TAB 1: CASES -->
     <section id="view-cases">
       
-      <!-- Арена битвы (появляется при запуске батла) -->
-      <div id="battle-arena" class="battle-arena hidden">
+      <!-- Battle Arena / Open Modal Box -->
+      <div id="opening-arena" class="battle-arena hidden">
         <div class="battle-header">
-          <h2 id="battle-title">Битва за кейс</h2>
-          <button class="btn btn-outline btn-sm" id="close-battle-btn" onclick="closeBattle()" disabled>Закрыть арену</button>
+          <h2 id="opening-title">Opening Case</h2>
+          <button class="btn btn-outline btn-sm" id="close-arena-btn" onclick="closeOpeningArena()" disabled>Close Arena</button>
         </div>
 
-        <div class="battle-grid">
-          <!-- Игрок 1 (Ты) -->
-          <div class="player-lane">
-            <div class="player-info">
-              <span class="player-tag you">ВЫ</span>
-              <span id="p1-name">Вы</span>
-              <span class="player-score" id="p1-score">0 ₽</span>
-            </div>
-            <div class="roulette-window">
-              <div class="roulette-pointer"></div>
-              <div class="roulette-track" id="track-p1"></div>
-            </div>
-            <div class="drop-result" id="p1-drop">Ожидание прокрутки...</div>
-          </div>
-
-          <!-- Игрок 2 (Бот) -->
-          <div class="player-lane">
-            <div class="player-info">
-              <span class="player-tag bot">БОТ</span>
-              <span>CyberBot_99</span>
-              <span class="player-score" id="p2-score">0 ₽</span>
-            </div>
-            <div class="roulette-window">
-              <div class="roulette-pointer"></div>
-              <div class="roulette-track" id="track-p2"></div>
-            </div>
-            <div class="drop-result" id="p2-drop">Ожидание прокрутки...</div>
-          </div>
+        <div id="roulettes-container" class="roulettes-container">
+          <!-- Dynamically generated tracks for multi-opening -->
         </div>
 
-        <div id="battle-verdict" class="battle-verdict hidden"></div>
+        <div id="opening-verdict" class="battle-verdict hidden"></div>
       </div>
 
-      <!-- Список доступных кейсов -->
+      <!-- Case List Header -->
       <div class="section-header">
-        <h1>Выберите кейс для батла (1 vs 1)</h1>
-        <p>Победитель забирает свой дроп и дроп соперника прямо в инвентарь!</p>
+        <h1>Available Cases</h1>
+        <p>Choose a case, set the quantity to open at once, and test your luck!</p>
       </div>
 
-      <div class="cases-grid" id="cases-grid">
-        <!-- Карточки кейсов генерируются через JS -->
+      <!-- Cases Grid (15 Cases) -->
+      <div class="cases-grid" id="cases-grid"></div>
+    </section>
+
+    <!-- TAB 2: UPGRADER -->
+    <section id="view-upgrader" class="hidden">
+      <div class="section-header">
+        <h1>Skin Upgrader</h1>
+        <p>Select an item from your inventory, choose your win chance, and spin the wheel!</p>
+      </div>
+
+      <div class="upgrader-layout">
+        <!-- Left: Item Selection -->
+        <div class="upgrader-panel">
+          <h3>1. Select Item to Upgrade</h3>
+          <div class="upgrade-inv-select" id="upgrade-inv-select">
+            <p style="color: var(--text-muted); font-size: 13px;">No items in inventory. Win cases first!</p>
+          </div>
+        </div>
+
+        <!-- Center: Wheel & Target -->
+        <div class="upgrader-wheel-box">
+          <div class="wheel-container">
+            <div class="wheel-pointer"></div>
+            <div class="fortune-wheel" id="fortune-wheel">
+              <div class="wheel-sector win-sector" id="win-sector"></div>
+            </div>
+          </div>
+          <div class="upgrade-controls">
+            <div class="chance-buttons">
+              <button class="chance-btn active" onclick="setUpgradeChance(10)">10%</button>
+              <button class="chance-btn" onclick="setUpgradeChance(20)">20%</button>
+              <button class="chance-btn" onclick="setUpgradeChance(30)">30%</button>
+              <button class="chance-btn" onclick="setUpgradeChance(50)">50%</button>
+              <button class="chance-btn" onclick="setUpgradeChance(75)">75%</button>
+            </div>
+            <button class="btn btn-primary btn-full" id="spin-wheel-btn" onclick="startUpgrade()" disabled>Upgrade Item</button>
+          </div>
+        </div>
+
+        <!-- Right: Target Item Preview -->
+        <div class="upgrader-panel">
+          <h3>2. Target Prize</h3>
+          <div class="target-preview-card" id="target-preview-card">
+            <div class="target-placeholder">Select item & chance</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Вкладка 2: Инвентарь -->
+    <!-- TAB 3: INVENTORY -->
     <section id="view-inventory" class="hidden">
       <div class="section-header">
-        <h1>Ваш инвентарь</h1>
-        <p>Продавайте скины, чтобы пополнить баланс для новых сражений.</p>
+        <h1>Your Inventory</h1>
+        <p>Sell your skins back to balance or use them in the Upgrader.</p>
       </div>
-      <div class="inventory-grid" id="inventory-grid">
-        <!-- Предметы из Supabase -->
-      </div>
+      <div class="inventory-grid" id="inventory-grid"></div>
     </section>
 
   </main>
 
-  <!-- Модальное окно Авторизации / Регистрации -->
+  <!-- Auth Modal -->
   <div id="auth-modal" class="modal-backdrop hidden">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 id="auth-modal-title">Вход в аккаунт</h3>
+        <h3 id="auth-modal-title">Sign In</h3>
         <button class="close-x" onclick="closeAuthModal()">&times;</button>
       </div>
 
       <div class="auth-tabs">
-        <button class="auth-tab active" id="mode-login" onclick="setAuthMode('login')">Вход</button>
-        <button class="auth-tab" id="mode-register" onclick="setAuthMode('register')">Регистрация</button>
+        <button class="auth-tab active" id="mode-login" onclick="setAuthMode('login')">Sign In</button>
+        <button class="auth-tab" id="mode-register" onclick="setAuthMode('register')">Register ($10 Bonus)</button>
       </div>
 
       <form id="auth-form" onsubmit="handleAuthSubmit(event)">
         <div class="form-group">
-          <label>Электронная почта</label>
-          <input type="email" id="auth-email" required placeholder="player@mail.ru" />
+          <label>Email Address</label>
+          <input type="email" id="auth-email" required placeholder="player@mail.com" />
         </div>
         <div class="form-group">
-          <label>Пароль (минимум 6 символов)</label>
+          <label>Password (min 6 chars)</label>
           <input type="password" id="auth-password" required minlength="6" placeholder="••••••••" />
         </div>
         <div id="auth-error" class="error-msg hidden"></div>
-        <button type="submit" class="btn btn-primary btn-full" id="auth-submit-btn">Войти</button>
+        <button type="submit" class="btn btn-primary btn-full" id="auth-submit-btn">Sign In</button>
       </form>
     </div>
   </div>
 
-  <!-- Всплывающие уведомления -->
+  <!-- Toast Notification -->
   <div id="toast" class="toast hidden"></div>
 
   <script src="config.js"></script>
