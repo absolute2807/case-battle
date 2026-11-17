@@ -10,10 +10,11 @@
   --win: #10b981;
   --lose: #ef4444;
 
-  --rarity-common: #64748b;
-  --rarity-rare: #3b82f6;
-  --rarity-epic: #a855f7;
-  --rarity-legendary: #f59e0b;
+  --rarity-common: #b0c3d9;
+  --rarity-rare: #4b69ff;
+  --rarity-epic: #d32ce6;
+  --rarity-legendary: #eb4b4b;
+  --rarity-extra: #ffd700;
 }
 
 * {
@@ -148,6 +149,7 @@ body {
   display: flex;
   gap: 24px;
   animation: tickerScroll 25s linear infinite;
+  will-change: transform;
 }
 
 .ticker-item {
@@ -155,8 +157,8 @@ body {
 }
 
 @keyframes tickerScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translateZ(0) translateX(0); }
+  100% { transform: translateZ(0) translateX(-50%); }
 }
 
 /* Buttons */
@@ -283,6 +285,7 @@ body {
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s, border-color 0.2s, background 0.2s;
+  will-change: transform;
 }
 
 .case-card:hover {
@@ -300,7 +303,7 @@ body {
 }
 
 .case-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -322,10 +325,24 @@ body {
   border-radius: 4px;
 }
 
-.case-icon {
-  font-size: 62px;
-  margin: 12px 0;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));
+.case-img-wrap {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.case-img {
+  max-height: 85px;
+  max-width: 130px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.5));
+  transition: transform 0.2s;
+}
+
+.case-card:hover .case-img {
+  transform: scale(1.08);
 }
 
 .case-price-tag {
@@ -341,12 +358,19 @@ body {
 
 /* Case Modal */
 .case-modal-card {
-  max-width: 540px;
+  max-width: 560px;
 }
 
 .modal-case-preview {
   text-align: center;
   margin-bottom: 18px;
+}
+
+.modal-case-img {
+  max-height: 120px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
 }
 
 .modal-qty-grid {
@@ -374,7 +398,7 @@ body {
 }
 
 .modal-contents-list {
-  max-height: 180px;
+  max-height: 190px;
   overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -390,9 +414,15 @@ body {
   padding: 6px 10px;
   border-radius: 6px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 8px;
   font-size: 12px;
+}
+
+.mini-item-img {
+  width: 36px;
+  height: 24px;
+  object-fit: contain;
 }
 
 /* Opening Arena */
@@ -435,7 +465,7 @@ body {
 
 .roulette-window {
   position: relative;
-  height: 105px;
+  height: 110px;
   background: #05070a;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -458,11 +488,12 @@ body {
   display: flex;
   height: 100%;
   align-items: center;
+  will-change: transform; /* Оптимизация анимации через GPU */
 }
 
 .roulette-item {
-  min-width: 105px;
-  height: 90px;
+  min-width: 115px;
+  height: 96px;
   margin: 0 4px;
   background: var(--bg-card);
   border-radius: 6px;
@@ -474,6 +505,13 @@ body {
   padding: 6px;
   text-align: center;
   flex-shrink: 0;
+}
+
+.roulette-skin-img {
+  width: 75px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
 }
 
 .battle-verdict {
@@ -543,6 +581,12 @@ body {
   background: var(--bg-card-hover);
 }
 
+.inv-skin-thumb {
+  width: 48px;
+  height: 32px;
+  object-fit: contain;
+}
+
 /* Upgrader Wheel */
 .upgrader-wheel-box {
   background: var(--bg-card);
@@ -603,6 +647,7 @@ body {
   position: absolute;
   inset: 0;
   z-index: 15;
+  will-change: transform; /* Оптимизация вращения стрелки */
 }
 
 .rotor-pointer {
@@ -713,9 +758,10 @@ body {
   left: 20px;
   font-size: 40px;
   z-index: 12;
+  will-change: transform;
 }
 
-/* Quests & Progression Layout */
+/* Quests Layout */
 .quests-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -778,14 +824,23 @@ body {
   text-align: center;
 }
 
-.inv-emoji {
-  font-size: 44px;
+.inv-img-wrap {
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 8px;
+}
+
+.inv-img {
+  max-height: 70px;
+  max-width: 120px;
+  object-fit: contain;
 }
 
 .inv-name {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 4px;
 }
 
