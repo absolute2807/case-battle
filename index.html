@@ -1,474 +1,242 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CASE BATTLE — Открытие кейсов и дуэли</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Подключение Supabase JS через CDN -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CaseBattle - CS2 Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <!-- Верхняя панель -->
-  <header class="navbar">
-    <div class="logo" onclick="switchTab('cases')">
-      <span class="logo-accent">CASE</span>BATTLE
-    </div>
-
-    <nav class="nav-links">
-      <button class="nav-btn active" id="tab-cases" onclick="switchTab('cases')">Кейсы и Батлы</button>
-      <button class="nav-btn" id="tab-inventory" onclick="switchTab('inventory')">Инвентарь (<span id="inv-count">0</span>)</button>
-    </nav>
-
-    <div class="user-panel" id="user-panel">
-      <!-- Состояние: Не авторизован -->
-      <div id="guest-controls">
-        <button class="btn btn-primary" onclick="openAuthModal()">Войти / Регистрация</button>
-      </div>
-
-      <!-- Состояние: Авторизован -->
-      <div id="auth-controls" class="hidden">
-        <div class="balance-box">
-          <span class="balance-label">Баланс:</span>
-          <span class="balance-value" id="user-balance">0.00</span> ₽
-        </div>
-        <span class="username-badge" id="user-name">Player</span>
-        <button class="btn btn-outline btn-sm" onclick="logout()">Выйти</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Основной контент -->
-  <main class="container">
-
-    <!-- Вкладка 1: Кейсы и Арена Батла -->
-    <section id="view-cases">
+  <!-- TOP HEADER -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo" onclick="switchTab('cases')">CASEBATTLE</div>
       
-      <!-- Арена битвы (появляется при запуске батла) -->
-      <div id="battle-arena" class="battle-arena hidden">
-        <div class="battle-header">
-          <h2 id="battle-title">Битва за кейс</h2>
-          <button class="btn btn-outline btn-sm" id="close-battle-btn" onclick="closeBattle()" disabled>Закрыть арену</button>
-        </div>
+      <nav class="nav-tabs">
+        <button id="tab-cases" class="tab-btn active" onclick="switchTab('cases')">Cases</button>
+        <button id="tab-battles" class="tab-btn" onclick="switchTab('battles')">Battles</button>
+        <button id="tab-upgrader" class="tab-btn" onclick="switchTab('upgrader')">Upgrader</button>
+        <button id="tab-rocket" class="tab-btn" onclick="switchTab('rocket')">Rocket</button>
+        <button id="tab-quests" class="tab-btn" onclick="switchTab('quests')">Quests & XP</button>
+        <button id="tab-inventory" class="tab-btn" onclick="switchTab('inventory')">Inventory (<span id="inv-count">0</span>)</button>
+      </nav>
 
-        <div class="battle-grid">
-          <!-- Игрок 1 (Ты) -->
-          <div class="player-lane">
-            <div class="player-info">
-              <span class="player-tag you">ВЫ</span>
-              <span id="p1-name">Вы</span>
-              <span class="player-score" id="p1-score">0 ₽</span>
-            </div>
-            <div class="roulette-window">
-              <div class="roulette-pointer"></div>
-              <div class="roulette-track" id="track-p1"></div>
-            </div>
-            <div class="drop-result" id="p1-drop">Ожидание прокрутки...</div>
+      <div class="header-right">
+        <div id="guest-controls">
+          <button class="btn btn-outline btn-sm" onclick="openAuthModal()">Sign In / Register</button>
+        </div>
+        <div id="auth-controls" class="hidden auth-user-box">
+          <div class="user-info-mini">
+            <span id="user-lvl-badge" class="badge-lvl">Lvl 1</span>
+            <span id="user-name" class="username-text">User</span>
+            <div class="balance-pill">$<span id="user-balance">0.00</span></div>
           </div>
-
-          <!-- Игрок 2 (Бот) -->
-          <div class="player-lane">
-            <div class="player-info">
-              <span class="player-tag bot">БОТ</span>
-              <span>CyberBot_99</span>
-              <span class="player-score" id="p2-score">0 ₽</span>
-            </div>
-            <div class="roulette-window">
-              <div class="roulette-pointer"></div>
-              <div class="roulette-track" id="track-p2"></div>
-            </div>
-            <div class="drop-result" id="p2-drop">Ожидание прокрутки...</div>
-          </div>
+          <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
         </div>
-
-        <div id="battle-verdict" class="battle-verdict hidden"></div>
-      </div>
-
-      <!-- Список доступных кейсов -->
-      <div class="section-header">
-        <h1>Выберите кейс для батла (1 vs 1)</h1>
-        <p>Победитель забирает свой дроп и дроп соперника прямо в инвентарь!</p>
-      </div>
-
-      <div class="cases-grid" id="cases-grid">
-        <!-- Карточки кейсов генерируются через JS -->
-      </div>
-    </section>
-
-    <!-- Вкладка 2: Инвентарь -->
-    <section id="view-inventory" class="hidden">
-      <div class="section-header">
-        <h1>Ваш инвентарь</h1>
-        <p>Продавайте скины, чтобы пополнить баланс для новых сражений.</p>
-      </div>
-      <div class="inventory-grid" id="inventory-grid">
-        <!-- Предметы из Supabase -->
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Модальное окно Авторизации / Регистрации -->
-  <div id="auth-modal" class="modal-backdrop hidden">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="auth-modal-title">Вход в аккаунт</h3>
-        <button class="close-x" onclick="closeAuthModal()">&times;</button>
-      </div>
-
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="mode-login" onclick="setAuthMode('login')">Вход</button>
-        <button class="auth-tab" id="mode-register" onclick="setAuthMode('register')">Регистрация</button>
-      </div>
-
-      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
-        <div class="form-group">
-          <label>Электронная почта</label>
-          <input type="email" id="auth-email" required placeholder="player@mail.ru" />
-        </div>
-        <div class="form-group">
-          <label>Пароль (минимум 6 символов)</label>
-          <input type="password" id="auth-password" required minlength="6" placeholder="••••••••" />
-        </div>
-        <div id="auth-error" class="error-msg hidden"></div>
-        <button type="submit" class="btn btn-primary btn-full" id="auth-submit-btn">Войти</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Всплывающие уведомления -->
-  <div id="toast" class="toast hidden"></div>
-
-  <script src="config.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CASE BATTLE — CS Cases, Upgrader, Battles & Rocket</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body>
-
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="logo" onclick="switchTab('cases')">
-      <span class="logo-accent">CASE</span>BATTLE
-    </div>
-
-    <nav class="nav-links">
-      <button class="nav-btn active" id="tab-cases" onclick="switchTab('cases')">Cases</button>
-      <button class="nav-btn" id="tab-battles" onclick="switchTab('battles')">⚔️ Battles</button>
-      <button class="nav-btn" id="tab-upgrader" onclick="switchTab('upgrader')">Upgrader</button>
-      <button class="nav-btn" id="tab-rocket" onclick="switchTab('rocket')">🚀 Rocket</button>
-      <button class="nav-btn" id="tab-quests" onclick="switchTab('quests')">🎯 Quests & XP</button>
-      <button class="nav-btn" id="tab-inventory" onclick="switchTab('inventory')">Inventory (<span id="inv-count">0</span>)</button>
-    </nav>
-
-    <div class="user-panel" id="user-panel">
-      <div id="guest-controls">
-        <button class="btn btn-primary" onclick="openAuthModal()">Sign In / Register</button>
-      </div>
-
-      <div id="auth-controls" class="hidden">
-        <div class="xp-mini-badge" id="user-lvl-badge">Lvl 1</div>
-        <div class="balance-box">
-          <span class="balance-label">Balance:</span>
-          <span class="balance-value" id="user-balance">0.00</span> $
-        </div>
-        <span class="username-badge" id="user-name">Player</span>
-        <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
       </div>
     </div>
   </header>
 
-  <!-- Live Drops Ticker -->
+  <!-- LIVE DROPS TICKER -->
   <div class="live-ticker">
-    <div class="ticker-title">LIVE DROPS:</div>
-    <div class="ticker-feed" id="live-ticker-feed">
-      <span class="ticker-item">🎁 [Free Box] player*** won AWP | Asiimov ($38.00)</span>
-      <span class="ticker-item">⚔️ [Cyber Strike] user_99 won Butterfly Knife | Gradient ($125.00)</span>
+    <div class="ticker-label">LIVE DROPS:</div>
+    <div class="ticker-track" id="live-ticker-feed">
+      <span class="ticker-item">🎁 Welcome to CaseBattle! Open your first case!</span>
     </div>
   </div>
 
-  <!-- Main Container -->
-  <main class="container">
+  <!-- MAIN CONTAINER -->
+  <main class="main-content">
 
-    <!-- TAB 1: CASES -->
-    <section id="view-cases">
-      <div id="opening-arena" class="battle-arena hidden">
-        <div class="battle-header">
-          <h2 id="opening-title">Opening Case</h2>
-          <div class="arena-action-btns">
-            <button class="btn btn-outline btn-sm" id="repeat-open-btn" onclick="repeatLastOpening()">Open Again</button>
-            <button class="btn btn-win btn-sm" id="sell-all-opened-btn" onclick="sellAllOpenedItems()" disabled>Sell All Items</button>
-            <button class="btn btn-outline btn-sm" id="close-arena-btn" onclick="closeOpeningArena()">Close Arena</button>
-          </div>
-        </div>
-        <div id="roulettes-container" class="roulettes-container"></div>
-        <div id="opening-verdict" class="battle-verdict hidden"></div>
-      </div>
-
+    <!-- 1. CASES VIEW -->
+    <section id="view-cases" class="view-section">
       <div id="cases-sections-container"></div>
     </section>
 
-    <!-- TAB 2: BATTLES -->
-    <section id="view-battles" class="hidden">
-      <div class="section-header">
-        <h1>Real-Time Case Battles & Duels</h1>
-        <p>Create a public lobby, open CS cases together, and win all items!</p>
+    <!-- OPENING ARENA (MODAL / OVERLAY) -->
+    <div id="opening-arena" class="opening-arena hidden">
+      <div class="arena-header">
+        <h2 id="opening-title">Opening Case...</h2>
+        <button class="btn btn-outline btn-sm" id="close-arena-btn" onclick="closeOpeningArena()">Close</button>
       </div>
-      <div class="battles-layout">
-        <div class="upgrader-panel">
-          <h3>Create Battle Lobby</h3>
-          <div class="form-group">
-            <label>Select Case</label>
-            <select id="battle-case-select" class="form-select"></select>
-          </div>
-          <div class="form-group">
-            <label>Battle Mode</label>
-            <select id="battle-mode-select" class="form-select">
-              <option value="1v1">1v1 Duel (2 Players)</option>
-              <option value="1v1v1">Free For All (3 Players)</option>
-            </select>
-          </div>
-          <button class="btn btn-primary btn-full" onclick="createBattleLobby()">Create Public Lobby</button>
+      <div id="roulettes-container" class="roulettes-container"></div>
+      <div class="arena-footer">
+        <div id="opening-verdict" class="opening-verdict hidden"></div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-primary" id="repeat-open-btn" onclick="repeatLastOpening()">Open Again</button>
+          <button class="btn btn-outline" id="sell-all-opened-btn" onclick="sellAllOpenedItems()">Sell Won Items</button>
         </div>
+      </div>
+    </div>
 
-        <div class="upgrader-wheel-box" style="align-items: stretch; justify-content: flex-start;">
-          <h3>Active Public Lobbies</h3>
-          <div id="battles-list-container" style="overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:10px;">
-            <p class="muted-text">Loading active lobbies...</p>
-          </div>
+    <!-- 2. BATTLES VIEW -->
+    <section id="view-battles" class="view-section hidden">
+      <div class="battle-lobby-creator">
+        <h2>Create Case Battle (1 vs 1)</h2>
+        <p class="muted-text">Winner takes all dropped items directly into inventory!</p>
+        <div style="display:flex; gap:15px; margin-top:15px; flex-wrap:wrap;">
+          <select id="battle-case-select" class="custom-select"></select>
+          <select id="battle-mode-select" class="custom-select">
+            <option value="1v1">1 vs 1 (Normal)</option>
+            <option value="crazy">Crazy Mode</option>
+          </select>
+          <button class="btn btn-primary" onclick="createBattleLobby()">Create Lobby</button>
         </div>
       </div>
+      <div class="category-title-bar" style="margin-top:25px;"><span>Active Lobbies</span></div>
+      <div id="battles-list-container" class="battles-grid"></div>
     </section>
 
-    <!-- TAB 3: UPGRADER -->
-    <section id="view-upgrader" class="hidden">
-      <div class="section-header">
-        <h1>Skin Upgrader 2.0</h1>
-        <p>Select up to 6 items and choose a higher-tier target skin on the right</p>
-      </div>
-
-      <div class="upgrader-ref-layout">
-        <div class="upgrader-box">
-          <div class="upgrader-box-title">Selected items for upgrade (<span id="selected-slots-count">0</span>/6)</div>
-          <div class="selected-slots-grid" id="selected-slots-grid">
-            <div class="slot-item empty">+</div>
-            <div class="slot-item empty">+</div>
-            <div class="slot-item empty">+</div>
-            <div class="slot-item empty">+</div>
-            <div class="slot-item empty">+</div>
-            <div class="slot-item empty">+</div>
-          </div>
-          <div class="balance-add-row">
-            <span class="muted-text">Add balance:</span>
-            <input type="range" id="add-balance-range" min="0" max="500" value="0" step="5" oninput="onBalanceRangeInput(this.value)">
-            <span id="added-balance-label" style="font-weight:700; color:var(--win);">0.00 $</span>
-          </div>
+    <!-- 3. UPGRADER VIEW -->
+    <section id="view-upgrader" class="view-section hidden">
+      <div class="upgrader-layout">
+        <!-- Left: Inventory selection -->
+        <div class="upgrader-panel">
+          <div class="panel-title">Your Inventory (<span id="inv-items-count">0</span> / 6 selected)</div>
+          <div id="upgrade-inv-select" class="upgrade-inv-grid"></div>
         </div>
 
-        <div class="upgrader-center-box">
-          <div class="wheel-container">
-            <div class="fortune-wheel" id="fortune-wheel">
-              <div class="win-sector" id="win-sector"></div>
-              <div class="wheel-center-cap">
-                <span id="wheel-chance-label">0.0%</span>
-              </div>
-              <div class="arrow-rotor" id="arrow-rotor">
-                <div class="rotor-pointer"></div>
-              </div>
+        <!-- Center: Wheel & Action -->
+        <div class="upgrader-center">
+          <div class="upgrade-wheel-box">
+            <div class="wheel-rotor" id="arrow-rotor">
+              <div class="wheel-pointer-top"></div>
             </div>
-          </div>
-          <button class="btn btn-primary btn-lg" id="spin-wheel-btn" onclick="startUpgrade()" disabled>UPGRADE</button>
-          
-          <div class="multiplier-quick-btns">
-            <button class="mult-btn" onclick="applyMultiplier(2)">x2</button>
-            <button class="mult-btn" onclick="applyMultiplier(5)">x5</button>
-            <button class="mult-btn" onclick="applyMultiplier(10)">x10</button>
-            <button class="mult-btn" onclick="applyChance(30)">30%</button>
-            <button class="mult-btn" onclick="applyChance(50)">50%</button>
-            <button class="mult-btn" onclick="applyChance(75)">75%</button>
-          </div>
-        </div>
-
-        <div class="upgrader-box">
-          <div class="upgrader-box-title">Select target skin to win</div>
-          <div class="target-selected-display" id="target-selected-display">
-            <span class="muted-text">Target not selected</span>
-          </div>
-        </div>
-
-        <div class="upgrader-box bottom-inv-box">
-          <div class="inv-header-row">
-            <span>My Inventory (<span id="inv-items-count">0</span> items)</span>
-          </div>
-          <div class="upgrade-inv-select" id="upgrade-inv-select">
-            <p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:30px;">NO ITEMS AVAILABLE<br><a href="#" onclick="switchTab('cases')" style="color:var(--accent);">OPEN ANY CASE</a></p>
-          </div>
-        </div>
-
-        <div class="upgrader-box bottom-inv-box">
-          <div class="inv-header-row">
-            <div class="search-input-wrap">
-              <input type="text" id="target-search-input" placeholder="Search target skin..." oninput="renderTargetCatalog()">
+            <div class="wheel-inner-circle">
+              <div class="wheel-chance" id="wheel-chance-label">0.0%</div>
+              <div class="wheel-chance-sub">WIN CHANCE</div>
             </div>
-            <select id="target-sort-select" class="form-select" style="width:110px; padding:6px;" onchange="renderTargetCatalog()">
+            <div class="win-sector-overlay" id="win-sector"></div>
+          </div>
+
+          <div class="upgrade-controls-row">
+            <button class="btn btn-outline btn-sm" onclick="applyMultiplier(1.5)">1.5x</button>
+            <button class="btn btn-outline btn-sm" onclick="applyMultiplier(2)">2x</button>
+            <button class="btn btn-outline btn-sm" onclick="applyMultiplier(5)">5x</button>
+            <button class="btn btn-outline btn-sm" onclick="applyChance(10)">10%</button>
+            <button class="btn btn-outline btn-sm" onclick="applyChance(50)">50%</button>
+          </div>
+
+          <div style="width:100%; margin: 10px 0;">
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-bottom:4px;">
+              <span>Add Balance to Bet:</span>
+              <span id="added-balance-label" style="color:var(--win); font-weight:700;">0.00 P</span>
+            </div>
+            <input type="range" id="add-balance-range" min="0" max="500" step="1" value="0" style="width:100%; accent-color:var(--accent);" oninput="onBalanceRangeInput(this.value)">
+          </div>
+
+          <button class="btn btn-primary btn-full" id="spin-wheel-btn" onclick="startUpgrade()" disabled>UPGRADE</button>
+        </div>
+
+        <!-- Right: Target skin catalog -->
+        <div class="upgrader-panel">
+          <div class="panel-title">Target Skin (More expensive)</div>
+          <div style="margin-bottom:10px; display:flex; gap:8px;">
+            <input type="text" id="target-search-input" placeholder="Search target..." class="custom-input" oninput="renderTargetCatalog()">
+            <select id="target-sort-select" class="custom-select" style="width:110px;" onchange="renderTargetCatalog()">
               <option value="price">Price</option>
               <option value="name">Name</option>
             </select>
           </div>
-          <div class="target-skins-list" id="target-skins-list">
-            <p class="muted-text" style="text-align:center; margin-top:40px;">Select target first or use search</p>
+          <div id="target-selected-display" class="target-selected-preview">
+            <span class="muted-text">Target not selected</span>
           </div>
+          <div id="target-skins-list" class="upgrade-inv-grid" style="max-height:280px; overflow-y:auto;"></div>
+        </div>
+      </div>
+
+      <!-- Bottom selected slots -->
+      <div class="selected-slots-box">
+        <div style="font-weight:700; font-size:13px; margin-bottom:8px;">Selected Items for Upgrade (<span id="selected-slots-count">0</span>/6):</div>
+        <div class="slots-flex" id="selected-slots-grid"></div>
+      </div>
+    </section>
+
+    <!-- 4. ROCKET VIEW -->
+    <section id="view-rocket" class="view-section hidden">
+      <div class="rocket-container">
+        <div class="rocket-game-screen">
+          <div class="rocket-multiplier" id="rocket-multiplier">1.00x</div>
+          <div class="rocket-ship" id="rocket-ship">🚀</div>
+        </div>
+        <div class="rocket-control-panel">
+          <div id="rocket-value-preview" style="font-weight:700; margin-bottom:10px;">Select a skin to start</div>
+          <div id="rocket-inv-select" class="rocket-inv-grid"></div>
+          <button class="btn btn-primary btn-full" id="rocket-start-btn" onclick="startRocket()" disabled>LAUNCH ROCKET</button>
+          <button class="btn btn-danger btn-full hidden" id="rocket-stop-btn" onclick="stopRocket()">STOP & CLAIM</button>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: ROCKET -->
-    <section id="view-rocket" class="hidden">
-      <div class="section-header">
-        <h1>Rocket Crash</h1>
-        <p>Bet a skin, multiply its value, and cash out before the crash!</p>
-      </div>
-
-      <div class="rocket-layout">
-        <div class="upgrader-panel">
-          <h3>Select Skin to Bet</h3>
-          <div class="upgrade-inv-select" id="rocket-inv-select">
-            <p class="muted-text">No items in inventory.</p>
-          </div>
-        </div>
-
-        <div class="rocket-arena">
-          <div class="rocket-history" id="rocket-history">
-            <span class="hist-badge high">x4.20</span>
-            <span class="hist-badge low">x1.14</span>
-          </div>
-
-          <div class="rocket-sky" id="rocket-sky">
-            <canvas id="rocket-canvas"></canvas>
-            <div class="rocket-hud">
-              <div class="rocket-multiplier" id="rocket-multiplier">1.00x</div>
-              <div class="rocket-value-preview" id="rocket-value-preview">Select a skin to start</div>
-            </div>
-            <div class="rocket-ship" id="rocket-ship">🚀</div>
-          </div>
-
-          <div class="rocket-controls">
-            <button class="btn btn-primary btn-lg" id="rocket-start-btn" onclick="startRocket()" disabled>Start Flight</button>
-            <button class="btn btn-win btn-lg hidden" id="rocket-stop-btn" onclick="stopRocket()">STOP & CLAIM ($0.00)</button>
-          </div>
-        </div>
+    <!-- 5. QUESTS VIEW -->
+    <section id="view-quests" class="view-section hidden">
+      <div class="quests-container">
+        <h2>Daily Quests & Progression</h2>
+        <div class="streak-box" id="streak-info-box"></div>
+        <button class="btn btn-primary" onclick="claimDailyStreak()" style="margin-bottom:20px;">Claim Daily Bonus</button>
+        <div id="quests-list-container" class="quests-list"></div>
       </div>
     </section>
 
-    <!-- TAB 5: QUESTS -->
-    <section id="view-quests" class="hidden">
-      <div class="section-header">
-        <h1>Quests, XP & Daily Streak</h1>
-        <p>Complete daily tasks, claim your streak bonuses, and level up!</p>
-      </div>
-
-      <div class="quests-layout">
-        <div class="quest-card-box">
-          <h3>🔥 Daily Streak Bonus</h3>
-          <div id="streak-info-box" style="margin: 14px 0;">
-            <p class="muted-text">Day 1 Streak: Claim your daily reward!</p>
-          </div>
-          <button class="btn btn-primary" id="claim-streak-btn" onclick="claimDailyStreak()">Claim Streak Reward</button>
-        </div>
-
-        <div class="quest-card-box">
-          <h3>⭐ Player Level & XP</h3>
-          <div class="xp-bar-container">
-            <div class="xp-bar-fill" id="xp-bar-fill" style="width: 0%;"></div>
-          </div>
-          <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:13px; color:var(--text-muted);">
-            <span id="player-lvl-text">Level 1</span>
-            <span id="player-xp-text">0 / 500 XP</span>
-          </div>
-          <div style="margin-top: 14px; font-size: 13px; color: var(--accent);">
-            Perks: Higher level unlocks exclusive privileges!
-          </div>
-        </div>
-
-        <div class="quest-card-box" style="grid-column: 1 / -1;">
-          <h3>🎯 Daily Quests</h3>
-          <div id="quests-list-container" style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;"></div>
+    <!-- 6. INVENTORY VIEW -->
+    <section id="view-inventory" class="view-section hidden">
+      <div class="inventory-top-bar">
+        <h2>My Inventory</h2>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-outline btn-sm" onclick="quickSellByPrice(5)">Sell all &lt; $5</button>
+          <button class="btn btn-outline btn-sm" onclick="quickSellAllInventory()">Sell All Items</button>
         </div>
       </div>
-    </section>
-
-    <!-- TAB 6: INVENTORY -->
-    <section id="view-inventory" class="hidden">
-      <div class="section-header">
-        <h1>Your Inventory</h1>
-        <p>Manage your CS skins or use quick bulk sell options.</p>
-      </div>
-
-      <div class="inv-toolbar">
-        <button class="btn btn-outline btn-sm" onclick="quickSellByPrice(5)">Sell All Under $5</button>
-        <button class="btn btn-outline btn-sm" onclick="quickSellByPrice(20)">Sell All Under $20</button>
-        <button class="btn btn-win btn-sm" onclick="quickSellAllInventory()">Sell Entire Inventory</button>
-      </div>
-
-      <div class="inventory-grid" id="inventory-grid"></div>
+      <div id="inventory-grid" class="inventory-grid"></div>
     </section>
 
   </main>
 
-  <!-- Case Opening Modal -->
-  <div id="case-modal" class="modal-backdrop hidden">
-    <div class="modal-card case-modal-card">
-      <div class="modal-header">
-        <h3 id="modal-case-title">Case Name</h3>
-        <button class="close-x" onclick="closeCaseModal()">&times;</button>
-      </div>
-      <div class="modal-case-body" id="modal-case-body"></div>
-    </div>
-  </div>
-
-  <!-- Auth Modal -->
-  <div id="auth-modal" class="modal-backdrop hidden">
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="modal-overlay hidden">
     <div class="modal-card">
       <div class="modal-header">
         <h3 id="auth-modal-title">Sign In</h3>
-        <button class="close-x" onclick="closeAuthModal()">&times;</button>
+        <button class="close-modal-btn" onclick="closeAuthModal()">&times;</button>
       </div>
-
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="mode-login" onclick="setAuthMode('login')">Sign In</button>
-        <button class="auth-tab" id="mode-register" onclick="setAuthMode('register')">Register ($10 Bonus)</button>
+      <div class="auth-tabs-switch">
+        <button class="auth-switch-btn active" id="mode-login" onclick="setAuthMode('login')">Sign In</button>
+        <button class="auth-switch-btn" id="mode-register" onclick="setAuthMode('register')">Register</button>
       </div>
-
-      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+      <form onsubmit="handleAuthSubmit(event)" class="auth-form">
         <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="auth-email" required placeholder="player@mail.com" />
+          <label>Email</label>
+          <input type="email" id="auth-email" required class="custom-input" placeholder="name@example.com">
         </div>
         <div class="form-group">
-          <label>Password (min 6 chars)</label>
-          <input type="password" id="auth-password" required minlength="6" placeholder="••••••••" />
+          <label>Password</label>
+          <input type="password" id="auth-password" required class="custom-input" placeholder="••••••••">
         </div>
-        <div id="auth-error" class="error-msg hidden"></div>
+        <div id="auth-error" class="auth-error-box hidden"></div>
         <button type="submit" class="btn btn-primary btn-full" id="auth-submit-btn">Sign In</button>
       </form>
     </div>
   </div>
 
+  <!-- CASE DETAILS MODAL -->
+  <div id="case-modal" class="modal-overlay hidden">
+    <div class="modal-card case-modal-card">
+      <div class="modal-header">
+        <h3 id="modal-case-title">Case Title</h3>
+        <button class="close-modal-btn" onclick="closeCaseModal()">&times;</button>
+      </div>
+      <div id="modal-case-body"></div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
   <div id="toast" class="toast hidden"></div>
 
+  <!-- SCRIPTS -->
   <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
->>>>>>> 07c95eb2a9a82bcd48ec17d0f8ead1212ce427ef
