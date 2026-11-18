@@ -956,7 +956,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Modal Case Specific */
 .modal-case-preview {
   display: flex;
   flex-direction: column;
@@ -1030,7 +1029,6 @@ body {
   object-fit: contain;
 }
 
-/* Toast */
 .toast {
   position: fixed;
   bottom: 25px;
