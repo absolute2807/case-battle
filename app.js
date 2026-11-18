@@ -1,5 +1,5 @@
 // ==========================================
-// 1. REAL 125 SKINS & 30 CASES DATABASE (LOCAL IMAGES)
+// 1. SKINS & CASES DATABASE (LOCAL IMAGES)
 // ==========================================
 const BASE_SKINS_CATALOG = [
   // Ширпотреб и дешевые скины (0.30$ - 3.50$)
@@ -626,7 +626,7 @@ async function sellAllOpenedItems() {
 }
 
 // ==========================================
-// 7. UPGRADER (UPGRADE BUTTON & PRICE FILTER)
+// 7. UPGRADER
 // ==========================================
 function renderUpgradeInventory() {
   const container = document.getElementById('upgrade-inv-select');
