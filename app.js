@@ -1,8 +1,8 @@
 // ==========================================
-// 1. SKINS & CASES DATABASE (LOCAL IMAGES)
+// 1. SKINS & CASES DATABASE (REAL LOCAL IMAGES)
 // ==========================================
 const BASE_SKINS_CATALOG = [
-  // Ширпотреб и дешевые скины (0.30$ - 3.50$)
+  // Ширпотреб (Common)
   { name: 'P250 | Sand Dune', price: 0.45, rarity: 'common', image: 'images/skins/1fa37432694a1886bcf16b3c206b858d.webp', weight: 60 },
   { name: 'MP9 | Storm', price: 0.85, rarity: 'common', image: 'images/skins/e599af025c812cf51c545eee08441b3c.webp', weight: 55 },
   { name: 'Glock-18 | Groundwater', price: 1.10, rarity: 'common', image: 'images/skins/c89048a2027dd748bb5b2a0e93812588.webp', weight: 50 },
@@ -11,18 +11,19 @@ const BASE_SKINS_CATALOG = [
   { name: 'P90 | Sand Spray', price: 2.20, rarity: 'common', image: 'images/skins/8ec44be0fd0046b638e38ac14910334e.webp', weight: 40 },
   { name: 'Nova | Walnut', price: 2.60, rarity: 'common', image: 'images/skins/9615519b1a9ac3c91bbe2f666e11f2e2.webp', weight: 38 },
   { name: 'SG 553 | Army Sheen', price: 3.10, rarity: 'common', image: 'images/skins/208c4f112f78c6ebf4bbe8b41ebf8385.webp', weight: 35 },
+  { name: 'FAMAS | Colony', price: 3.50, rarity: 'common', image: 'images/skins/9c5a264cc8fb1f596193f41befba05e4.webp', weight: 33 },
 
-  // Армейское качество / Редкие (4.00$ - 15.00$)
+  // Армейское качество / Редкие (Rare)
   { name: 'AK-47 | Safari Mesh', price: 4.50, rarity: 'rare', image: 'images/skins/a7e996d8a661f974508328cef87676c0.webp', weight: 32 },
   { name: 'M4A4 | Urban DDPAT', price: 5.20, rarity: 'rare', image: 'images/skins/0366c1705768d627db0c980a6cb09126.webp', weight: 30 },
   { name: 'AWP | Safari Mesh', price: 6.80, rarity: 'rare', image: 'images/skins/5ffe531a7a637ac693dfc89e5051b544.webp', weight: 28 },
   { name: 'Desert Eagle | Mudder', price: 7.50, rarity: 'rare', image: 'images/skins/7bcb6ae7793940cacb5d2686f4a798c4.webp', weight: 26 },
-  { name: 'FAMAS | Colony', price: 8.90, rarity: 'rare', image: 'images/skins/9c5a264cc8fb1f596193f41befba05e4.webp', weight: 24 },
-  { name: 'Galil AR | Sage Spray', price: 10.00, rarity: 'rare', image: 'images/skins/b21ca7caaa460d17fe9e14f571ca8f85.webp', weight: 22 },
-  { name: 'SSG 08 | Lichen Dashed', price: 11.50, rarity: 'rare', image: 'images/skins/6375ed41e79aab5cf819a831cb1dfcc9.webp', weight: 20 },
-  { name: 'MAC-10 | Tornado', price: 13.00, rarity: 'rare', image: 'images/skins/c7ca9f89d27ebba453a79ea2c494914f.webp', weight: 19 },
+  { name: 'Galil AR | Sage Spray', price: 10.00, rarity: 'rare', image: 'images/skins/b21ca7caaa460d17fe9e14f571ca8f85.webp', weight: 24 },
+  { name: 'SSG 08 | Lichen Dashed', price: 11.50, rarity: 'rare', image: 'images/skins/6375ed41e79aab5cf819a831cb1dfcc9.webp', weight: 22 },
+  { name: 'MAC-10 | Tornado', price: 13.00, rarity: 'rare', image: 'images/skins/c7ca9f89d27ebba453a79ea2c494914f.webp', weight: 20 },
+  { name: 'PP-Bizon | Irradiated Alert', price: 14.50, rarity: 'rare', image: 'images/skins/41b3d62bff6815ffeb8a92a60e306b77.webp', weight: 19 },
 
-  // Запрещенные / Заслуженные (16.00$ - 45.00$)
+  // Запрещенные / Заслуженные (Epic)
   { name: 'M4A1-S | Basilisk', price: 16.50, rarity: 'epic', image: 'images/skins/8292c2e77c67b97b830c81f424c9f930.webp', weight: 18 },
   { name: 'AK-47 | Redline', price: 21.00, rarity: 'epic', image: 'images/skins/82f68baff1b8c66f3ada9bfd07b31c31.webp', weight: 16 },
   { name: 'AWP | Atheris', price: 26.50, rarity: 'epic', image: 'images/skins/9622430aef6d6792c8cf199cba33eab4.webp', weight: 15 },
@@ -30,14 +31,14 @@ const BASE_SKINS_CATALOG = [
   { name: 'USP-S | Neo-Noir', price: 38.00, rarity: 'epic', image: 'images/skins/2b664ffd6d36e8035889e18f4cf42879.webp', weight: 13 },
   { name: 'Glock-18 | Wasteland Rebel', price: 44.00, rarity: 'epic', image: 'images/skins/6bf651f12c8360caeea8ddf68ba91436.webp', weight: 12 },
 
-  // Засекреченные / Легендарные (50.00$ - 180.00$)
+  // Засекреченные / Легендарные (Legendary)
   { name: 'M4A4 | Asiimov', price: 55.00, rarity: 'legendary', image: 'images/skins/6d80a917b73059ee711d4b62a60dc98a.webp', weight: 10 },
   { name: 'AWP | Asiimov', price: 75.00, rarity: 'legendary', image: 'images/skins/9d587c37d37509ef4d55dc7f4b13c125.webp', weight: 9 },
   { name: 'AK-47 | Neon Rider', price: 95.00, rarity: 'legendary', image: 'images/skins/014ce4905180091d35d9654b0dbd8d1e.webp', weight: 8 },
   { name: 'USP-S | Kill Confirmed', price: 120.00, rarity: 'legendary', image: 'images/skins/8c2ef24b7e0a0a291123c72735c8d9f0.webp', weight: 7 },
   { name: 'M4A1-S | Printstream', price: 155.00, rarity: 'legendary', image: 'images/skins/b9dc7247f2a864190eb8a5e2b19b4274.webp', weight: 6 },
 
-  // Тайное, Ножи и Перчатки (200.00$ - 1200.00$)
+  // Тайное, Ножи и Перчатки (Extra)
   { name: 'Gut Knife | Freehand', price: 220.00, rarity: 'extra', image: 'images/skins/bd1cb9c53729b6f26cd16bb7e383722b.webp', weight: 5 },
   { name: 'Bayonet | Lore', price: 340.00, rarity: 'extra', image: 'images/skins/0c11314e8c96f37addaa4996e703759c.webp', weight: 4 },
   { name: 'Karambit | Doppler', price: 550.00, rarity: 'extra', image: 'images/skins/12c83ab03525ee3c9835b559c19042e3.webp', weight: 3 },
