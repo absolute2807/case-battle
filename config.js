@@ -1,3 +1,3 @@
 const SUPABASE_URL = 'https://lnbbpxmktfqueewtniet.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_OcjUywtGPDI1A8Avjy8x_w_Q35JEBRW';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxuYmJweG1rdGZxdWVld3RuaWV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ5MzcwNDMsImV4cCI6MjExMDUxMzA0M30.kwioKf9DEQbRrHNQfBDzsYcpbXz2OgtUc3O55a65MSg';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
