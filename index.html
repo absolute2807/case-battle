@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CASE BATTLE — Открытие кейсов и дуэли</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Подключение Supabase JS через CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- Верхняя панель -->
+  <header class="navbar">
+    <div class="logo" onclick="switchTab('cases')">
+      <span class="logo-accent">CASE</span>BATTLE
+    </div>
+
+    <nav class="nav-links">
+      <button class="nav-btn active" id="tab-cases" onclick="switchTab('cases')">Кейсы и Батлы</button>
+      <button class="nav-btn" id="tab-inventory" onclick="switchTab('inventory')">Инвентарь (<span id="inv-count">0</span>)</button>
+    </nav>
+
+    <div class="user-panel" id="user-panel">
+      <!-- Состояние: Не авторизован -->
+      <div id="guest-controls">
+        <button class="btn btn-primary" onclick="openAuthModal()">Войти / Регистрация</button>
+      </div>
+
+      <!-- Состояние: Авторизован -->
+      <div id="auth-controls" class="hidden">
+        <div class="balance-box">
+          <span class="balance-label">Баланс:</span>
+          <span class="balance-value" id="user-balance">0.00</span> ₽
+        </div>
+        <span class="username-badge" id="user-name">Player</span>
+        <button class="btn btn-outline btn-sm" onclick="logout()">Выйти</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Основной контент -->
+  <main class="container">
+
+    <!-- Вкладка 1: Кейсы и Арена Батла -->
+    <section id="view-cases">
+      
+      <!-- Арена битвы (появляется при запуске батла) -->
+      <div id="battle-arena" class="battle-arena hidden">
+        <div class="battle-header">
+          <h2 id="battle-title">Битва за кейс</h2>
+          <button class="btn btn-outline btn-sm" id="close-battle-btn" onclick="closeBattle()" disabled>Закрыть арену</button>
+        </div>
+
+        <div class="battle-grid">
+          <!-- Игрок 1 (Ты) -->
+          <div class="player-lane">
+            <div class="player-info">
+              <span class="player-tag you">ВЫ</span>
+              <span id="p1-name">Вы</span>
+              <span class="player-score" id="p1-score">0 ₽</span>
+            </div>
+            <div class="roulette-window">
+              <div class="roulette-pointer"></div>
+              <div class="roulette-track" id="track-p1"></div>
+            </div>
+            <div class="drop-result" id="p1-drop">Ожидание прокрутки...</div>
+          </div>
+
+          <!-- Игрок 2 (Бот) -->
+          <div class="player-lane">
+            <div class="player-info">
+              <span class="player-tag bot">БОТ</span>
+              <span>CyberBot_99</span>
+              <span class="player-score" id="p2-score">0 ₽</span>
+            </div>
+            <div class="roulette-window">
+              <div class="roulette-pointer"></div>
+              <div class="roulette-track" id="track-p2"></div>
+            </div>
+            <div class="drop-result" id="p2-drop">Ожидание прокрутки...</div>
+          </div>
+        </div>
+
+        <div id="battle-verdict" class="battle-verdict hidden"></div>
+      </div>
+
+      <!-- Список доступных кейсов -->
+      <div class="section-header">
+        <h1>Выберите кейс для батла (1 vs 1)</h1>
+        <p>Победитель забирает свой дроп и дроп соперника прямо в инвентарь!</p>
+      </div>
+
+      <div class="cases-grid" id="cases-grid">
+        <!-- Карточки кейсов генерируются через JS -->
+      </div>
+    </section>
+
+    <!-- Вкладка 2: Инвентарь -->
+    <section id="view-inventory" class="hidden">
+      <div class="section-header">
+        <h1>Ваш инвентарь</h1>
+        <p>Продавайте скины, чтобы пополнить баланс для новых сражений.</p>
+      </div>
+      <div class="inventory-grid" id="inventory-grid">
+        <!-- Предметы из Supabase -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Модальное окно Авторизации / Регистрации -->
+  <div id="auth-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="auth-modal-title">Вход в аккаунт</h3>
+        <button class="close-x" onclick="closeAuthModal()">&times;</button>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="mode-login" onclick="setAuthMode('login')">Вход</button>
+        <button class="auth-tab" id="mode-register" onclick="setAuthMode('register')">Регистрация</button>
+      </div>
+
+      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group">
+          <label>Электронная почта</label>
+          <input type="email" id="auth-email" required placeholder="player@mail.ru" />
+        </div>
+        <div class="form-group">
+          <label>Пароль (минимум 6 символов)</label>
+          <input type="password" id="auth-password" required minlength="6" placeholder="••••••••" />
+        </div>
+        <div id="auth-error" class="error-msg hidden"></div>
+        <button type="submit" class="btn btn-primary btn-full" id="auth-submit-btn">Войти</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Всплывающие уведомления -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
