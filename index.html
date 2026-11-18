@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CaseBattle - CS2 Simulator</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Supabase CDN -->
+  <!-- 1. Сначала библиотека Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -235,12 +235,8 @@
   <!-- TOAST NOTIFICATION -->
   <div id="toast" class="toast hidden"></div>
 
-  <!-- SUPABASE INITIALIZATION -->
-  <script>
-    const SUPABASE_URL = 'https://lnbbpxmktfqueewtniet.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxuYmJweG1rdGZxdWVld3RuaWV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5NzkzNDAsImV4cCI6MjA0NjU1NTM0MH0...'; // Укажи свой рабочий анано-ключ (начинающийся с eyJ)
-    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  </script>
+  <!-- 2. Сначала config.js, затем app.js -->
+  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
