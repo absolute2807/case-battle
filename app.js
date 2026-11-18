@@ -55,16 +55,18 @@ const CASE_NAMES_LIST = [
 ];
 
 const CASE_ICONS_LIST = [
-  "images/cases/7130235e21e92d11f1ea81fa677cf379.webp",
-  "images/cases/a7e996d8a661f974508328cef87676c0.webp",
-  "images/cases/a77dc9f34609a0a90a5eef049384c7cf.webp",
-  "images/cases/a169dbf79a9bfa01cb00fcd6496f3922.webp",
-  "images/cases/bdca454652af3fa481e82915701f0470.webp",
-  "images/cases/c116e666274d208c5ff3732de6600cb0.webp",
-  "images/cases/d3345855cdc0020556b0b752da827f20.webp",
-  "images/cases/e38f1f4d8532b0946172cb48ddaa1bf3.webp",
-  "images/cases/e3493f6785b73327ce8cb43fe7b1f37f.webp",
-  "images/cases/e4916dfdff2b9416d2b2c3d9ea8176c7.webp"
+  "images/cases/01d82f6c31da42b592a563af1fca5d9a.webp",
+  "images/cases/0366c1705768d627db0c980a6cb09126.webp",
+  "images/cases/06e1538f68c96a758ea8ddc28c93b6cf.webp",
+  "images/cases/09807b2a615b175212222036b9e8115e.webp",
+  "images/cases/128e9750ce49313265af7263ac1ff609.webp",
+  "images/cases/20c4adbb34995ecef775918bdee1cfca.webp",
+  "images/cases/21beb54cd2ee10122a102cbc870ee3e5.webp",
+  "images/cases/23570ab3bc45538ea44abe64c2d0e43e.webp",
+  "images/cases/3cde1b4df86a42d34cdf3782a53d1a48.webp",
+  "images/cases/49d78b472f562966b34eebd52bfc46d8.webp",
+  "images/cases/6dcfc23ac3becf57bb4e5cb5d7b93ed2.webp",
+  "images/cases/7130235e21e92d11f1ea81fa677cf379.webp"
 ];
 
 function generate30Cases() {
@@ -149,7 +151,6 @@ let isRocketFlying = false;
 let rocketMultiplier = 1.00;
 let rocketCrashPoint = 1.00;
 let rocketAnimFrame = null;
-let rocketStartTime = 0;
 
 let userQuests = {
   openCasesCount: 0,
@@ -893,12 +894,12 @@ function renderRocketInventory() {
   }
 
   container.innerHTML = userInventory.map(item => `
-    <div class="upgrade-inv-item ${selectedRocketItem?.id === item.id ? 'selected' : ''}" onclick="selectRocketItem('${item.id}')">
+    <div class="upgrade-inv-item ${selectedRocketItem?.id === item.id ? 'selected' : ''}" onclick="selectRocketItem('${item.id}')" style="cursor:pointer; padding:8px; border:1px solid var(--border); border-radius:6px; margin-bottom:6px; background:var(--bg-main);">
       <div style="display:flex; align-items:center; gap:10px;">
-        <img src="${item.item_image}" class="inv-skin-thumb" alt="${item.item_name}">
+        <img src="${item.item_image}" class="inv-skin-thumb" alt="${item.item_name}" style="width:40px; height:30px; object-fit:contain;">
         <div>
-          <div style="font-weight:700; font-size:13px;">${item.item_name}</div>
-          <div style="color:var(--win); font-size:12px;">$${Number(item.item_price).toFixed(2)}</div>
+          <div style="font-weight:700; font-size:12px;">${item.item_name}</div>
+          <div style="color:var(--win); font-size:11px;">$${Number(item.item_price).toFixed(2)}</div>
         </div>
       </div>
     </div>
@@ -948,7 +949,7 @@ async function startRocket() {
   stopBtn.classList.remove('hidden');
   multEl.className = 'rocket-multiplier';
 
-  rocketStartTime = performance.now();
+  const rocketStartTime = performance.now();
 
   function animateFlight(now) {
     if (!isRocketFlying) return;
@@ -1061,7 +1062,7 @@ async function fetchActiveBattles() {
   }
 
   container.innerHTML = data.map(b => `
-    <div class="upgrade-inv-item">
+    <div class="upgrade-inv-item" style="background:var(--bg-card); border:1px solid var(--border); padding:15px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
       <div>
         <div style="font-weight:700;">${b.case_name} (${b.mode})</div>
         <div style="font-size:12px; color:var(--text-muted);">Creator: ${b.creator_name} | Cost: $${b.cost}</div>
