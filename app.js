@@ -1,85 +1,85 @@
 // ==========================================
-// 1. SKINS & CASES DATABASE (125 REAL LOCAL IMAGES)
+// 1. BALANCED SKINS & CASES DATABASE (125 SKINS)
 // ==========================================
 const BASE_SKINS_CATALOG = [
-  // Ширпотреб (Common)
-  { name: 'P250 | Sand Dune', price: 0.45, rarity: 'common', image: 'images/skins/1fa37432694a1886bcf16b3c206b858d.webp', weight: 60 },
-  { name: 'MP9 | Storm', price: 0.85, rarity: 'common', image: 'images/skins/e599af025c812cf51c545eee08441b3c.webp', weight: 55 },
-  { name: 'Glock-18 | Groundwater', price: 1.10, rarity: 'common', image: 'images/skins/c89048a2027dd748bb5b2a0e93812588.webp', weight: 50 },
-  { name: 'USP-S | Forest Leaves', price: 1.50, rarity: 'common', image: 'images/skins/202e0346b89ed2c8f9bdae46b8122673.webp', weight: 45 },
-  { name: 'MAG-7 | Sand Dune', price: 1.80, rarity: 'common', image: 'images/skins/e6284efaf41ada014de6ceabb39a2a00.webp', weight: 42 },
-  { name: 'P90 | Sand Spray', price: 2.20, rarity: 'common', image: 'images/skins/8ec44be0fd0046b638e38ac14910334e.webp', weight: 40 },
-  { name: 'Nova | Walnut', price: 2.60, rarity: 'common', image: 'images/skins/9615519b1a9ac3c91bbe2f666e11f2e2.webp', weight: 38 },
-  { name: 'SG 553 | Army Sheen', price: 3.10, rarity: 'common', image: 'images/skins/208c4f112f78c6ebf4bbe8b41ebf8385.webp', weight: 35 },
-  { name: 'FAMAS | Colony', price: 3.50, rarity: 'common', image: 'images/skins/9c5a264cc8fb1f596193f41befba05e4.webp', weight: 33 },
-  { name: 'MP7 | Groundwater', price: 3.90, rarity: 'common', image: 'images/skins/4bc12c054e360df689e89c7fbc7436db.webp', weight: 32 },
-  { name: 'XM1014 | Blue Spruce', price: 4.20, rarity: 'common', image: 'images/skins/5ad68310d80fdd54b08901286f19cc71.webp', weight: 30 },
-  { name: 'Sawed-Off | Sage Spray', price: 4.50, rarity: 'common', image: 'images/skins/6bf651f12c8360caeea8ddf68ba91436.webp', weight: 28 },
-  { name: 'Negev | Army Sheen', price: 4.80, rarity: 'common', image: 'images/skins/6cbc7353f18041fb750a883d412164ab.webp', weight: 26 },
-  { name: 'Tec-9 | Groundwater', price: 5.10, rarity: 'common', image: 'images/skins/7bcb6ae7793940cacb5d2686f4a798c4.webp', weight: 25 },
-  { name: 'MAC-10 | Palm', price: 5.40, rarity: 'common', image: 'images/skins/8b29a03a73201c68388abc1fb7ef0eb2.webp', weight: 24 },
-  { name: 'CZ75-Auto | Army Mesh', price: 5.70, rarity: 'common', image: 'images/skins/8c2ef24b7e0a0a291123c72735c8d9f0.webp', weight: 23 },
-  { name: 'Dual Berettas | Colony', price: 6.00, rarity: 'common', image: 'images/skins/8fe6fadc8ce975d5001a8398a8e97d8f.webp', weight: 22 },
-  { name: 'Five-SeveN | Forest Leaves', price: 6.30, rarity: 'common', image: 'images/skins/9aa61e69c14a88cf1719691366bcad3b.webp', weight: 21 },
-  { name: 'PP-Bizon | Carbon Fiber', price: 6.60, rarity: 'common', image: 'images/skins/9ae9e26170510105fb74d294a9518e8e.webp', weight: 20 },
-  { name: 'AUG | Condor', price: 7.00, rarity: 'common', image: 'images/skins/9cbd3fb91f48d5725b91f1824eb40aab.webp', weight: 19 },
-  { name: 'SCAR-20 | Contractor', price: 7.30, rarity: 'common', image: 'images/skins/9d587c37d37509ef4d55dc7f4b13c125.webp', weight: 18 },
-  { name: 'G3SG1 | Desert Storm', price: 7.60, rarity: 'common', image: 'images/skins/12c83ab03525ee3c9835b559c19042e3.webp', weight: 17 },
-  { name: 'M249 | Contrast Spray', price: 7.90, rarity: 'common', image: 'images/skins/014ce4905180091d35d9654b0dbd8d1e.webp', weight: 16 },
+  // --- ШИРПОТРЕБ / ОБЫЧНЫЕ ($0.35 - $5.50) ---
+  { name: 'P250 | Sand Dune', price: 0.35, rarity: 'common', type: 'pistol', image: 'images/skins/1fa37432694a1886bcf16b3c206b858d.webp', weight: 100 },
+  { name: 'MP9 | Storm', price: 0.45, rarity: 'common', type: 'smg', image: 'images/skins/e599af025c812cf51c545eee08441b3c.webp', weight: 95 },
+  { name: 'Glock-18 | Groundwater', price: 0.55, rarity: 'common', type: 'pistol', image: 'images/skins/c89048a2027dd748bb5b2a0e93812588.webp', weight: 90 },
+  { name: 'USP-S | Forest Leaves', price: 0.65, rarity: 'common', type: 'pistol', image: 'images/skins/202e0346b89ed2c8f9bdae46b8122673.webp', weight: 85 },
+  { name: 'MAG-7 | Sand Dune', price: 0.75, rarity: 'common', type: 'shotgun', image: 'images/skins/e6284efaf41ada014de6ceabb39a2a00.webp', weight: 80 },
+  { name: 'P90 | Sand Spray', price: 0.85, rarity: 'common', type: 'smg', image: 'images/skins/8ec44be0fd0046b638e38ac14910334e.webp', weight: 75 },
+  { name: 'Nova | Walnut', price: 0.95, rarity: 'common', type: 'shotgun', image: 'images/skins/9615519b1a9ac3c91bbe2f666e11f2e2.webp', weight: 70 },
+  { name: 'SG 553 | Army Sheen', price: 1.10, rarity: 'common', type: 'rifle', image: 'images/skins/208c4f112f78c6ebf4bbe8b41ebf8385.webp', weight: 65 },
+  { name: 'FAMAS | Colony', price: 1.25, rarity: 'common', type: 'rifle', image: 'images/skins/9c5a264cc8fb1f596193f41befba05e4.webp', weight: 60 },
+  { name: 'MP7 | Groundwater', price: 1.40, rarity: 'common', type: 'smg', image: 'images/skins/4bc12c054e360df689e89c7fbc7436db.webp', weight: 55 },
+  { name: 'XM1014 | Blue Spruce', price: 1.60, rarity: 'common', type: 'shotgun', image: 'images/skins/5ad68310d80fdd54b08901286f19cc71.webp', weight: 50 },
+  { name: 'Sawed-Off | Sage Spray', price: 1.80, rarity: 'common', type: 'shotgun', image: 'images/skins/6bf651f12c8360caeea8ddf68ba91436.webp', weight: 48 },
+  { name: 'Negev | Army Sheen', price: 2.00, rarity: 'common', type: 'mg', image: 'images/skins/6cbc7353f18041fb750a883d412164ab.webp', weight: 45 },
+  { name: 'Tec-9 | Groundwater', price: 2.25, rarity: 'common', type: 'pistol', image: 'images/skins/7bcb6ae7793940cacb5d2686f4a798c4.webp', weight: 42 },
+  { name: 'MAC-10 | Palm', price: 2.50, rarity: 'common', type: 'smg', image: 'images/skins/8b29a03a73201c68388abc1fb7ef0eb2.webp', weight: 40 },
+  { name: 'CZ75-Auto | Army Mesh', price: 2.80, rarity: 'common', type: 'pistol', image: 'images/skins/8c2ef24b7e0a0a291123c72735c8d9f0.webp', weight: 38 },
+  { name: 'Dual Berettas | Colony', price: 3.10, rarity: 'common', type: 'pistol', image: 'images/skins/8fe6fadc8ce975d5001a8398a8e97d8f.webp', weight: 35 },
+  { name: 'Five-SeveN | Forest Leaves', price: 3.40, rarity: 'common', type: 'pistol', image: 'images/skins/9aa61e69c14a88cf1719691366bcad3b.webp', weight: 32 },
+  { name: 'PP-Bizon | Carbon Fiber', price: 3.70, rarity: 'common', type: 'smg', image: 'images/skins/9ae9e26170510105fb74d294a9518e8e.webp', weight: 30 },
+  { name: 'AUG | Condor', price: 4.10, rarity: 'common', type: 'rifle', image: 'images/skins/9cbd3fb91f48d5725b91f1824eb40aab.webp', weight: 28 },
+  { name: 'SCAR-20 | Contractor', price: 4.50, rarity: 'common', type: 'sniper', image: 'images/skins/9d587c37d37509ef4d55dc7f4b13c125.webp', weight: 25 },
+  { name: 'G3SG1 | Desert Storm', price: 5.00, rarity: 'common', type: 'sniper', image: 'images/skins/12c83ab03525ee3c9835b559c19042e3.webp', weight: 22 },
+  { name: 'M249 | Contrast Spray', price: 5.50, rarity: 'common', type: 'mg', image: 'images/skins/014ce4905180091d35d9654b0dbd8d1e.webp', weight: 20 },
 
-  // Армейское качество (Rare)
-  { name: 'AK-47 | Safari Mesh', price: 8.50, rarity: 'rare', image: 'images/skins/a7e996d8a661f974508328cef87676c0.webp', weight: 28 },
-  { name: 'M4A4 | Urban DDPAT', price: 9.20, rarity: 'rare', image: 'images/skins/0366c1705768d627db0c980a6cb09126.webp', weight: 26 },
-  { name: 'AWP | Safari Mesh', price: 10.50, rarity: 'rare', image: 'images/skins/5ffe531a7a637ac693dfc89e5051b544.webp', weight: 25 },
-  { name: 'Desert Eagle | Mudder', price: 11.80, rarity: 'rare', image: 'images/skins/7bcb6ae7793940cacb5d2686f4a798c4.webp', weight: 24 },
-  { name: 'Galil AR | Sage Spray', price: 13.00, rarity: 'rare', image: 'images/skins/b21ca7caaa460d17fe9e14f571ca8f85.webp', weight: 23 },
-  { name: 'SSG 08 | Lichen Dashed', price: 14.50, rarity: 'rare', image: 'images/skins/6375ed41e79aab5cf819a831cb1dfcc9.webp', weight: 22 },
-  { name: 'MAC-10 | Tornado', price: 16.00, rarity: 'rare', image: 'images/skins/c7ca9f89d27ebba453a79ea2c494914f.webp', weight: 21 },
-  { name: 'PP-Bizon | Irradiated Alert', price: 17.50, rarity: 'rare', image: 'images/skins/41b3d62bff6815ffeb8a92a60e306b77.webp', weight: 20 },
-  { name: 'P250 | Metallic DDPAT', price: 19.00, rarity: 'rare', image: 'images/skins/20b095fda4a7c0db7884ac44bedfe940.webp', weight: 19 },
-  { name: 'Glock-18 | Candy Apple', price: 20.50, rarity: 'rare', image: 'images/skins/29c612c41e345327eafc73e094c6c7e9.webp', weight: 18 },
-  { name: 'USP-S | Business Class', price: 22.00, rarity: 'rare', image: 'images/skins/0030e610ccbfb49ae64d11783a683287.webp', weight: 17 },
-  { name: 'MP9 | Hypnotic', price: 23.50, rarity: 'rare', image: 'images/skins/31ff61418bafa94271c718d8e9fc1f61.webp', weight: 16 },
-  { name: 'FAMAS | Cyanospatter', price: 25.00, rarity: 'rare', image: 'images/skins/40fcb78b0d23e6a96e3407a86d92ac47.webp', weight: 15 },
-  { name: 'Nova | Candy Apple', price: 26.50, rarity: 'rare', image: 'images/skins/46ba7d61a488fb0f1eb80f89e4073c3f.webp', weight: 14 },
-  { name: 'XM1014 | Incendiary', price: 28.00, rarity: 'rare', image: 'images/skins/67a11324e5f372273b30981abc2ae2d6.webp', weight: 13 },
-  { name: 'MAG-7 | Silver', price: 29.50, rarity: 'rare', image: 'images/skins/73ed19914d7c919c2f6a5fcd2784618f.webp', weight: 12 },
-  { name: 'P90 | Teardown', price: 31.00, rarity: 'rare', image: 'images/skins/82f68baff1b8c66f3ada9bfd07b31c31.webp', weight: 11 },
-  { name: 'SG 553 | Waves', price: 32.50, rarity: 'rare', image: 'images/skins/98df14c056b65776a1a31a1582e58a64.webp', weight: 10 },
+  // --- АРМЕЙСКОЕ КАЧЕСТВО ($6.00 - $35.00) ---
+  { name: 'AK-47 | Safari Mesh', price: 6.00, rarity: 'rare', type: 'rifle', image: 'images/skins/a7e996d8a661f974508328cef87676c0.webp', weight: 35 },
+  { name: 'M4A4 | Urban DDPAT', price: 6.80, rarity: 'rare', type: 'rifle', image: 'images/skins/0366c1705768d627db0c980a6cb09126.webp', weight: 32 },
+  { name: 'AWP | Safari Mesh', price: 7.60, rarity: 'rare', type: 'sniper', image: 'images/skins/5ffe531a7a637ac693dfc89e5051b544.webp', weight: 30 },
+  { name: 'Desert Eagle | Mudder', price: 8.50, rarity: 'rare', type: 'pistol', image: 'images/skins/7bcb6ae7793940cacb5d2686f4a798c4.webp', weight: 28 },
+  { name: 'Galil AR | Sage Spray', price: 9.40, rarity: 'rare', type: 'rifle', image: 'images/skins/b21ca7caaa460d17fe9e14f571ca8f85.webp', weight: 26 },
+  { name: 'SSG 08 | Lichen Dashed', price: 10.50, rarity: 'rare', type: 'sniper', image: 'images/skins/6375ed41e79aab5cf819a831cb1dfcc9.webp', weight: 24 },
+  { name: 'MAC-10 | Tornado', price: 11.60, rarity: 'rare', type: 'smg', image: 'images/skins/c7ca9f89d27ebba453a79ea2c494914f.webp', weight: 22 },
+  { name: 'PP-Bizon | Irradiated Alert', price: 12.80, rarity: 'rare', type: 'smg', image: 'images/skins/41b3d62bff6815ffeb8a92a60e306b77.webp', weight: 20 },
+  { name: 'P250 | Metallic DDPAT', price: 14.00, rarity: 'rare', type: 'pistol', image: 'images/skins/20b095fda4a7c0db7884ac44bedfe940.webp', weight: 18 },
+  { name: 'Glock-18 | Candy Apple', price: 15.50, rarity: 'rare', type: 'pistol', image: 'images/skins/29c612c41e345327eafc73e094c6c7e9.webp', weight: 16 },
+  { name: 'USP-S | Business Class', price: 17.00, rarity: 'rare', type: 'pistol', image: 'images/skins/0030e610ccbfb49ae64d11783a683287.webp', weight: 15 },
+  { name: 'MP9 | Hypnotic', price: 19.00, rarity: 'rare', type: 'smg', image: 'images/skins/31ff61418bafa94271c718d8e9fc1f61.webp', weight: 14 },
+  { name: 'FAMAS | Cyanospatter', price: 21.00, rarity: 'rare', type: 'rifle', image: 'images/skins/40fcb78b0d23e6a96e3407a86d92ac47.webp', weight: 13 },
+  { name: 'Nova | Candy Apple', price: 23.00, rarity: 'rare', type: 'shotgun', image: 'images/skins/46ba7d61a488fb0f1eb80f89e4073c3f.webp', weight: 12 },
+  { name: 'XM1014 | Incendiary', price: 25.50, rarity: 'rare', type: 'shotgun', image: 'images/skins/67a11324e5f372273b30981abc2ae2d6.webp', weight: 11 },
+  { name: 'MAG-7 | Silver', price: 28.00, rarity: 'rare', type: 'shotgun', image: 'images/skins/73ed19914d7c919c2f6a5fcd2784618f.webp', weight: 10 },
+  { name: 'P90 | Teardown', price: 31.00, rarity: 'rare', type: 'smg', image: 'images/skins/82f68baff1b8c66f3ada9bfd07b31c31.webp', weight: 9 },
+  { name: 'SG 553 | Waves', price: 35.00, rarity: 'rare', type: 'rifle', image: 'images/skins/98df14c056b65776a1a31a1582e58a64.webp', weight: 8 },
 
-  // Запрещенное (Epic)
-  { name: 'M4A1-S | Basilisk', price: 35.00, rarity: 'epic', image: 'images/skins/8292c2e77c67b97b830c81f424c9f930.webp', weight: 16 },
-  { name: 'AK-47 | Redline', price: 42.00, rarity: 'epic', image: 'images/skins/82f68baff1b8c66f3ada9bfd07b31c31.webp', weight: 15 },
-  { name: 'AWP | Atheris', price: 50.00, rarity: 'epic', image: 'images/skins/9622430aef6d6792c8cf199cba33eab4.webp', weight: 14 },
-  { name: 'Desert Eagle | Code Red', price: 60.00, rarity: 'epic', image: 'images/skins/0e08b55f96e2b96578628142fbf5863a.webp', weight: 13 },
-  { name: 'USP-S | Neo-Noir', price: 70.00, rarity: 'epic', image: 'images/skins/2b664ffd6d36e8035889e18f4cf42879.webp', weight: 12 },
-  { name: 'Glock-18 | Wasteland Rebel', price: 80.00, rarity: 'epic', image: 'images/skins/6bf651f12c8360caeea8ddf68ba91436.webp', weight: 11 },
-  { name: 'P250 | Asiimov', price: 90.00, rarity: 'epic', image: 'images/skins/208c4f112f78c6ebf4bbe8b41ebf8385.webp', weight: 10 },
-  { name: 'MP9 | Food Chain', price: 100.00, rarity: 'epic', image: 'images/skins/361cd0a8dac5d69a247594024f10c3ef.webp', weight: 9 },
-  { name: 'FAMAS | Mecha Industries', price: 112.00, rarity: 'epic', image: 'images/skins/0413c36d0d56ed8e06b7751c308fedab.webp', weight: 8 },
-  { name: 'Galil AR | Eco', price: 125.00, rarity: 'epic', image: 'images/skins/469fdc24cfcd454f73125ab326552954.webp', weight: 7 },
-  { name: 'SSG 08 | Blood in the Water', price: 140.00, rarity: 'epic', image: 'images/skins/477d70f0e2cba9190954ae5eae0aeba3.webp', weight: 6 },
-  { name: 'MAC-10 | Neon Rider', price: 155.00, rarity: 'epic', image: 'images/skins/609b03f27211ab0e94fd0a698dc71cef.webp', weight: 5 },
-  { name: 'AUG | Chameleon', price: 170.00, rarity: 'epic', image: 'images/skins/780f089c7b87812486d0e4155818c41a.webp', weight: 4 },
-  { name: 'P90 | Asiimov', price: 190.00, rarity: 'epic', image: 'images/skins/885e52be2680009c07183a0f26b7670e.webp', weight: 3 },
+  // --- ЗАПРЕЩЕННОЕ ($38.00 - $120.00) ---
+  { name: 'M4A1-S | Basilisk', price: 38.00, rarity: 'epic', type: 'rifle', image: 'images/skins/8292c2e77c67b97b830c81f424c9f930.webp', weight: 16 },
+  { name: 'AK-47 | Redline', price: 45.00, rarity: 'epic', type: 'rifle', image: 'images/skins/82f68baff1b8c66f3ada9bfd07b31c31.webp', weight: 15 },
+  { name: 'AWP | Atheris', price: 53.00, rarity: 'epic', type: 'sniper', image: 'images/skins/9622430aef6d6792c8cf199cba33eab4.webp', weight: 14 },
+  { name: 'Desert Eagle | Code Red', price: 62.00, rarity: 'epic', type: 'pistol', image: 'images/skins/0e08b55f96e2b96578628142fbf5863a.webp', weight: 13 },
+  { name: 'USP-S | Neo-Noir', price: 72.00, rarity: 'epic', type: 'pistol', image: 'images/skins/2b664ffd6d36e8035889e18f4cf42879.webp', weight: 12 },
+  { name: 'Glock-18 | Wasteland Rebel', price: 83.00, rarity: 'epic', type: 'pistol', image: 'images/skins/6bf651f12c8360caeea8ddf68ba91436.webp', weight: 11 },
+  { name: 'P250 | Asiimov', price: 95.00, rarity: 'epic', type: 'pistol', image: 'images/skins/208c4f112f78c6ebf4bbe8b41ebf8385.webp', weight: 10 },
+  { name: 'MP9 | Food Chain', price: 108.00, rarity: 'epic', type: 'smg', image: 'images/skins/361cd0a8dac5d69a247594024f10c3ef.webp', weight: 9 },
+  { name: 'FAMAS | Mecha Industries', price: 122.00, rarity: 'epic', type: 'rifle', image: 'images/skins/0413c36d0d56ed8e06b7751c308fedab.webp', weight: 8 },
+  { name: 'Galil AR | Eco', price: 138.00, rarity: 'epic', type: 'rifle', image: 'images/skins/469fdc24cfcd454f73125ab326552954.webp', weight: 7 },
+  { name: 'SSG 08 | Blood in the Water', price: 155.00, rarity: 'epic', type: 'sniper', image: 'images/skins/477d70f0e2cba9190954ae5eae0aeba3.webp', weight: 6 },
+  { name: 'MAC-10 | Neon Rider', price: 175.00, rarity: 'epic', type: 'smg', image: 'images/skins/609b03f27211ab0e94fd0a698dc71cef.webp', weight: 5 },
+  { name: 'AUG | Chameleon', price: 198.00, rarity: 'epic', type: 'rifle', image: 'images/skins/780f089c7b87812486d0e4155818c41a.webp', weight: 4 },
+  { name: 'P90 | Asiimov', price: 225.00, rarity: 'epic', type: 'smg', image: 'images/skins/885e52be2680009c07183a0f26b7670e.webp', weight: 3 },
 
-  // Засекреченное (Legendary)
-  { name: 'M4A4 | Asiimov', price: 220.00, rarity: 'legendary', image: 'images/skins/6d80a917b73059ee711d4b62a60dc98a.webp', weight: 9 },
-  { name: 'AWP | Asiimov', price: 260.00, rarity: 'legendary', image: 'images/skins/9d587c37d37509ef4d55dc7f4b13c125.webp', weight: 8 },
-  { name: 'AK-47 | Neon Rider', price: 300.00, rarity: 'legendary', image: 'images/skins/014ce4905180091d35d9654b0dbd8d1e.webp', weight: 7 },
-  { name: 'USP-S | Kill Confirmed', price: 350.00, rarity: 'legendary', image: 'images/skins/8c2ef24b7e0a0a291123c72735c8d9f0.webp', weight: 6 },
-  { name: 'M4A1-S | Printstream', price: 400.00, rarity: 'legendary', image: 'images/skins/b9dc7247f2a864190eb8a5e2b19b4274.webp', weight: 5 },
-  { name: 'Desert Eagle | Printstream', price: 460.00, rarity: 'legendary', image: 'images/skins/0886d293ebbf88cb139260c2aa78a809.webp', weight: 4 },
-  { name: 'Glock-18 | Bullet Queen', price: 520.00, rarity: 'legendary', image: 'images/skins/924a635abb20d91247ae9ec34b4f3fc0.webp', weight: 3 },
-  { name: 'P250 | See Ya Later', price: 590.00, rarity: 'legendary', image: 'images/skins/988bf7c729a627e1f4dbabc774308c89.webp', weight: 2 },
-  { name: 'MP7 | Bloodsport', price: 670.00, rarity: 'legendary', image: 'images/skins/1408bbceb914e0f9541d170c216c8dda.webp', weight: 1 },
+  // --- ЗАСЕКРЕЧЕННОЕ ($250.00 - $700.00) ---
+  { name: 'M4A4 | Asiimov', price: 250.00, rarity: 'legendary', type: 'rifle', image: 'images/skins/6d80a917b73059ee711d4b62a60dc98a.webp', weight: 9 },
+  { name: 'AWP | Asiimov', price: 300.00, rarity: 'legendary', type: 'sniper', image: 'images/skins/9d587c37d37509ef4d55dc7f4b13c125.webp', weight: 8 },
+  { name: 'AK-47 | Neon Rider', price: 360.00, rarity: 'legendary', type: 'rifle', image: 'images/skins/014ce4905180091d35d9654b0dbd8d1e.webp', weight: 7 },
+  { name: 'USP-S | Kill Confirmed', price: 430.00, rarity: 'legendary', type: 'pistol', image: 'images/skins/8c2ef24b7e0a0a291123c72735c8d9f0.webp', weight: 6 },
+  { name: 'M4A1-S | Printstream', price: 510.00, rarity: 'legendary', type: 'rifle', image: 'images/skins/b9dc7247f2a864190eb8a5e2b19b4274.webp', weight: 5 },
+  { name: 'Desert Eagle | Printstream', price: 600.00, rarity: 'legendary', type: 'pistol', image: 'images/skins/0886d293ebbf88cb139260c2aa78a809.webp', weight: 4 },
+  { name: 'Glock-18 | Bullet Queen', price: 700.00, rarity: 'legendary', type: 'pistol', image: 'images/skins/924a635abb20d91247ae9ec34b4f3fc0.webp', weight: 3 },
+  { name: 'P250 | See Ya Later', price: 820.00, rarity: 'legendary', type: 'pistol', image: 'images/skins/988bf7c729a627e1f4dbabc774308c89.webp', weight: 2 },
+  { name: 'MP7 | Bloodsport', price: 950.00, rarity: 'legendary', type: 'smg', image: 'images/skins/1408bbceb914e0f9541d170c216c8dda.webp', weight: 1 },
 
-  // Тайное, Ножи и Перчатки (Extra)
-  { name: 'Gut Knife | Freehand', price: 750.00, rarity: 'extra', image: 'images/skins/bd1cb9c53729b6f26cd16bb7e383722b.webp', weight: 5 },
-  { name: 'Bayonet | Lore', price: 900.00, rarity: 'extra', image: 'images/skins/0c11314e8c96f37addaa4996e703759c.webp', weight: 4 },
-  { name: 'Karambit | Doppler', price: 1100.00, rarity: 'extra', image: 'images/skins/12c83ab03525ee3c9835b559c19042e3.webp', weight: 3 },
-  { name: 'Butterfly Knife | Gradient', price: 1350.00, rarity: 'extra', image: 'images/skins/4bc12c054e360df689e89c7fbc7436db.webp', weight: 2 },
-  { name: 'Sport Gloves | Vice', price: 1600.00, rarity: 'extra', image: 'images/skins/a65374e38d25e58bda4670e96a546df7.webp', weight: 1 }
+  // --- НОЖИ И ПЕРЧАТКИ / ТАЙНОЕ ($1100.00 - $3000.00) ---
+  { name: 'Gut Knife | Freehand', price: 1100.00, rarity: 'extra', type: 'knife', image: 'images/skins/bd1cb9c53729b6f26cd16bb7e383722b.webp', weight: 5 },
+  { name: 'Bayonet | Lore', price: 1450.00, rarity: 'extra', type: 'knife', image: 'images/skins/0c11314e8c96f37addaa4996e703759c.webp', weight: 4 },
+  { name: 'Karambit | Doppler', price: 1850.00, rarity: 'extra', type: 'knife', image: 'images/skins/12c83ab03525ee3c9835b559c19042e3.webp', weight: 3 },
+  { name: 'Butterfly Knife | Gradient', price: 2350.00, rarity: 'extra', type: 'knife', image: 'images/skins/4bc12c054e360df689e89c7fbc7436db.webp', weight: 2 },
+  { name: 'Sport Gloves | Vice', price: 3000.00, rarity: 'extra', type: 'gloves', image: 'images/skins/a65374e38d25e58bda4670e96a546df7.webp', weight: 1 }
 ];
 
 const CASE_NAMES_LIST = [
@@ -106,6 +106,7 @@ const CASE_ICONS_LIST = [
   "images/cases/7130235e21e92d11f1ea81fa677cf379.webp"
 ];
 
+// Генерация 30 сбалансированных кейсов с пулом по 18 предметов
 function generate30Cases() {
   const categories = ['Free & Starter Cases', 'Serial Cases', 'High Roller Vaults', 'Exclusive Collections'];
   const cases = [];
@@ -116,14 +117,24 @@ function generate30Cases() {
     else if (i > 16 && i <= 24) cat = categories[2];
     else if (i > 24) cat = categories[3];
 
-    let price = i === 1 ? 0 : Math.round(i * 2.5);
-    if (cat === 'High Roller Vaults') price = i * 18;
-    if (cat === 'Exclusive Collections') price = i * 45;
+    let price = i === 1 ? 0 : Math.round(i * 3.2);
+    if (cat === 'High Roller Vaults') price = i * 22;
+    if (cat === 'Exclusive Collections') price = i * 60;
 
-    const shuffled = [...BASE_SKINS_CATALOG].sort(() => 0.5 - Math.random());
-    const caseItems = shuffled.slice(0, 6).map(item => ({
+    let filteredPool = BASE_SKINS_CATALOG;
+    if (price === 0 || price < 15) {
+      filteredPool = BASE_SKINS_CATALOG.filter(s => s.price <= 50);
+    } else if (price < 150) {
+      filteredPool = BASE_SKINS_CATALOG.filter(s => s.price >= 5 && s.price <= 300);
+    } else {
+      filteredPool = BASE_SKINS_CATALOG.filter(s => s.price >= 50);
+    }
+    if (filteredPool.length < 18) filteredPool = BASE_SKINS_CATALOG;
+
+    const shuffled = [...filteredPool].sort(() => 0.5 - Math.random());
+    const caseItems = shuffled.slice(0, 18).map(item => ({
       ...item,
-      price: Number((item.price * (1 + i * 0.08)).toFixed(2))
+      price: Number(item.price.toFixed(2))
     }));
 
     const iconPath = CASE_ICONS_LIST[(i - 1) % CASE_ICONS_LIST.length];
@@ -428,7 +439,7 @@ function renderCategorizedCases() {
 }
 
 // ==========================================
-// 6. CASE MODAL & OPENING
+// 6. CASE MODAL & OPENING (С КНОПКОЙ FAST OPEN)
 // ==========================================
 function openCaseModal(caseId) {
   if (!currentUser || !userProfile) {
@@ -485,9 +496,14 @@ function renderCaseModalBody(maxAffordable) {
     </div>
     <div style="margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--text-muted);">Select quantity (1 - 10):</div>
     <div class="modal-qty-grid">${qtyButtonsHTML}</div>
-    <button class="btn btn-primary btn-full" ${selectedModalQty === 0 ? 'disabled' : ''} onclick="confirmAndOpenCase()">
-      ${selectedModalQty === 0 ? 'Insufficient Balance' : (c.price === 0 ? `Open ${selectedModalQty}x FREE` : `Open ${selectedModalQty}x for $${totalCost.toFixed(2)}`)}
-    </button>
+    <div style="display:flex; gap:10px; margin-top:12px;">
+      <button class="btn btn-primary btn-full" ${selectedModalQty === 0 ? 'disabled' : ''} onclick="confirmAndOpenCase(false)">
+        ${selectedModalQty === 0 ? 'Insufficient Balance' : (c.price === 0 ? `Open ${selectedModalQty}x FREE` : `Open ${selectedModalQty}x ($${totalCost.toFixed(2)})`)}
+      </button>
+      <button class="btn btn-outline" style="white-space:nowrap;" ${selectedModalQty === 0 ? 'disabled' : ''} onclick="confirmAndOpenCase(true)">
+        ⚡ Fast Open
+      </button>
+    </div>
     <div class="modal-contents-list">
       ${c.items.map(item => `
         <div class="mini-item-chip" style="border-left-color: ${RARITY_COLORS[item.rarity]}">
@@ -512,7 +528,7 @@ function pickRandomItem(items) {
   return items[0];
 }
 
-async function confirmAndOpenCase() {
+async function confirmAndOpenCase(isFast = false) {
   if (!activeModalCase || selectedModalQty < 1 || isOpeningRunning) return;
   const selectedCase = activeModalCase;
   const qty = selectedModalQty;
@@ -528,6 +544,13 @@ async function confirmAndOpenCase() {
     updateUI();
   }
 
+  const wonItems = [];
+  for (let i = 0; i < qty; i++) {
+    wonItems.push(pickRandomItem(selectedCase.items));
+  }
+
+  lastOpenedItems = wonItems;
+
   const arena = document.getElementById('opening-arena');
   const verdictBox = document.getElementById('opening-verdict');
   const roulettesContainer = document.getElementById('roulettes-container');
@@ -539,29 +562,32 @@ async function confirmAndOpenCase() {
   verdictBox.classList.add('hidden');
   document.getElementById('opening-title').textContent = `Opening: ${selectedCase.name} (${qty}x)`;
 
-  let lanesHTML = '';
-  for (let i = 0; i < qty; i++) {
-    lanesHTML += `
-      <div class="roulette-lane">
-        <div class="roulette-window">
-          <div class="roulette-pointer"></div>
-          <div class="roulette-track" id="track-${i}"></div>
-        </div>
+  if (isFast) {
+    roulettesContainer.innerHTML = `
+      <div style="text-align:center; padding:40px; color:var(--win); font-weight:700; font-size:18px;">
+        ⚡ Fast Opening Complete!
       </div>
     `;
+    arena.scrollIntoView({ behavior: 'smooth' });
+    await new Promise(r => setTimeout(r, 600));
+  } else {
+    let lanesHTML = '';
+    for (let i = 0; i < qty; i++) {
+      lanesHTML += `
+        <div class="roulette-lane">
+          <div class="roulette-window">
+            <div class="roulette-pointer"></div>
+            <div class="roulette-track" id="track-${i}"></div>
+          </div>
+        </div>
+      `;
+    }
+    roulettesContainer.innerHTML = lanesHTML;
+    arena.scrollIntoView({ behavior: 'smooth' });
+
+    const spinPromises = wonItems.map((targetItem, index) => spinSlowRoulette(`track-${index}`, selectedCase.items, targetItem));
+    await Promise.all(spinPromises);
   }
-  roulettesContainer.innerHTML = lanesHTML;
-  arena.scrollIntoView({ behavior: 'smooth' });
-
-  const wonItems = [];
-  for (let i = 0; i < qty; i++) {
-    wonItems.push(pickRandomItem(selectedCase.items));
-  }
-
-  const spinPromises = wonItems.map((targetItem, index) => spinSlowRoulette(`track-${index}`, selectedCase.items, targetItem));
-  await Promise.all(spinPromises);
-
-  lastOpenedItems = wonItems;
 
   const insertPayload = wonItems.map(item => ({
     user_id: currentUser.id,
@@ -637,7 +663,7 @@ async function repeatLastOpening() {
     showToast('Insufficient balance to repeat opening!');
     return;
   }
-  confirmAndOpenCase();
+  confirmAndOpenCase(false);
 }
 
 async function sellAllOpenedItems() {
@@ -1235,7 +1261,7 @@ async function claimDailyStreak() {
 }
 
 // ==========================================
-// 11. INVENTORY & BULK SELLING
+// 11. INVENTORY & OPTIMIZED BULK SELLING
 // ==========================================
 function renderInventory() {
   const grid = document.getElementById('inventory-grid');
@@ -1270,17 +1296,20 @@ async function sellItem(itemId, price) {
 }
 
 async function quickSellByPrice(maxPrice) {
-  if (!currentUser || !userProfile) return;
+  if (!currentUser || !userProfile || userInventory.length === 0) return;
   const itemsToSell = userInventory.filter(i => Number(i.item_price) <= maxPrice);
   if (itemsToSell.length === 0) {
     showToast(`No items under $${maxPrice} found.`);
     return;
   }
 
-  let totalSum = 0;
-  for (const item of itemsToSell) {
-    totalSum += Number(item.item_price);
-    await sb.from('inventory').delete().eq('id', item.id);
+  const itemIds = itemsToSell.map(i => i.id);
+  let totalSum = itemsToSell.reduce((sum, i) => sum + Number(i.item_price), 0);
+
+  const { error } = await sb.from('inventory').delete().in('id', itemIds);
+  if (error) {
+    showToast('Error selling items');
+    return;
   }
 
   const updatedBalance = Number(userProfile.balance) + totalSum;
@@ -1293,10 +1322,14 @@ async function quickSellByPrice(maxPrice) {
 
 async function quickSellAllInventory() {
   if (!currentUser || !userProfile || userInventory.length === 0) return;
-  let totalSum = 0;
-  for (const item of userInventory) {
-    totalSum += Number(item.item_price);
-    await sb.from('inventory').delete().eq('id', item.id);
+  
+  const itemIds = userInventory.map(i => i.id);
+  let totalSum = userInventory.reduce((sum, i) => sum + Number(i.item_price), 0);
+
+  const { error } = await sb.from('inventory').delete().in('id', itemIds);
+  if (error) {
+    showToast('Error selling inventory');
+    return;
   }
 
   const updatedBalance = Number(userProfile.balance) + totalSum;
