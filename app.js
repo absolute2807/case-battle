@@ -1,484 +1,48 @@
-<<<<<<< HEAD
 // ==========================================
-// 1. КОНФИГУРАЦИЯ КЕЙСОВ И ПРЕДМЕТОВ
-// ==========================================
-const CASES_DATA = [
-  {
-    id: 'starter',
-    name: 'Армейский Кейс',
-    price: 100,
-    icon: '📦',
-    items: [
-      { name: 'Glock-18 | Песок', price: 45, rarity: 'common', emoji: '🔫', weight: 50 },
-      { name: 'USP-S | Лес', price: 85, rarity: 'common', emoji: '🔫', weight: 30 },
-      { name: 'AK-47 | Красная линия', price: 240, rarity: 'rare', emoji: '💥', weight: 15 },
-      { name: 'AWP | Азимов', price: 650, rarity: 'legendary', emoji: '🎯', weight: 5 }
-    ]
-  },
-  {
-    id: 'cyber',
-    name: 'Кибер-Операция',
-    price: 300,
-    icon: '🧰',
-    items: [
-      { name: 'P250 | Неон', price: 120, rarity: 'common', emoji: '🔫', weight: 45 },
-      { name: 'M4A1-S | Поток', price: 290, rarity: 'rare', emoji: '⚡', weight: 30 },
-      { name: 'Desert Eagle | Пламя', price: 750, rarity: 'epic', emoji: '🔥', weight: 18 },
-      { name: 'Нож-бабочка | Градиент', price: 2200, rarity: 'legendary', emoji: '🗡️', weight: 7 }
-    ]
-  },
-  {
-    id: 'elite',
-    name: 'Элитный Арсенал',
-    price: 750,
-    icon: '💼',
-    items: [
-      { name: 'AK-47 | Вулкан', price: 380, rarity: 'rare', emoji: '❄️', weight: 45 },
-      { name: 'M4A4 | Вой', price: 820, rarity: 'epic', emoji: '🐺', weight: 32 },
-      { name: 'Перчатки | Кровавое кимоно', price: 1800, rarity: 'epic', emoji: '🧤', weight: 16 },
-      { name: 'Керамбит | Волны', price: 4500, rarity: 'legendary', emoji: '⚔️', weight: 7 }
-    ]
-  }
-];
-
-const RARITY_COLORS = {
-  common: '#64748b',
-  rare: '#3b82f6',
-  epic: '#a855f7',
-  legendary: '#f59e0b'
-};
-
-// ==========================================
-// 2. СОСТОЯНИЕ ПРИЛОЖЕНИЯ
-// ==========================================
-let currentUser = null;
-let userProfile = null;
-let userInventory = [];
-let authMode = 'login';
-let isBattleRunning = false;
-
-// ==========================================
-// 3. ИНИЦИАЛИЗАЦИЯ И АВТОРИЗАЦИЯ SUPABASE
-// ==========================================
-document.addEventListener('DOMContentLoaded', async () => {
-  renderCases();
-
-  // Проверяем текущую сессию
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    await loadUserData(session.user);
-  }
-
-  // Слушаем изменения статуса входа/выхода
-  sb.auth.onAuthStateChange(async (_event, session) => {
-    if (session) {
-      await loadUserData(session.user);
-    } else {
-      currentUser = null;
-      userProfile = null;
-      userInventory = [];
-      updateUI();
-    }
-  });
-});
-
-async function loadUserData(user) {
-  currentUser = user;
-
-  // Загружаем профиль с балансом
-  const { data: profile, error: profErr } = await sb
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single();
-
-  if (!profErr && profile) {
-    userProfile = profile;
-  }
-
-  // Загружаем инвентарь
-  await fetchInventory();
-  updateUI();
-}
-
-async function fetchInventory() {
-  if (!currentUser) return;
-  const { data, error } = await sb
-    .from('inventory')
-    .select('*')
-    .eq('user_id', currentUser.id)
-    .order('created_at', { ascending: false });
-
-  if (!error && data) {
-    userInventory = data;
-    document.getElementById('inv-count').textContent = userInventory.length;
-    renderInventory();
-  }
-}
-
-function updateUI() {
-  const guestControls = document.getElementById('guest-controls');
-  const authControls = document.getElementById('auth-controls');
-
-  if (currentUser && userProfile) {
-    guestControls.classList.add('hidden');
-    authControls.classList.remove('hidden');
-    document.getElementById('user-balance').textContent = Number(userProfile.balance).toFixed(2);
-    document.getElementById('user-name').textContent = userProfile.username || currentUser.email;
-    document.getElementById('p1-name').textContent = userProfile.username || 'Вы';
-  } else {
-    guestControls.classList.remove('hidden');
-    authControls.classList.add('hidden');
-    document.getElementById('inv-count').textContent = '0';
-  }
-}
-
-// ==========================================
-// 4. МОДАЛКА ВХОДА И РЕГИСТРАЦИИ
-// ==========================================
-function openAuthModal() {
-  document.getElementById('auth-modal').classList.remove('hidden');
-  document.getElementById('auth-error').classList.add('hidden');
-}
-
-function closeAuthModal() {
-  document.getElementById('auth-modal').classList.add('hidden');
-}
-
-function setAuthMode(mode) {
-  authMode = mode;
-  document.getElementById('mode-login').classList.toggle('active', mode === 'login');
-  document.getElementById('mode-register').classList.toggle('active', mode === 'register');
-  document.getElementById('auth-modal-title').textContent = mode === 'login' ? 'Вход в аккаунт' : 'Регистрация (Бонус 1000 ₽)';
-  document.getElementById('auth-submit-btn').textContent = mode === 'login' ? 'Войти' : 'Создать аккаунт';
-  document.getElementById('auth-error').classList.add('hidden');
-}
-
-async function handleAuthSubmit(e) {
-  e.preventDefault();
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value;
-  const errBox = document.getElementById('auth-error');
-  const submitBtn = document.getElementById('auth-submit-btn');
-
-  errBox.classList.add('hidden');
-  submitBtn.disabled = true;
-
-  try {
-    if (authMode === 'register') {
-      const { error } = await sb.auth.signUp({ email, password });
-      if (error) throw error;
-      showToast('Аккаунт создан! Вам начислено 1000 ₽');
-      closeAuthModal();
-    } else {
-      const { error } = await sb.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      showToast('С возвращением!');
-      closeAuthModal();
-    }
-  } catch (err) {
-    errBox.textContent = err.message;
-    errBox.classList.remove('hidden');
-  } finally {
-    submitBtn.disabled = false;
-  }
-}
-
-async function logout() {
-  await sb.auth.signOut();
-  switchTab('cases');
-  showToast('Вы вышли из аккаунта');
-}
-
-// ==========================================
-// 5. ОТРИСОВКА КЕЙСОВ И НАВИГАЦИЯ
-// ==========================================
-function switchTab(tab) {
-  document.getElementById('view-cases').classList.toggle('hidden', tab !== 'cases');
-  document.getElementById('view-inventory').classList.toggle('hidden', tab !== 'inventory');
-  document.getElementById('tab-cases').classList.toggle('active', tab === 'cases');
-  document.getElementById('tab-inventory').classList.toggle('active', tab === 'inventory');
-
-  if (tab === 'inventory') {
-    if (!currentUser) {
-      openAuthModal();
-      switchTab('cases');
-      return;
-    }
-    fetchInventory();
-  }
-}
-
-function renderCases() {
-  const grid = document.getElementById('cases-grid');
-  grid.innerHTML = CASES_DATA.map(c => `
-    <div class="case-card">
-      <div>
-        <div class="case-icon">${c.icon}</div>
-        <div class="case-title">${c.name}</div>
-        <div class="case-items-preview">
-          ${c.items.map(i => `<span class="preview-dot" style="background:${RARITY_COLORS[i.rarity]}" title="${i.name} (${i.price} ₽)"></span>`).join('')}
-        </div>
-      </div>
-      <button class="btn btn-primary btn-full" onclick="startBattle('${c.id}')">
-        Батл за ${c.price} ₽
-      </button>
-    </div>
-  `).join('');
-}
-
-// ==========================================
-// 6. ЛОГИКА КЕЙС-БАТЛА И РУЛЕТКИ
-// ==========================================
-function pickRandomItem(items) {
-  const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
-  let rand = Math.random() * totalWeight;
-  for (const item of items) {
-    if (rand < item.weight) return item;
-    rand -= item.weight;
-  }
-  return items[0];
-}
-
-async function startBattle(caseId) {
-  if (!currentUser || !userProfile) {
-    openAuthModal();
-    return;
-  }
-  if (isBattleRunning) return;
-
-  const selectedCase = CASES_DATA.find(c => c.id === caseId);
-  if (!selectedCase) return;
-
-  if (Number(userProfile.balance) < selectedCase.price) {
-    showToast('Недостаточно средств на балансе!');
-    return;
-  }
-
-  isBattleRunning = true;
-
-  // 1. Списываем стоимость кейса в базе Supabase
-  const newBalance = Number(userProfile.balance) - selectedCase.price;
-  const { error: balErr } = await sb
-    .from('profiles')
-    .update({ balance: newBalance })
-    .eq('id', currentUser.id);
-
-  if (balErr) {
-    showToast('Ошибка списания баланса');
-    isBattleRunning = false;
-    return;
-  }
-
-  userProfile.balance = newBalance;
-  updateUI();
-
-  // 2. Подготовка арены
-  const arena = document.getElementById('battle-arena');
-  const closeBtn = document.getElementById('close-battle-btn');
-  const verdictBox = document.getElementById('battle-verdict');
-
-  arena.classList.remove('hidden');
-  closeBtn.disabled = true;
-  verdictBox.classList.add('hidden');
-  document.getElementById('battle-title').textContent = `Батл: ${selectedCase.name}`;
-  document.getElementById('p1-score').textContent = '0 ₽';
-  document.getElementById('p2-score').textContent = '0 ₽';
-  document.getElementById('p1-drop').textContent = 'Крутится...';
-  document.getElementById('p2-drop').textContent = 'Крутится...';
-
-  arena.scrollIntoView({ behavior: 'smooth' });
-
-  // 3. Определяем победившие предметы заранее
-  const p1WinItem = pickRandomItem(selectedCase.items);
-  const p2WinItem = pickRandomItem(selectedCase.items);
-
-  // 4. Запускаем анимацию обеих рулеток
-  await Promise.all([
-    spinRoulette('track-p1', selectedCase.items, p1WinItem),
-    spinRoulette('track-p2', selectedCase.items, p2WinItem)
-  ]);
-
-  // 5. Показываем результаты прокрутки
-  document.getElementById('p1-score').textContent = `${p1WinItem.price} ₽`;
-  document.getElementById('p2-score').textContent = `${p2WinItem.price} ₽`;
-  document.getElementById('p1-drop').innerHTML = `Выпало: <strong style="color:${RARITY_COLORS[p1WinItem.rarity]}">${p1WinItem.name}</strong>`;
-  document.getElementById('p2-drop').innerHTML = `Выпало: <strong style="color:${RARITY_COLORS[p2WinItem.rarity]}">${p2WinItem.name}</strong>`;
-
-  // 6. Определяем победителя батла (при ничьей побеждает игрок)
-  const isPlayerWinner = p1WinItem.price >= p2WinItem.price;
-
-  if (isPlayerWinner) {
-    const totalWin = p1WinItem.price + p2WinItem.price;
-    verdictBox.className = 'battle-verdict verdict-win';
-    verdictBox.textContent = `ПОБЕДА! Вы забрали оба предмета общей стоимостью ${totalWin} ₽ в инвентарь!`;
-
-    // Сохраняем ОБА предмета в таблицу inventory в Supabase
-    await sb.from('inventory').insert([
-      {
-        user_id: currentUser.id,
-        item_name: p1WinItem.name,
-        item_rarity: p1WinItem.rarity,
-        item_price: p1WinItem.price,
-        item_image: p1WinItem.emoji
-      },
-      {
-        user_id: currentUser.id,
-        item_name: p2WinItem.name,
-        item_rarity: p2WinItem.rarity,
-        item_price: p2WinItem.price,
-        item_image: p2WinItem.emoji
-      }
-    ]);
-    await fetchInventory();
-  } else {
-    verdictBox.className = 'battle-verdict verdict-lose';
-    verdictBox.textContent = `ПОРАЖЕНИЕ! Бот выбил более дорогой скин и забрал банк.`;
-  }
-
-  verdictBox.classList.remove('hidden');
-  closeBtn.disabled = false;
-  isBattleRunning = false;
-}
-
-function spinRoulette(trackId, pool, targetItem) {
-  return new Promise(resolve => {
-    const track = document.getElementById(trackId);
-    const totalCards = 45;
-    const winIndex = 38; // На какой карточке остановится указатель
-
-    // Генерируем ленту
-    const cards = [];
-    for (let i = 0; i < totalCards; i++) {
-      const item = (i === winIndex) ? targetItem : pool[Math.floor(Math.random() * pool.length)];
-      cards.push(`
-        <div class="roulette-item" style="border-bottom-color: ${RARITY_COLORS[item.rarity]}">
-          <div class="item-emoji">${item.emoji}</div>
-          <div class="item-name">${item.name}</div>
-        </div>
-      `);
-    }
-
-    track.style.transition = 'none';
-    track.style.transform = 'translateX(0px)';
-    track.innerHTML = cards.join('');
-
-    // Форсируем перерисовку DOM
-    track.offsetHeight;
-
-    // Ширина карточки 110px + 8px margin = 118px
-    const cardWidth = 118;
-    const windowWidth = track.parentElement.offsetWidth;
-    const randomOffset = Math.floor(Math.random() * 50) - 25; // Небольшое смещение внутри победной карточки
-    const targetX = (winIndex * cardWidth) - (windowWidth / 2) + (cardWidth / 2) + randomOffset;
-
-    track.style.transition = 'transform 4.2s cubic-bezier(0.12, 0.85, 0.22, 1)';
-    track.style.transform = `translateX(-${targetX}px)`;
-
-    setTimeout(resolve, 4300);
-  });
-}
-
-function closeBattle() {
-  if (!isBattleRunning) {
-    document.getElementById('battle-arena').classList.add('hidden');
-  }
-}
-
-// ==========================================
-// 7. ИНВЕНТАРЬ И ПРОДАЖА СКИНОВ
-// ==========================================
-function renderInventory() {
-  const grid = document.getElementById('inventory-grid');
-  if (userInventory.length === 0) {
-    grid.innerHTML = '<p style="color: var(--text-muted)">Инвентарь пуст. Выиграйте скины в Кейс Батле!</p>';
-    return;
-  }
-
-  grid.innerHTML = userInventory.map(item => `
-    <div class="inv-card" style="border-top-color: ${RARITY_COLORS[item.item_rarity] || '#64748b'}">
-      <div class="inv-emoji">${item.item_image || '🎁'}</div>
-      <div class="inv-name">${item.item_name}</div>
-      <div class="inv-price">${Number(item.item_price).toFixed(2)} ₽</div>
-      <button class="btn btn-outline btn-sm btn-full" onclick="sellItem('${item.id}', ${item.item_price})">
-        Продать
-      </button>
-    </div>
-  `).join('');
-}
-
-async function sellItem(itemId, price) {
-  if (!currentUser || !userProfile) return;
-
-  // Удаляем предмет из инвентаря
-  const { error: delErr } = await sb
-    .from('inventory')
-    .delete()
-    .eq('id', itemId);
-
-  if (delErr) {
-    showToast('Ошибка при продаже предмета');
-    return;
-  }
-
-  // Начисляем деньги на баланс
-  const updatedBalance = Number(userProfile.balance) + Number(price);
-  const { error: balErr } = await sb
-    .from('profiles')
-    .update({ balance: updatedBalance })
-    .eq('id', currentUser.id);
-
-  if (!balErr) {
-    userProfile.balance = updatedBalance;
-    updateUI();
-    await fetchInventory();
-    showToast(`Продано за +${price} ₽`);
-  }
-}
-
-// ==========================================
-// 8. УВЕДОМЛЕНИЯ
-// ==========================================
-let toastTimer;
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.remove('hidden');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    toast.classList.add('hidden');
-  }, 3000);
-}
-=======
-// ==========================================
-// 1. HUGE UNIQUE SKINS POOL & 30 CASES DATABASE
+// 1. REAL 125 SKINS & 30 CASES DATABASE (LOCAL IMAGES)
 // ==========================================
 const BASE_SKINS_CATALOG = [
-  // Commons & Low Tier
-  { name: 'P250 | Sand Dune', price: 0.50, rarity: 'common', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhjxszYfi5H7c-JmIW0kvP9J4TckmpD6ppw2u2T9I-k2wziqhBvZzrzco6TJwNsZwrT_gG6kO_rjJXqtcmZy3ZrpK958w0O/360fx360f', weight: 50 },
-  { name: 'MP9 | Storm', price: 1.20, rarity: 'common', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou7u1FBRv7PDJYQJD_9W7m5O0m_7zO6_umGJd6Zd02u2Z8oim3VXgqhBtYWD2JdSSdgZsZ1jS-1Tql-e918G8uMuYn3VkvnUi5GqPnRa3hU0aOdO7OvuacFlW/360fx360f', weight: 45 },
-  { name: 'Glock-18 | Groundwater', price: 2.10, rarity: 'common', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposbaqKAthoNzLYTJO6dOjh7-PmOfgPLTBuWVu5MB1g_zMu4jwiwGxwks9amD1LdSQJgdsN1vRq1XrlOu918S-uMjAynpjuyEm4i3cnA3in1gSObE-16O_AQA/360fx360f', weight: 40 },
-  { name: 'USP-S | Forest Leaves', price: 3.50, rarity: 'common', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoovujZAt21-TFcz5O6d2jn7-PmOfgPLTBuWVu5MB1g_zMu9St0FXn_kBoNmjwIYOTcAE_Yl-B81O7wbi6jJC178nJyXpn7iEj5yrdnB3in1gSb7Zp_6aL/360fx360f', weight: 35 },
-  { name: 'AK-47 | Safari Mesh', price: 5.80, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 30 },
-  { name: 'M4A4 | Urban DDPAT', price: 8.00, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITUmXlV78g_2buUpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 25 },
-  { name: 'AWP | Safari Mesh', price: 12.50, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 22 },
-  { name: 'Desert Eagle | Mudder', price: 15.00, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f', weight: 20 },
-  { name: 'FAMAS | Colony', price: 18.50, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposbaqKAthoNzLYTJO6dOjh7-PmOfgPLTBuWVu5MB1g_zMu4jwiwGxwks9amD1LdSQJgdsN1vRq1XrlOu918S-uMjAynpjuyEm4i3cnA3in1gSObE-16O_AQA/360fx360f', weight: 18 },
-  { name: 'Galil AR | Sage Spray', price: 22.00, rarity: 'rare', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f', weight: 16 },
+  // Ширпотреб и дешевые скины (0.30$ - 3.50$)
+  { name: 'P250 | Sand Dune', price: 0.45, rarity: 'common', image: 'images/skins/1fa37432694a1886bcf16b3c206b858d.webp', weight: 60 },
+  { name: 'MP9 | Storm', price: 0.85, rarity: 'common', image: 'images/skins/e599af025c812cf51c545eee08441b3c.webp', weight: 55 },
+  { name: 'Glock-18 | Groundwater', price: 1.10, rarity: 'common', image: 'images/skins/c89048a2027dd748bb5b2a0e93812588.webp', weight: 50 },
+  { name: 'USP-S | Forest Leaves', price: 1.50, rarity: 'common', image: 'images/skins/202e0346b89ed2c8f9bdae46b8122673.webp', weight: 45 },
+  { name: 'MAG-7 | Sand Dune', price: 1.80, rarity: 'common', image: 'images/skins/e6284efaf41ada014de6ceabb39a2a00.webp', weight: 42 },
+  { name: 'P90 | Sand Spray', price: 2.20, rarity: 'common', image: 'images/skins/8ec44be0fd0046b638e38ac14910334e.webp', weight: 40 },
+  { name: 'Nova | Walnut', price: 2.60, rarity: 'common', image: 'images/skins/9615519b1a9ac3c91bbe2f666e11f2e2.webp', weight: 38 },
+  { name: 'SG 553 | Army Sheen', price: 3.10, rarity: 'common', image: 'images/skins/208c4f112f78c6ebf4bbe8b41ebf8385.webp', weight: 35 },
 
-  // Mid Tier & Epics
-  { name: 'M4A1-S | Basilisk', price: 35.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITUmXlV78g_2buUpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 14 },
-  { name: 'AK-47 | Redline', price: 55.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2GlU7MVohOzA8IrtjgG1rhBpNmzydteRIgA2ZwqC_1m7lL3vhJS_vpvJySZmvSM8pGGKYT0S6WpQ/360fx360f', weight: 12 },
-  { name: 'AWP | Atheris', price: 75.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 10 },
-  { name: 'Desert Eagle | Code Red', price: 110.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OmuXwNr_Yg1Ru58N4nOqW892j2wK3rhBpNm2mLYGddFdtN1zZ-Ffvke691sfqu5vKzCVi6iJzsHnUnxK300xLcKU80vfYf8M/360fx360f', weight: 8 },
-  { name: 'USP-S | Neo-Noir', price: 150.00, rarity: 'epic', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoovujZAt21-TFcz5O6d2jn7-PmOfgPLTBuWVu5MB1g_zMu9St0FXn_kBoNmjwIYOTcAE_Yl-B81O7wbi6jJC178nJyXpn7iEj5yrdnB3in1gSb7Zp_6aL/360fx360f', weight: 7 },
+  // Армейское качество / Редкие (4.00$ - 15.00$)
+  { name: 'AK-47 | Safari Mesh', price: 4.50, rarity: 'rare', image: 'images/skins/a7e996d8a661f974508328cef87676c0.webp', weight: 32 },
+  { name: 'M4A4 | Urban DDPAT', price: 5.20, rarity: 'rare', image: 'images/skins/0366c1705768d627db0c980a6cb09126.webp', weight: 30 },
+  { name: 'AWP | Safari Mesh', price: 6.80, rarity: 'rare', image: 'images/skins/5ffe531a7a637ac693dfc89e5051b544.webp', weight: 28 },
+  { name: 'Desert Eagle | Mudder', price: 7.50, rarity: 'rare', image: 'images/skins/7bcb6ae7793940cacb5d2686f4a798c4.webp', weight: 26 },
+  { name: 'FAMAS | Colony', price: 8.90, rarity: 'rare', image: 'images/skins/9c5a264cc8fb1f596193f41befba05e4.webp', weight: 24 },
+  { name: 'Galil AR | Sage Spray', price: 10.00, rarity: 'rare', image: 'images/skins/b21ca7caaa460d17fe9e14f571ca8f85.webp', weight: 22 },
+  { name: 'SSG 08 | Lichen Dashed', price: 11.50, rarity: 'rare', image: 'images/skins/6375ed41e79aab5cf819a831cb1dfcc9.webp', weight: 20 },
+  { name: 'MAC-10 | Tornado', price: 13.00, rarity: 'rare', image: 'images/skins/c7ca9f89d27ebba453a79ea2c494914f.webp', weight: 19 },
 
-  // Legendaries & Knives
-  { name: 'M4A4 | Asiimov', price: 220.00, rarity: 'legendary', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITUmXlV78g_2buUpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 5 },
-  { name: 'AWP | Asiimov', price: 350.00, rarity: 'legendary', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FABz7PLfYQJD_9O7kY-OguX4PLTUmXlV78g_2u2UpIqtjgbk-BU-MW6hLI-TIgU9aQ3S-lbtxe29gJTtv8zPy3ZrpQ/360fx360f', weight: 4 },
-  { name: 'Gut Knife | Freehand', price: 480.00, rarity: 'legendary', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 3 },
-  { name: 'Karambit | Doppler', price: 750.00, rarity: 'extra', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 2 },
-  { name: 'Butterfly Knife | Gradient', price: 1200.00, rarity: 'extra', image: 'https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FA957PDJSRRF_-O5nY-Ogv_gNr_Yg1Ru58N4nOqW89qjjwKxrktvMmqlIIOcdlVtZAvT_le5le3vgse86cmZy3ZrpLg_vX8S/360fx360f', weight: 1 }
+  // Запрещенные / Заслуженные (16.00$ - 45.00$)
+  { name: 'M4A1-S | Basilisk', price: 16.50, rarity: 'epic', image: 'images/skins/8292c2e77c67b97b830c81f424c9f930.webp', weight: 18 },
+  { name: 'AK-47 | Redline', price: 21.00, rarity: 'epic', image: 'images/skins/82f68baff1b8c66f3ada9bfd07b31c31.webp', weight: 16 },
+  { name: 'AWP | Atheris', price: 26.50, rarity: 'epic', image: 'images/skins/9622430aef6d6792c8cf199cba33eab4.webp', weight: 15 },
+  { name: 'Desert Eagle | Code Red', price: 32.00, rarity: 'epic', image: 'images/skins/0e08b55f96e2b96578628142fbf5863a.webp', weight: 14 },
+  { name: 'USP-S | Neo-Noir', price: 38.00, rarity: 'epic', image: 'images/skins/2b664ffd6d36e8035889e18f4cf42879.webp', weight: 13 },
+  { name: 'Glock-18 | Wasteland Rebel', price: 44.00, rarity: 'epic', image: 'images/skins/6bf651f12c8360caeea8ddf68ba91436.webp', weight: 12 },
+
+  // Засекреченные / Легендарные (50.00$ - 180.00$)
+  { name: 'M4A4 | Asiimov', price: 55.00, rarity: 'legendary', image: 'images/skins/6d80a917b73059ee711d4b62a60dc98a.webp', weight: 10 },
+  { name: 'AWP | Asiimov', price: 75.00, rarity: 'legendary', image: 'images/skins/9d587c37d37509ef4d55dc7f4b13c125.webp', weight: 9 },
+  { name: 'AK-47 | Neon Rider', price: 95.00, rarity: 'legendary', image: 'images/skins/014ce4905180091d35d9654b0dbd8d1e.webp', weight: 8 },
+  { name: 'USP-S | Kill Confirmed', price: 120.00, rarity: 'legendary', image: 'images/skins/8c2ef24b7e0a0a291123c72735c8d9f0.webp', weight: 7 },
+  { name: 'M4A1-S | Printstream', price: 155.00, rarity: 'legendary', image: 'images/skins/b9dc7247f2a864190eb8a5e2b19b4274.webp', weight: 6 },
+
+  // Тайное, Ножи и Перчатки (200.00$ - 1200.00$)
+  { name: 'Gut Knife | Freehand', price: 220.00, rarity: 'extra', image: 'images/skins/bd1cb9c53729b6f26cd16bb7e383722b.webp', weight: 5 },
+  { name: 'Bayonet | Lore', price: 340.00, rarity: 'extra', image: 'images/skins/0c11314e8c96f37addaa4996e703759c.webp', weight: 4 },
+  { name: 'Karambit | Doppler', price: 550.00, rarity: 'extra', image: 'images/skins/12c83ab03525ee3c9835b559c19042e3.webp', weight: 3 },
+  { name: 'Butterfly Knife | Gradient', price: 850.00, rarity: 'extra', image: 'images/skins/4bc12c054e360df689e89c7fbc7436db.webp', weight: 2 },
+  { name: 'Sport Gloves | Vice', price: 1200.00, rarity: 'extra', image: 'images/skins/a65374e38d25e58bda4670e96a546df7.webp', weight: 1 }
 ];
 
 const CASE_NAMES_LIST = [
@@ -488,6 +52,19 @@ const CASE_NAMES_LIST = [
   "Dreams & Nightmares", "Recoil Pack", "Anubis Relic", "Kilowatt Surge", "Stellar Stash", 
   "Titanium Core", "Quantum Vault", "Apex Predator", "Obsidian Drop", "Vanguard Chest", 
   "Overdrive Crate", "Empowered Pack", "Legendary Cache", "God Tier Vault", "Ultimate Case Battle"
+];
+
+const CASE_ICONS_LIST = [
+  "images/cases/7130235e21e92d11f1ea81fa677cf379.webp",
+  "images/cases/a7e996d8a661f974508328cef87676c0.webp",
+  "images/cases/a77dc9f34609a0a90a5eef049384c7cf.webp",
+  "images/cases/a169dbf79a9bfa01cb00fcd6496f3922.webp",
+  "images/cases/bdca454652af3fa481e82915701f0470.webp",
+  "images/cases/c116e666274d208c5ff3732de6600cb0.webp",
+  "images/cases/d3345855cdc0020556b0b752da827f20.webp",
+  "images/cases/e38f1f4d8532b0946172cb48ddaa1bf3.webp",
+  "images/cases/e3493f6785b73327ce8cb43fe7b1f37f.webp",
+  "images/cases/e4916dfdff2b9416d2b2c3d9ea8176c7.webp"
 ];
 
 function generate30Cases() {
@@ -500,19 +77,17 @@ function generate30Cases() {
     else if (i > 16 && i <= 24) cat = categories[2];
     else if (i > 24) cat = categories[3];
 
-    let price = i === 1 ? 0 : Math.round(i * 3.2);
-    if (cat === 'High Roller Vaults') price = i * 22;
-    if (cat === 'Exclusive Collections') price = i * 55;
+    let price = i === 1 ? 0 : Math.round(i * 2.5);
+    if (cat === 'High Roller Vaults') price = i * 18;
+    if (cat === 'Exclusive Collections') price = i * 45;
 
-    // Уникальная подборка предметов для каждого кейса на основе общей базы
     const shuffled = [...BASE_SKINS_CATALOG].sort(() => 0.5 - Math.random());
-    const caseItems = shuffled.slice(0, 5).map(item => ({
+    const caseItems = shuffled.slice(0, 6).map(item => ({
       ...item,
-      price: Number((item.price * (1 + i * 0.12)).toFixed(2))
+      price: Number((item.price * (1 + i * 0.08)).toFixed(2))
     }));
 
-    // Создаем SVG-иконку кейса прямо в коде, чтобы не было битых картинок
-    const svgIcon = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="90" viewBox="0 0 120 90"><rect width="120" height="90" rx="12" fill="%23181d28" stroke="%23242c3d" stroke-width="2"/><path d="M35 35h50v30H35z" fill="%23f59e0b" opacity="0.2"/><path d="M45 45h30v10H45z" fill="%23f59e0b"/><circle cx="60" cy="50" r="4" fill="%23080a0f"/></svg>`;
+    const iconPath = CASE_ICONS_LIST[(i - 1) % CASE_ICONS_LIST.length];
 
     cases.push({
       id: `case_${i}`,
@@ -520,7 +95,7 @@ function generate30Cases() {
       name: CASE_NAMES_LIST[i - 1] || `Case Series #${i}`,
       price: price,
       isNew: i % 4 === 0,
-      icon: svgIcon,
+      icon: iconPath,
       items: caseItems
     });
   }
@@ -562,7 +137,7 @@ let activeModalCase = null;
 let selectedModalQty = 1;
 let lastOpenedItems = [];
 
-// Upgrader 2.0 State
+// Upgrader State
 let selectedUpgradeItems = [];
 let addedBalance = 0.00;
 let selectedTargetSkin = null;
@@ -1050,7 +625,7 @@ async function sellAllOpenedItems() {
 }
 
 // ==========================================
-// 7. UPGRADER 2.0 (English Button & Price Filter)
+// 7. UPGRADER (UPGRADE BUTTON & PRICE FILTER)
 // ==========================================
 function renderUpgradeInventory() {
   const container = document.getElementById('upgrade-inv-select');
@@ -1093,7 +668,7 @@ function toggleUpgradeItem(itemId) {
   renderUpgradeInventory();
   renderSelectedSlots();
   recalculateUpgrader();
-  renderTargetCatalog(); // Пересчитываем каталог, чтобы скрыть скины дешевле ставки
+  renderTargetCatalog();
 }
 
 function renderSelectedSlots() {
@@ -1145,7 +720,6 @@ function renderTargetCatalog() {
   let sortType = sortSelect ? sortSelect.value : 'price';
   const totalInput = getTotalInputPrice();
 
-  // Берем только те скины, которые дороже текущей ставки (totalInput)
   let targets = ALL_SKINS_POOL.filter(s => s.price > totalInput);
 
   if (query) {
@@ -1717,4 +1291,3 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.add('hidden'), 3500);
 }
->>>>>>> 07c95eb2a9a82bcd48ec17d0f8ead1212ce427ef
