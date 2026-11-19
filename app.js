@@ -2,7 +2,7 @@
 // 1. BALANCED SKINS & CASES DATABASE (125 SKINS, 50/50 ECONOMY)
 // ==========================================
 const BASE_SKINS_CATALOG = [
-  // --- ШИРПОТРЕБ / ОБЫЧНЫЕ ($0.50 - $12.00) ---
+  // --- ШИРПОТРЕБ / ОБЫЧНЫЕ ($0.50 - $15.00) ---
   { name: 'P250 | Sand Dune', price: 0.50, rarity: 'common', type: 'pistol', image: 'images/skins/1fa37432694a1886bcf16b3c206b858d.webp', weight: 100 },
   { name: 'MP9 | Storm', price: 0.80, rarity: 'common', type: 'smg', image: 'images/skins/e599af025c812cf51c545eee08441b3c.webp', weight: 95 },
   { name: 'Glock-18 | Groundwater', price: 1.15, rarity: 'common', type: 'pistol', image: 'images/skins/c89048a2027dd748bb5b2a0e93812588.webp', weight: 90 },
@@ -27,7 +27,7 @@ const BASE_SKINS_CATALOG = [
   { name: 'G3SG1 | Desert Storm', price: 14.00, rarity: 'common', type: 'sniper', image: 'images/skins/12c83ab03525ee3c9835b559c19042e3.webp', weight: 22 },
   { name: 'M249 | Contrast Spray', price: 15.00, rarity: 'common', type: 'mg', image: 'images/skins/014ce4905180091d35d9654b0dbd8d1e.webp', weight: 20 },
 
-  // --- АРМЕЙСКОЕ КАЧЕСТВО ($16.50 - $95.00) ---
+  // --- АРМЕЙСКОЕ КАЧЕСТВО ($16.50 - $100.00) ---
   { name: 'AK-47 | Safari Mesh', price: 16.50, rarity: 'rare', type: 'rifle', image: 'images/skins/a7e996d8a661f974508328cef87676c0.webp', weight: 35 },
   { name: 'M4A4 | Urban DDPAT', price: 19.00, rarity: 'rare', type: 'rifle', image: 'images/skins/0366c1705768d627db0c980a6cb09126.webp', weight: 32 },
   { name: 'AWP | Safari Mesh', price: 22.00, rarity: 'rare', type: 'sniper', image: 'images/skins/5ffe531a7a637ac693dfc89e5051b544.webp', weight: 30 },
@@ -47,7 +47,7 @@ const BASE_SKINS_CATALOG = [
   { name: 'P90 | Teardown', price: 94.00, rarity: 'rare', type: 'smg', image: 'images/skins/82f68baff1b8c66f3ada9bfd07b31c31.webp', weight: 9 },
   { name: 'SG 553 | Waves', price: 100.00, rarity: 'rare', type: 'rifle', image: 'images/skins/98df14c056b65776a1a31a1582e58a64.webp', weight: 8 },
 
-  // --- ЗАПРЕЩЕННОЕ ($110.00 - $520.00) ---
+  // --- ЗАПРЕЩЕННОЕ ($110.00 - $580.00) ---
   { name: 'M4A1-S | Basilisk', price: 110.00, rarity: 'epic', type: 'rifle', image: 'images/skins/8292c2e77c67b97b830c81f424c9f930.webp', weight: 16 },
   { name: 'AK-47 | Redline', price: 130.00, rarity: 'epic', type: 'rifle', image: 'images/skins/82f68baff1b8c66f3ada9bfd07b31c31.webp', weight: 15 },
   { name: 'AWP | Atheris', price: 155.00, rarity: 'epic', type: 'sniper', image: 'images/skins/9622430aef6d6792c8cf199cba33eab4.webp', weight: 14 },
@@ -63,7 +63,7 @@ const BASE_SKINS_CATALOG = [
   { name: 'AUG | Chameleon', price: 530.00, rarity: 'epic', type: 'rifle', image: 'images/skins/780f089c7b87812486d0e4155818c41a.webp', weight: 4 },
   { name: 'P90 | Asiimov', price: 580.00, rarity: 'epic', type: 'smg', image: 'images/skins/885e52be2680009c07183a0f26b7670e.webp', weight: 3 },
 
-  // --- ЗАСЕКРЕЧЕННОЕ ($650.00 - $2,100.00) ---
+  // --- ЗАСЕКРЕЧЕННОЕ ($650.00 - $2,200.00) ---
   { name: 'M4A4 | Asiimov', price: 650.00, rarity: 'legendary', type: 'rifle', image: 'images/skins/6d80a917b73059ee711d4b62a60dc98a.webp', weight: 9 },
   { name: 'AWP | Asiimov', price: 780.00, rarity: 'legendary', type: 'sniper', image: 'images/skins/9d587c37d37509ef4d55dc7f4b13c125.webp', weight: 8 },
   { name: 'AK-47 | Neon Rider', price: 920.00, rarity: 'legendary', type: 'rifle', image: 'images/skins/014ce4905180091d35d9654b0dbd8d1e.webp', weight: 7 },
@@ -106,7 +106,6 @@ const CASE_ICONS_LIST = [
   "images/cases/7130235e21e92d11f1ea81fa677cf379.webp"
 ];
 
-// Генерация 30 сбалансированных кейсов по правилу 50/50 (9 дешевых + 9 дорогих окупающих)
 function generate30Cases() {
   const categories = ['Free & Starter Cases', 'Serial Cases', 'High Roller Vaults', 'Exclusive Collections'];
   const cases = [];
@@ -120,27 +119,23 @@ function generate30Cases() {
     let price = i === 1 ? 0 : Math.round(i * 4.5);
     if (cat === 'High Roller Vaults') price = i * 35;
     if (cat === 'Exclusive Collections') price = i * 95;
-    if (i === 30) price = 3000; // Самый дорогой финальный кейс
+    if (i === 30) price = 3000;
 
     let caseItems = [];
 
     if (price === 0) {
-      // Бесплатный стартовый кейс: 18 недорогих скинов для разгона
       const starterPool = [...BASE_SKINS_CATALOG].filter(s => s.price <= 25).sort(() => 0.5 - Math.random());
       caseItems = starterPool.slice(0, 18).map((item, idx) => ({
         ...item,
         weight: Math.max(5, 60 - idx * 3)
       }));
     } else {
-      // Строгий подбор 50/50:
-      // 9 предметов дешевле кейса (от 25% до 88% цены кейса)
       let cheaperPool = BASE_SKINS_CATALOG.filter(s => s.price >= price * 0.2 && s.price <= price * 0.9);
       if (cheaperPool.length < 9) {
         cheaperPool = BASE_SKINS_CATALOG.filter(s => s.price < price).slice(-12);
       }
       if (cheaperPool.length === 0) cheaperPool = BASE_SKINS_CATALOG.slice(0, 9);
 
-      // 9 предметов дороже кейса (от 1.25x до 5x+ цены кейса — ощутимый окуп и джекпот)
       let richerPool = BASE_SKINS_CATALOG.filter(s => s.price >= price * 1.25 && s.price <= price * 5.5);
       if (richerPool.length < 9) {
         richerPool = BASE_SKINS_CATALOG.filter(s => s.price > price).slice(0, 14);
@@ -150,18 +145,15 @@ function generate30Cases() {
       const selectedCheaper = [...cheaperPool].sort(() => 0.5 - Math.random()).slice(0, 9).map((item, idx) => ({
         ...item,
         price: Number(item.price.toFixed(2)),
-        // Суммарный вес дешевых ~ 225 (примерно 50% шанса)
         weight: 28 - idx
       }));
 
       const selectedRicher = [...richerPool].sort(() => 0.5 - Math.random()).slice(0, 9).map((item, idx) => ({
         ...item,
         price: Number(item.price.toFixed(2)),
-        // Суммарный вес окупающих ~ 225 (примерно 50% шанса, чем дороже скин, тем ниже вес)
         weight: Math.max(4, 34 - idx * 3)
       }));
 
-      // Для самого дорогого кейса (30) гарантируем топовые ножи и перчатки в списке окупа
       if (i === 30) {
         const topExotics = BASE_SKINS_CATALOG.filter(s => s.rarity === 'extra' || s.price >= 2200);
         selectedRicher.splice(0, topExotics.length, ...topExotics.map((item, idx) => ({
@@ -189,6 +181,9 @@ function generate30Cases() {
 }
 
 const CASES_DATA = generate30Cases();
+
+const LEVEL_CASE_HIGH_POOL = BASE_SKINS_CATALOG.filter(s => s.price >= 110);
+const LEVEL_GUARANTEED_100PLUS_POOL = BASE_SKINS_CATALOG.filter(s => s.price >= 100);
 
 const RARITY_COLORS = {
   common: '#b0c3d9',
@@ -221,6 +216,26 @@ let activeModalCase = null;
 let selectedModalQty = 1;
 let lastOpenedItems = [];
 
+// Level Road State
+const LEVEL_CLAIMED_KEY = 'casebattle_claimed_levels_v1';
+let claimedLevelRewards = [];
+let isClaimingLevelReward = false;
+
+// Contracts State
+let selectedContractItems = [];
+let isCraftingContract = false;
+
+// Mines State
+let minesActive = false;
+let minesBetAmount = 0;
+let minesCount = 5;
+let minesPositions = new Set();
+let minesRevealedSafe = new Set();
+let minesCurrentMultiplier = 1.00;
+
+// Inventory Selection State
+let selectedInventoryIds = new Set();
+
 // Upgrader State
 let selectedUpgradeItems = [];
 let addedBalance = 0.00;
@@ -246,8 +261,12 @@ let userQuests = {
 // 3. INIT & AUTH
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
+  loadClaimedLevels();
   renderCategorizedCases();
   renderBattleCaseSelect();
+  initBestDropsFeed();
+  initMinesUI();
+  renderContractsUI();
   loadLocalQuests();
   renderQuestsUI();
   loadLocalLevel();
@@ -294,6 +313,7 @@ async function fetchInventory() {
     renderInventory();
     renderUpgradeInventory();
     renderRocketInventory();
+    renderContractsUI();
   }
 }
 
@@ -319,8 +339,8 @@ function loadLocalLevel() {
   const savedLvl = localStorage.getItem('casebattle_level');
   const savedXp = localStorage.getItem('casebattle_xp');
   if (userProfile) {
-    if (savedLvl) userProfile.level = parseInt(savedLvl);
-    if (savedXp) userProfile.xp = parseInt(savedXp);
+    if (savedLvl) userProfile.level = Math.min(100, parseInt(savedLvl) || 1);
+    if (savedXp) userProfile.xp = parseInt(savedXp) || 0;
     if (!userProfile.level) userProfile.level = 1;
     if (!userProfile.xp) userProfile.xp = 0;
   }
@@ -334,12 +354,25 @@ function saveLocalLevel() {
 
 function addXP(amount) {
   if (!userProfile) return;
-  userProfile.xp = (userProfile.xp || 0) + amount;
-  const neededXP = userProfile.level * 500;
-  if (userProfile.xp >= neededXP) {
-    userProfile.level = (userProfile.level || 1) + 1;
-    showToast(`LEVEL UP! You reached Level ${userProfile.level}!`);
+  if ((userProfile.level || 1) >= 100) {
+    userProfile.level = 100;
+    saveLocalLevel();
+    updateXPBar();
+    return;
   }
+
+  userProfile.xp = (userProfile.xp || 0) + amount;
+  while ((userProfile.level || 1) < 100) {
+    const neededXP = userProfile.level * 500;
+    if (userProfile.xp >= neededXP) {
+      userProfile.xp -= neededXP;
+      userProfile.level = (userProfile.level || 1) + 1;
+      showToast(`LEVEL UP! You reached Level ${userProfile.level}!`);
+    } else {
+      break;
+    }
+  }
+
   saveLocalLevel();
   updateXPBar();
   if (currentUser) {
@@ -351,14 +384,187 @@ function updateXPBar() {
   const lvl = userProfile?.level || 1;
   const xp = userProfile?.xp || 0;
   const needed = lvl * 500;
-  const pct = Math.min(100, (xp / needed) * 100);
+  const pct = lvl >= 100 ? 100 : Math.min(100, (xp / needed) * 100);
 
   const bar = document.getElementById('xp-bar-fill');
   const lvlText = document.getElementById('player-lvl-text');
   const xpText = document.getElementById('player-xp-text');
+  const badge = document.getElementById('user-lvl-badge');
   if (bar) bar.style.width = `${pct}%`;
   if (lvlText) lvlText.textContent = `Level ${lvl}`;
-  if (xpText) xpText.textContent = `${xp} / ${needed} XP`;
+  if (xpText) xpText.textContent = lvl >= 100 ? 'MAX LEVEL' : `${xp} / ${needed} XP`;
+  if (badge) badge.textContent = `Lvl ${lvl}`;
+}
+
+// ==========================================
+// 3B. LEVEL ROAD (1 - 100) & REWARDS
+// ==========================================
+function loadClaimedLevels() {
+  try {
+    const raw = localStorage.getItem(LEVEL_CLAIMED_KEY);
+    if (raw) {
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr)) claimedLevelRewards = arr.map(Number);
+    }
+  } catch (e) {}
+}
+
+function saveClaimedLevels() {
+  localStorage.setItem(LEVEL_CLAIMED_KEY, JSON.stringify(claimedLevelRewards));
+}
+
+function getLevelRewardSpec(lvl) {
+  if (lvl % 5 === 0) {
+    return {
+      isMilestone: true,
+      cash: 250,
+      hasLevelCase: true,
+      guaranteed100Plus: true,
+      label: `Level Case + $250 + Skin ≥ $100`
+    };
+  }
+  const smallCash = Number((lvl * 5).toFixed(2));
+  return {
+    isMilestone: false,
+    cash: smallCash,
+    hasLevelCase: false,
+    guaranteed100Plus: false,
+    label: `+$${smallCash.toFixed(2)} bonus`
+  };
+}
+
+function openLevelRoadModal() {
+  if (!currentUser || !userProfile) {
+    openAuthModal();
+    return;
+  }
+  renderLevelRoadModal();
+  document.getElementById('level-road-modal').classList.remove('hidden');
+}
+
+function closeLevelRoadModal() {
+  document.getElementById('level-road-modal').classList.add('hidden');
+}
+
+function renderLevelRoadModal() {
+  const currentLvl = Number(userProfile?.level || 1);
+  const summaryEl = document.getElementById('level-road-summary');
+  const listEl = document.getElementById('level-road-list');
+  if (!summaryEl || !listEl) return;
+
+  const unclaimedCount = Array.from({ length: currentLvl }, (_, idx) => idx + 1)
+    .filter(l => !claimedLevelRewards.includes(l)).length;
+
+  summaryEl.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+      <div>Current Level: <b>${currentLvl} / 100</b></div>
+      <div>Unclaimed Rewards: <b style="color:var(--win);">${unclaimedCount}</b></div>
+    </div>
+    <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+      Every 5th level grants a high-tier <b>Level Case</b>, <b>$250</b>, and a guaranteed skin worth <b>$100+</b>.
+    </div>
+  `;
+
+  const rows = [];
+  for (let lvl = 1; lvl <= 100; lvl++) {
+    const spec = getLevelRewardSpec(lvl);
+    const unlocked = currentLvl >= lvl;
+    const claimed = claimedLevelRewards.includes(lvl);
+
+    let btnHtml = '';
+    if (claimed) {
+      btnHtml = `<button class="btn btn-sm btn-outline" disabled>Claimed</button>`;
+    } else if (unlocked) {
+      btnHtml = `<button class="btn btn-sm btn-win" ${isClaimingLevelReward ? 'disabled' : ''} onclick="claimLevelReward(${lvl})">Claim</button>`;
+    } else {
+      btnHtml = `<button class="btn btn-sm btn-outline" disabled>Locked</button>`;
+    }
+
+    rows.push(`
+      <div class="level-tier-row ${spec.isMilestone ? 'milestone' : ''}">
+        <div>
+          <div style="font-weight:700;">
+            ${spec.isMilestone ? '👑 ' : ''}Level ${lvl}
+          </div>
+          <div style="font-size:12px; color:${spec.isMilestone ? '#ffd700' : 'var(--text-muted)'};">${spec.label}</div>
+        </div>
+        <div>${btnHtml}</div>
+      </div>
+    `);
+  }
+
+  listEl.innerHTML = rows.join('');
+}
+
+async function claimLevelReward(lvl) {
+  if (!currentUser || !userProfile || isClaimingLevelReward) {
+    if (!currentUser) openAuthModal();
+    return;
+  }
+  const currentLvl = Number(userProfile.level || 1);
+  if (lvl > currentLvl || claimedLevelRewards.includes(lvl)) return;
+
+  isClaimingLevelReward = true;
+  const spec = getLevelRewardSpec(lvl);
+  claimedLevelRewards.push(lvl);
+  saveClaimedLevels();
+  renderLevelRoadModal();
+
+  const newBal = Number(userProfile.balance) + Number(spec.cash);
+  await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
+  userProfile.balance = newBal;
+  updateUI();
+
+  const itemsToInsert = [];
+  const spinnerBox = document.getElementById('level-case-spinner-box');
+  const spinnerTitle = document.getElementById('level-case-spinner-title');
+
+  if (spec.hasLevelCase) {
+    const caseSkin = pickRandomItem(LEVEL_CASE_HIGH_POOL);
+    if (spinnerBox && spinnerTitle) {
+      spinnerBox.classList.remove('hidden');
+      spinnerTitle.textContent = `Opening Level ${lvl} Case...`;
+      await spinSlowRoulette('level-case-track', LEVEL_CASE_HIGH_POOL, caseSkin);
+    }
+    itemsToInsert.push({
+      user_id: currentUser.id,
+      item_name: `[Level ${lvl} Case] ${caseSkin.name}`,
+      item_rarity: caseSkin.rarity,
+      item_price: caseSkin.price,
+      item_image: caseSkin.image
+    });
+    addLiveTickerItem(userProfile.username || currentUser.email, `Level ${lvl} Case`, caseSkin.name, caseSkin.price);
+  }
+
+  if (spec.guaranteed100Plus) {
+    const guaranteedSkin = pickRandomItem(LEVEL_GUARANTEED_100PLUS_POOL);
+    itemsToInsert.push({
+      user_id: currentUser.id,
+      item_name: guaranteedSkin.name,
+      item_rarity: guaranteedSkin.rarity,
+      item_price: guaranteedSkin.price,
+      item_image: guaranteedSkin.image
+    });
+    addLiveTickerItem(userProfile.username || currentUser.email, `Lvl ${lvl} Bonus`, guaranteedSkin.name, guaranteedSkin.price);
+  }
+
+  if (itemsToInsert.length > 0) {
+    await sb.from('inventory').insert(itemsToInsert);
+  }
+
+  if (spinnerBox) {
+    setTimeout(() => spinnerBox.classList.add('hidden'), 1200);
+  }
+
+  isClaimingLevelReward = false;
+  await fetchInventory();
+  renderLevelRoadModal();
+
+  if (spec.isMilestone) {
+    showToast(`Level ${lvl} claimed: +$${spec.cash}, Level Case & $100+ skin!`);
+  } else {
+    showToast(`Level ${lvl} reward claimed: +$${spec.cash.toFixed(2)}!`);
+  }
 }
 
 // ==========================================
@@ -421,10 +627,14 @@ async function logout() {
 // ==========================================
 // 5. NAVIGATION & RENDER CASES
 // ==========================================
+const ALL_TABS = ['cases', 'battles', 'upgrader', 'contracts', 'mines', 'rocket', 'quests', 'inventory'];
+
 function switchTab(tab) {
-  ['cases', 'battles', 'upgrader', 'rocket', 'quests', 'inventory'].forEach(t => {
-    document.getElementById(`view-${t}`).classList.toggle('hidden', t !== tab);
-    document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+  ALL_TABS.forEach(t => {
+    const viewEl = document.getElementById(`view-${t}`);
+    const tabEl = document.getElementById(`tab-${t}`);
+    if (viewEl) viewEl.classList.toggle('hidden', t !== tab);
+    if (tabEl) tabEl.classList.toggle('active', t === tab);
   });
 
   if (tab !== 'cases') {
@@ -437,6 +647,11 @@ function switchTab(tab) {
     if (tab === 'upgrader') {
       renderUpgradeInventory();
       renderTargetCatalog();
+    } else if (tab === 'contracts') {
+      renderContractsUI();
+    } else if (tab === 'mines') {
+      renderMinesBoard();
+      updateMinesStatusUI();
     }
   }
 }
@@ -473,7 +688,7 @@ function renderCategorizedCases() {
 }
 
 // ==========================================
-// 6. CASE MODAL & OPENING (С КНОПКОЙ FAST OPEN)
+// 6. CASE MODAL & OPENING (WITH FAST OPEN)
 // ==========================================
 function openCaseModal(caseId) {
   if (!currentUser || !userProfile) {
@@ -660,6 +875,10 @@ async function confirmAndOpenCase(isFast = false) {
 function spinSlowRoulette(trackId, pool, targetItem) {
   return new Promise(resolve => {
     const track = document.getElementById(trackId);
+    if (!track) {
+      resolve();
+      return;
+    }
     const totalCards = 45;
     const winIndex = 36;
 
@@ -680,7 +899,7 @@ function spinSlowRoulette(trackId, pool, targetItem) {
     track.offsetHeight;
 
     const cardWidth = 123;
-    const windowWidth = track.parentElement.offsetWidth;
+    const windowWidth = track.parentElement.offsetWidth || 600;
     const randomOffset = Math.floor(Math.random() * 30) - 15;
     const targetX = (winIndex * cardWidth) - (windowWidth / 2) + (cardWidth / 2) + randomOffset;
 
@@ -962,6 +1181,7 @@ async function startUpgrade() {
         item_price: selectedTargetSkin.price,
         item_image: selectedTargetSkin.image
       }]);
+      addLiveTickerItem(userProfile.username || currentUser.email, 'Upgrader', selectedTargetSkin.name, selectedTargetSkin.price);
       showToast(`UPGRADE SUCCESS! Won ${selectedTargetSkin.name}!`);
     } else {
       showToast('Upgrade failed!');
@@ -989,6 +1209,345 @@ async function startUpgrade() {
     rotor.style.transition = 'none';
     rotor.style.transform = 'translateZ(0) rotate(0deg)';
   }, 4400);
+}
+
+// ==========================================
+// 7B. TRADE-UP CONTRACTS (3 - 10 ITEMS)
+// ==========================================
+function renderContractsUI() {
+  const invContainer = document.getElementById('contracts-inv-select');
+  const slotsContainer = document.getElementById('contracts-slots-grid');
+  const invCountEl = document.getElementById('contracts-inv-count');
+  const selCountEl = document.getElementById('contracts-selected-count');
+  const summaryEl = document.getElementById('contracts-summary');
+  const craftBtn = document.getElementById('contracts-craft-btn');
+
+  selectedContractItems = selectedContractItems.filter(sel => userInventory.some(inv => inv.id === sel.id));
+
+  if (invCountEl) invCountEl.textContent = userInventory.length;
+  if (selCountEl) selCountEl.textContent = selectedContractItems.length;
+
+  if (invContainer) {
+    if (userInventory.length === 0) {
+      invContainer.innerHTML = '<p class="muted-text" style="grid-column: 1/-1; text-align:center; padding:24px;">No items in inventory.</p>';
+    } else {
+      invContainer.innerHTML = userInventory.map(item => {
+        const isPicked = selectedContractItems.some(i => i.id === item.id);
+        return `
+          <div class="upgrade-grid-item ${isPicked ? 'selected' : ''}" style="border-bottom-color: ${RARITY_COLORS[item.item_rarity] || '#b0c3d9'}" onclick="toggleContractItem('${item.id}')">
+            <img src="${item.item_image}" class="upgrade-grid-thumb" alt="${item.item_name}">
+            <div style="font-weight:700; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.item_name}</div>
+            <div style="color:var(--win); font-size:11px; font-weight:700;">$${Number(item.item_price).toFixed(2)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+  }
+
+  if (slotsContainer) {
+    let html = '';
+    for (let i = 0; i < 10; i++) {
+      const item = selectedContractItems[i];
+      if (item) {
+        html += `<div class="slot-item" onclick="toggleContractItem('${item.id}')" title="${item.item_name}"><img src="${item.item_image}" alt="${item.item_name}"></div>`;
+      } else {
+        html += `<div class="slot-item empty">+</div>`;
+      }
+    }
+    slotsContainer.innerHTML = html;
+  }
+
+  const inputSum = selectedContractItems.reduce((acc, i) => acc + Number(i.item_price), 0);
+  const minOut = inputSum * 0.6;
+  const maxOut = inputSum * 2.2;
+
+  if (summaryEl) {
+    summaryEl.innerHTML = `Input Sum: <b>$${inputSum.toFixed(2)}</b> | Range (~0.6x–2.2x): <b>$${minOut.toFixed(2)} – $${maxOut.toFixed(2)}</b>`;
+  }
+
+  if (craftBtn) {
+    const validCount = selectedContractItems.length >= 3 && selectedContractItems.length <= 10;
+    craftBtn.disabled = !validCount || isCraftingContract;
+    craftBtn.textContent = validCount
+      ? `Sign Contract (${selectedContractItems.length} items)`
+      : `Select 3–10 items (${selectedContractItems.length}/10)`;
+  }
+}
+
+function toggleContractItem(itemId) {
+  if (isCraftingContract) return;
+  const item = userInventory.find(i => i.id === itemId);
+  if (!item) return;
+
+  const idx = selectedContractItems.findIndex(i => i.id === itemId);
+  if (idx > -1) {
+    selectedContractItems.splice(idx, 1);
+  } else {
+    if (selectedContractItems.length >= 10) {
+      showToast('Maximum 10 items per contract!');
+      return;
+    }
+    selectedContractItems.push(item);
+  }
+  renderContractsUI();
+}
+
+async function executeTradeUpContract() {
+  if (!currentUser || isCraftingContract) return;
+  if (selectedContractItems.length < 3 || selectedContractItems.length > 10) {
+    showToast('Choose between 3 and 10 items!');
+    return;
+  }
+
+  isCraftingContract = true;
+  renderContractsUI();
+
+  const itemsToBurn = [...selectedContractItems];
+  const idsToDelete = itemsToBurn.map(i => i.id);
+  const inputSum = itemsToBurn.reduce((acc, i) => acc + Number(i.item_price), 0);
+
+  const u = Math.random();
+  const multiplier = Number((0.6 + Math.pow(u, 1.15) * 1.6).toFixed(2));
+  const targetValue = inputSum * multiplier;
+
+  let candidates = ALL_SKINS_POOL.filter(s => s.price >= inputSum * 0.55 && s.price <= inputSum * 2.35);
+  if (candidates.length === 0) {
+    candidates = ALL_SKINS_POOL;
+  }
+
+  candidates.sort((a, b) => Math.abs(a.price - targetValue) - Math.abs(b.price - targetValue));
+  const topPool = candidates.slice(0, Math.min(5, candidates.length));
+  const rewardSkin = topPool[Math.floor(Math.random() * topPool.length)];
+
+  await sb.from('inventory').delete().in('id', idsToDelete);
+  await sb.from('inventory').insert([{
+    user_id: currentUser.id,
+    item_name: rewardSkin.name,
+    item_rarity: rewardSkin.rarity,
+    item_price: rewardSkin.price,
+    item_image: rewardSkin.image
+  }]);
+
+  selectedContractItems = [];
+  isCraftingContract = false;
+  await fetchInventory();
+  addXP(40);
+  addLiveTickerItem(userProfile?.username || currentUser.email, 'Contract', rewardSkin.name, rewardSkin.price);
+
+  const resBox = document.getElementById('contracts-result-box');
+  if (resBox) {
+    resBox.classList.remove('hidden');
+    resBox.innerHTML = `
+      <div style="font-size:12px; color:var(--text-muted);">Multiplier: <b>${multiplier.toFixed(2)}x</b> (Input: $${inputSum.toFixed(2)})</div>
+      <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:8px;">
+        <img src="${rewardSkin.image}" style="width:52px; height:36px; object-fit:contain;" alt="${rewardSkin.name}">
+        <div style="text-align:left;">
+          <div style="font-weight:700;">${rewardSkin.name}</div>
+          <div style="color:var(--win); font-weight:700;">$${Number(rewardSkin.price).toFixed(2)}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  showToast(`Contract complete! Received ${rewardSkin.name} ($${Number(rewardSkin.price).toFixed(2)})`);
+  renderContractsUI();
+}
+
+// ==========================================
+// 7C. MINES (5x5, 1 - 24 MINES)
+// ==========================================
+function initMinesUI() {
+  const selectEl = document.getElementById('mines-count-select');
+  if (selectEl && selectEl.options.length === 0) {
+    for (let m = 1; m <= 24; m++) {
+      const opt = document.createElement('option');
+      opt.value = String(m);
+      opt.textContent = `${m} ${m === 1 ? 'Mine' : 'Mines'}`;
+      if (m === 5) opt.selected = true;
+      selectEl.appendChild(opt);
+    }
+    selectEl.addEventListener('change', () => {
+      if (!minesActive) {
+        minesCount = parseInt(selectEl.value, 10) || 5;
+        updateMinesStatusUI();
+      }
+    });
+  }
+
+  const betInput = document.getElementById('mines-bet-input');
+  if (betInput) {
+    betInput.addEventListener('input', () => {
+      if (!minesActive) updateMinesStatusUI();
+    });
+  }
+
+  renderMinesBoard();
+  updateMinesStatusUI();
+}
+
+function calcMinesMultiplier(safePicks, totalMines) {
+  if (safePicks <= 0) return 1.00;
+  let probSafe = 1;
+  for (let i = 0; i < safePicks; i++) {
+    const remainingTiles = 25 - i;
+    const remainingSafe = (25 - totalMines) - i;
+    if (remainingSafe <= 0) break;
+    probSafe *= remainingSafe / remainingTiles;
+  }
+  const rawMult = 0.96 / probSafe;
+  return Math.max(1.01, Number(rawMult.toFixed(2)));
+}
+
+function updateMinesStatusUI() {
+  const betInput = document.getElementById('mines-bet-input');
+  const selectEl = document.getElementById('mines-count-select');
+  const multEl = document.getElementById('mines-mult-label');
+  const winEl = document.getElementById('mines-win-label');
+  const picksEl = document.getElementById('mines-picks-label');
+
+  const activeMines = minesActive ? minesCount : (parseInt(selectEl?.value, 10) || 5);
+  const currentBet = minesActive ? minesBetAmount : (Number(betInput?.value) || 0);
+  const picksCount = minesRevealedSafe.size;
+  const mult = minesActive ? calcMinesMultiplier(picksCount, activeMines) : calcMinesMultiplier(1, activeMines);
+  minesCurrentMultiplier = mult;
+
+  if (multEl) multEl.textContent = `${mult.toFixed(2)}x`;
+  if (winEl) winEl.textContent = `$${(currentBet * (minesActive ? mult : 1)).toFixed(2)}`;
+  if (picksEl) picksEl.textContent = String(picksCount);
+}
+
+function renderMinesBoard(revealAll = false) {
+  const board = document.getElementById('mines-board');
+  if (!board) return;
+
+  const tilesHtml = [];
+  for (let idx = 0; idx < 25; idx++) {
+    const isSafeRevealed = minesRevealedSafe.has(idx);
+    const isMine = minesPositions.has(idx);
+
+    let cls = 'mine-tile';
+    let label = '•';
+    let disabled = !minesActive;
+
+    if (isSafeRevealed) {
+      cls += ' safe';
+      label = '💎';
+      disabled = true;
+    } else if (!minesActive && revealAll && isMine) {
+      cls += minesPositions.size > 0 ? ' bomb' : ' mine-hint';
+      label = '💣';
+      disabled = true;
+    } else if (!minesActive && revealAll && !isMine) {
+      label = '💎';
+      disabled = true;
+    }
+
+    tilesHtml.push(`<button class="${cls}" ${disabled ? 'disabled' : ''} onclick="pickMineTile(${idx})">${label}</button>`);
+  }
+  board.innerHTML = tilesHtml.join('');
+}
+
+async function startMinesGame() {
+  if (!currentUser || !userProfile) {
+    openAuthModal();
+    return;
+  }
+  if (minesActive) return;
+
+  const betInput = document.getElementById('mines-bet-input');
+  const selectEl = document.getElementById('mines-count-select');
+  const bet = Number(betInput?.value);
+  const mCount = parseInt(selectEl?.value, 10) || 5;
+
+  if (!bet || bet <= 0) {
+    showToast('Enter a valid bet amount!');
+    return;
+  }
+  if (Number(userProfile.balance) < bet) {
+    showToast('Insufficient balance for this bet!');
+    return;
+  }
+
+  const newBal = Number((Number(userProfile.balance) - bet).toFixed(2));
+  await sb.from('profiles').update({ balance: newBal }).eq('id', currentUser.id);
+  userProfile.balance = newBal;
+  updateUI();
+
+  minesBetAmount = bet;
+  minesCount = Math.min(24, Math.max(1, mCount));
+  minesPositions = new Set();
+  while (minesPositions.size < minesCount) {
+    minesPositions.add(Math.floor(Math.random() * 25));
+  }
+  minesRevealedSafe = new Set();
+  minesActive = true;
+
+  document.getElementById('mines-start-btn').classList.add('hidden');
+  document.getElementById('mines-cashout-btn').classList.remove('hidden');
+  if (betInput) betInput.disabled = true;
+  if (selectEl) selectEl.disabled = true;
+
+  renderMinesBoard(false);
+  updateMinesStatusUI();
+  showToast(`Mines started (${minesCount} mines, bet $${bet.toFixed(2)})`);
+}
+
+async function pickMineTile(idx) {
+  if (!minesActive || minesRevealedSafe.has(idx)) return;
+
+  if (minesPositions.has(idx)) {
+    minesActive = false;
+    document.getElementById('mines-cashout-btn').classList.add('hidden');
+    document.getElementById('mines-start-btn').classList.remove('hidden');
+    const betInput = document.getElementById('mines-bet-input');
+    const selectEl = document.getElementById('mines-count-select');
+    if (betInput) betInput.disabled = false;
+    if (selectEl) selectEl.disabled = false;
+
+    renderMinesBoard(true);
+    updateMinesStatusUI();
+    showToast(`Boom! Hit a mine and lost $${minesBetAmount.toFixed(2)}`);
+    return;
+  }
+
+  minesRevealedSafe.add(idx);
+  const safeTotal = 25 - minesCount;
+  minesCurrentMultiplier = calcMinesMultiplier(minesRevealedSafe.size, minesCount);
+  updateMinesStatusUI();
+  renderMinesBoard(false);
+
+  if (minesRevealedSafe.size >= safeTotal) {
+    await cashoutMinesGame();
+  }
+}
+
+async function cashoutMinesGame() {
+  if (!minesActive || !currentUser || !userProfile) return;
+
+  const picks = minesRevealedSafe.size;
+  const mult = picks > 0 ? calcMinesMultiplier(picks, minesCount) : 1.00;
+  const payout = Number((minesBetAmount * mult).toFixed(2));
+
+  minesActive = false;
+  document.getElementById('mines-cashout-btn').classList.add('hidden');
+  document.getElementById('mines-start-btn').classList.remove('hidden');
+  const betInput = document.getElementById('mines-bet-input');
+  const selectEl = document.getElementById('mines-count-select');
+  if (betInput) betInput.disabled = false;
+  if (selectEl) selectEl.disabled = false;
+
+  const updatedBal = Number((Number(userProfile.balance) + payout).toFixed(2));
+  await sb.from('profiles').update({ balance: updatedBal }).eq('id', currentUser.id);
+  userProfile.balance = updatedBal;
+  updateUI();
+
+  renderMinesBoard(true);
+  updateMinesStatusUI();
+  addXP(30);
+  if (payout >= 1000) {
+    addLiveTickerItem(userProfile.username || currentUser.email, 'Mines', `Cashout ${mult.toFixed(2)}x`, payout);
+  }
+  showToast(`Cashed out +$${payout.toFixed(2)} (${mult.toFixed(2)}x)!`);
 }
 
 // ==========================================
@@ -1121,6 +1680,7 @@ async function stopRocket() {
       item_price: upgradedSkin.price,
       item_image: upgradedSkin.image
     }]);
+    addLiveTickerItem(userProfile.username || currentUser.email, 'Rocket', upgradedSkin.name, upgradedSkin.price);
     preview.textContent = `CLAIMED: ${upgradedSkin.name}!`;
     showToast(`Won ${upgradedSkin.name}!`);
   } else {
@@ -1238,6 +1798,7 @@ async function joinRealBattle(battleId, cost, caseId) {
   fetchActiveBattles();
   await fetchInventory();
   addXP(100);
+  addLiveTickerItem(userProfile.username || currentUser.email, `Battle: ${cObj.name}`, drop.name, drop.price);
   showToast(`Battle finished! You won ${drop.name} ($${drop.price})!`);
 }
 
@@ -1307,26 +1868,97 @@ async function claimDailyStreak() {
 }
 
 // ==========================================
-// 11. INVENTORY & OPTIMIZED BULK SELLING
+// 11. INVENTORY, FILTERS & OPTIMIZED BULK SELLING
 // ==========================================
+function getFilteredSortedInventory() {
+  const sortVal = document.getElementById('inv-sort-select')?.value || 'newest';
+  const rarityVal = document.getElementById('inv-rarity-select')?.value || 'all';
+
+  let list = [...userInventory];
+  if (rarityVal !== 'all') {
+    list = list.filter(item => item.item_rarity === rarityVal);
+  }
+
+  if (sortVal === 'price_desc') {
+    list.sort((a, b) => Number(b.item_price) - Number(a.item_price));
+  } else if (sortVal === 'price_asc') {
+    list.sort((a, b) => Number(a.item_price) - Number(b.item_price));
+  }
+
+  return list;
+}
+
+function toggleInventorySelection(itemId) {
+  if (selectedInventoryIds.has(itemId)) {
+    selectedInventoryIds.delete(itemId);
+  } else {
+    selectedInventoryIds.add(itemId);
+  }
+  updateSelectedInventoryButton();
+  renderInventory();
+}
+
+function updateSelectedInventoryButton() {
+  const countEl = document.getElementById('selected-inv-count');
+  const btn = document.getElementById('sell-selected-inv-btn');
+  const validIds = [...selectedInventoryIds].filter(id => userInventory.some(i => i.id === id));
+  selectedInventoryIds = new Set(validIds);
+
+  if (countEl) countEl.textContent = String(selectedInventoryIds.size);
+  if (btn) btn.disabled = selectedInventoryIds.size === 0;
+}
+
 function renderInventory() {
   const grid = document.getElementById('inventory-grid');
   if (!grid) return;
-  if (userInventory.length === 0) {
+
+  updateSelectedInventoryButton();
+  const items = getFilteredSortedInventory();
+
+  if (items.length === 0) {
     grid.innerHTML = '<p class="muted-text">Inventory is empty.</p>';
     return;
   }
 
-  grid.innerHTML = userInventory.map(item => `
-    <div class="inv-card" style="border-top-color: ${RARITY_COLORS[item.item_rarity] || '#b0c3d9'}">
-      <div class="inv-img-wrap">
-        <img src="${item.item_image}" class="inv-img" alt="${item.item_name}">
+  grid.innerHTML = items.map(item => {
+    const isChecked = selectedInventoryIds.has(item.id);
+    return `
+      <div class="inv-card ${isChecked ? 'selected-for-sell' : ''}" style="border-top-color: ${RARITY_COLORS[item.item_rarity] || '#b0c3d9'}">
+        <div style="display:flex; justify-content:flex-end; margin-bottom:4px;">
+          <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleInventorySelection('${item.id}')" title="Select for bulk sell">
+        </div>
+        <div class="inv-img-wrap">
+          <img src="${item.item_image}" class="inv-img" alt="${item.item_name}">
+        </div>
+        <div class="inv-name">${item.item_name}</div>
+        <div class="inv-price">$${Number(item.item_price).toFixed(2)}</div>
+        <button class="btn btn-outline btn-sm btn-full" onclick="sellItem('${item.id}', ${item.item_price})">Sell Item</button>
       </div>
-      <div class="inv-name">${item.item_name}</div>
-      <div class="inv-price">$${Number(item.item_price).toFixed(2)}</div>
-      <button class="btn btn-outline btn-sm btn-full" onclick="sellItem('${item.id}', ${item.item_price})">Sell Item</button>
-    </div>
-  `).join('');
+    `;
+  }).join('');
+}
+
+async function sellSelectedInventoryItems() {
+  if (!currentUser || !userProfile || selectedInventoryIds.size === 0) return;
+  const itemsToSell = userInventory.filter(i => selectedInventoryIds.has(i.id));
+  if (itemsToSell.length === 0) return;
+
+  const ids = itemsToSell.map(i => i.id);
+  const totalSum = itemsToSell.reduce((sum, i) => sum + Number(i.item_price), 0);
+
+  const { error } = await sb.from('inventory').delete().in('id', ids);
+  if (error) {
+    showToast('Error selling selected items');
+    return;
+  }
+
+  const updatedBalance = Number((Number(userProfile.balance) + totalSum).toFixed(2));
+  await sb.from('profiles').update({ balance: updatedBalance }).eq('id', currentUser.id);
+  userProfile.balance = updatedBalance;
+  selectedInventoryIds.clear();
+  updateUI();
+  await fetchInventory();
+  showToast(`Sold ${itemsToSell.length} selected items for +$${totalSum.toFixed(2)}`);
 }
 
 async function sellItem(itemId, price) {
@@ -1336,9 +1968,10 @@ async function sellItem(itemId, price) {
   const updatedBalance = Number(userProfile.balance) + Number(price);
   await sb.from('profiles').update({ balance: updatedBalance }).eq('id', currentUser.id);
   userProfile.balance = updatedBalance;
+  selectedInventoryIds.delete(itemId);
   updateUI();
   await fetchInventory();
-  showToast(`Sold for +$${price.toFixed(2)}`);
+  showToast(`Sold for +$${Number(price).toFixed(2)}`);
 }
 
 async function quickSellByPrice(maxPrice) {
@@ -1381,22 +2014,84 @@ async function quickSellAllInventory() {
   const updatedBalance = Number(userProfile.balance) + totalSum;
   await sb.from('profiles').update({ balance: updatedBalance }).eq('id', currentUser.id);
   userProfile.balance = updatedBalance;
+  selectedInventoryIds.clear();
   updateUI();
   await fetchInventory();
   showToast(`Sold entire inventory for +$${totalSum.toFixed(2)}`);
 }
 
 // ==========================================
-// 12. LIVE TICKER & TOASTS
+// 12. BEST DROPS ($1000+) & TOASTS
 // ==========================================
-function addLiveTickerItem(user, caseName, itemName, price) {
+const BEST_DROPS_MIN_PRICE = 1000;
+const BEST_DROPS_STORAGE_KEY = 'casebattle_best_drops_v1';
+
+const INITIAL_BEST_DROPS = [
+  { user: 'ezadz', caseName: 'God Tier Vault', itemName: 'Karambit | Doppler', price: 4600.00 },
+  { user: 'pro99', caseName: 'Ultimate Case Battle', itemName: 'Sport Gloves | Vice', price: 8500.00 },
+  { user: 'killa', caseName: 'Legendary Cache', itemName: 'Bayonet | Lore', price: 3400.00 },
+  { user: 'ace24', caseName: 'Quantum Vault', itemName: 'Gut Knife | Freehand', price: 2500.00 }
+];
+
+function loadBestDrops() {
+  try {
+    const saved = localStorage.getItem(BEST_DROPS_STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {}
+  return [...INITIAL_BEST_DROPS];
+}
+
+function saveBestDrops(list) {
+  try {
+    localStorage.setItem(BEST_DROPS_STORAGE_KEY, JSON.stringify(list.slice(0, 15)));
+  } catch (e) {}
+}
+
+function renderBestDropElement(entry) {
+  const span = document.createElement('span');
+  span.className = 'ticker-item best-drop-item';
+  const safeUser = String(entry.user || 'player').slice(0, 6);
+  span.textContent = `🔥 [${entry.caseName}] ${safeUser}*** won ${entry.itemName} ($${Number(entry.price).toFixed(2)})`;
+  return span;
+}
+
+function initBestDropsFeed() {
   const feed = document.getElementById('live-ticker-feed');
   if (!feed) return;
-  const span = document.createElement('span');
-  span.className = 'ticker-item';
-  span.textContent = `🎁 [${caseName}] ${user.slice(0, 5)}*** won ${itemName} ($${price.toFixed(2)})`;
-  feed.prepend(span);
-  if (feed.children.length > 15) feed.lastChild.remove();
+  feed.innerHTML = '';
+  const drops = loadBestDrops();
+  drops.forEach(entry => {
+    feed.appendChild(renderBestDropElement(entry));
+  });
+}
+
+function addLiveTickerItem(user, caseName, itemName, price) {
+  const numericPrice = Number(price);
+  if (Number.isNaN(numericPrice) || numericPrice < BEST_DROPS_MIN_PRICE) {
+    return;
+  }
+
+  const feed = document.getElementById('live-ticker-feed');
+  const currentDrops = loadBestDrops();
+  const newEntry = {
+    user: user || 'user',
+    caseName: caseName || 'Case',
+    itemName,
+    price: numericPrice
+  };
+
+  const updated = [newEntry, ...currentDrops].slice(0, 15);
+  saveBestDrops(updated);
+
+  if (feed) {
+    feed.prepend(renderBestDropElement(newEntry));
+    while (feed.children.length > 15) {
+      feed.lastChild.remove();
+    }
+  }
 }
 
 let toastTimer;
